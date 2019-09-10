@@ -8,16 +8,18 @@ function setup() {
 // Canvas and background set
 createCanvas(500,500);
 background(76,237,84);
-// Strokes removed for less awkwardness
-noStroke();
-// Circle color picked
-fill(255);
-// Circle created
-ellipse(CircleX,CircleY,CircleWidth,CircleHight);
 
 }
 
 function draw() {
+
+  // Strokes removed for less awkwardness
+  noStroke();
+  // Circle color picked
+  fill(255);
+  // Circle created
+  ellipse(CircleX,CircleY,CircleWidth,CircleHight);
+
 // Circle will move south
 CircleX = CircleX + 2;
 CircleY = CircleY + 2;
