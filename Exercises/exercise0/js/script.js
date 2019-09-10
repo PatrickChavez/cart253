@@ -17,10 +17,11 @@ ellipse(CircleX,CircleY,CircleWidth,CircleHight);
 
 }
 
-// draw()
-//
-// Does nothing.
-
 function draw() {
-  // Nothing here for now.
+// Circle will move south
+CircleX = CircleX + 2;
+CircleY = CircleY + 2;
+// Circle will grow in size
+CircleWidth = CircleWidth + 5;
+CircleHight = CircleHight + 5;
 }
