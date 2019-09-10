@@ -1,9 +1,19 @@
-let X = 0;
-let Y = 0;
+// Circle variables set
+let CircleX = 0;
+let CircleY = 0;
+let CircleWidth = 1;
+let CircleHight = 1;
 
 function setup() {
-createCanvas(100,100);
+// Canvas and background set
+createCanvas(500,500);
 background(76,237,84);
+// Strokes removed for less awkwardness
+noStroke();
+// Circle color picked
+fill(255);
+// Circle created
+ellipse(CircleX,CircleY,CircleWidth,CircleHight);
 
 }
 
