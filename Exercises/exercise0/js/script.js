@@ -21,9 +21,9 @@ function draw() {
   ellipse(CircleX,CircleY,CircleWidth,CircleHight);
 
 // Circle will move south
-CircleX = CircleX + 2;
-CircleY = CircleY + 2;
+CircleX = CircleX + 5;
+CircleY = CircleY + 5;
 // Circle will grow in size
-CircleWidth = CircleWidth + 5;
-CircleHight = CircleHight + 5;
+CircleWidth = CircleWidth + 2;
+CircleHight = CircleHight + 2;
 }
