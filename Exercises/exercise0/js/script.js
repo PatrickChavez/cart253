@@ -20,7 +20,7 @@ function draw() {
   // Circle created
   ellipse(CircleX,CircleY,CircleWidth,CircleHight);
 
-// Circle will move south
+// Circle will move south-east
 CircleX = CircleX + 5;
 CircleY = CircleY + 5;
 // Circle will grow in size
