@@ -2,7 +2,7 @@
 // Patrick Chavez-Nadarajah
 //
 // This is an expansion of the starter code for exercise 1.
-// Draws a moving square, circle and triangle that intersect
+// Draws moving shapes that intersect
 // in the middle of the canvas.
 // The mouse is also followed by a frog.
 
@@ -29,6 +29,13 @@ let triX2 = 40;
 let triY2 = 300;
 let triX3 = 80;
 let triY3 = 360;
+
+// Setting up the position of the rectangle
+// to be around the bottom-center of the canvas
+let rectX = 320;
+let rectY = 639;
+let rectWid = 100;
+let rectHig = 50;
 
 // preload()
 //
@@ -66,7 +73,7 @@ function setup() {
 
 // draw()
 //
-// Change the circle, square and triangle's positions so they move
+// Change the various shapes' positions so they move
 // The frog image will also be following the mouse's movements
 
 function draw() {
@@ -94,7 +101,7 @@ function draw() {
   // Display the square
   rect(squareX,squareY,squareSize,squareSize);
 
-  // Remove the triangle strokes
+  // Removing strokes for less awkwardness
   noStroke()
   // Move the triangle to the right
   triX1 += 1;
@@ -104,6 +111,13 @@ function draw() {
   fill(242,239,27,10);
   // Display the triangle offscreen
   triangle(triX1 - 100,triY1,triX2 - 100,triY2,triX3 - 100,triY3);
+
+  // Move the rectangle to the top
+  rectY -= 1;
+  // Make the triangle transparent green
+  fill(0,255,0,10);
+  // Display the rectangle offscreen
+  rect(rectX,rectY + 100,rectWid,rectHig);
 
 
 }
