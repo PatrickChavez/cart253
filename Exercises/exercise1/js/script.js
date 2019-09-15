@@ -114,7 +114,7 @@ function draw() {
 
   // Move the rectangle to the top
   rectY -= 1;
-  // Make the triangle transparent green
+  // Make the rectangle transparent green
   fill(0,255,0,10);
   // Display the rectangle offscreen
   rect(rectX,rectY + 100,rectWid,rectHig);
