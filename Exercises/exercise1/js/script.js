@@ -1,8 +1,8 @@
 // Exercise 1 - Movement
-// Pippin Barr
+// Patrick Chavez-Nadarajah
 //
-// Starter code for exercise 1.
-// Draws a moving square and circle that intersect
+// This is an expansion of the starter code for exercise 1.
+// Draws a moving square, circle and triangle that intersect
 // in the middle of the canvas.
 
 // The current position and size of the circle
@@ -15,10 +15,21 @@ let squareX;
 let squareY;
 let squareSize = 100;
 
+// Setting up the self-made frog image
+let frogImage;
+
+// Setting up the position of the triangle
+// to be around the middle-left of the canvas
+let triX1 = 0;
+let triY1 = 360;
+let triX2 = 40;
+let triY2 = 300;
+let triX3 = 80;
+let triY3 = 360;
 
 // preload()
 //
-// Nothing here
+//
 
 function preload() {
 
@@ -52,7 +63,7 @@ function setup() {
 
 // draw()
 //
-// Change the circle and square's positions so they move
+// Change the circle, square and image's positions so they move
 // Draw the circle and square on screen
 
 function draw() {
@@ -73,4 +84,17 @@ function draw() {
   fill(0,0,255,10);
   // Display the square
   rect(squareX,squareY,squareSize,squareSize);
+
+  // Remove the triangle strokes
+  noStroke()
+  // Move the triangle to the right
+  triX1 += 1;
+  triX2 += 1;
+  triX3 += 1;
+  // Make the triangle transparent yellow
+  fill(242,239,27,10);
+  // Display the triangle offscreen
+  triangle(triX1 - 100,triY1,triX2 - 100,triY2,triX3 - 100,triY3);
+
+
 }
