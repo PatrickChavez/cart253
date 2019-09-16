@@ -82,8 +82,9 @@ function draw() {
   // The frog image will follow the mouse's movements
   frogImageX = mouseX;
   frogImageY = mouseY;
-  // Display the frog
-  image(frogImage,frogImageX,frogImageY,100,100);
+  // Display the frog being close to the mouse
+  // while hiding the preloaded image
+  image(frogImage,frogImageX - 87,frogImageY - 50,100,100);
 
   // Move circle up and to the right
   circleX += 1;
