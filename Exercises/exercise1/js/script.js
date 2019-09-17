@@ -54,6 +54,10 @@ function setup() {
   // Create our canvas
   createCanvas(640,640);
 
+  // Setting up the image to be at the
+  // center of the mouse
+  imageMode(CENTER);
+
   // Start the circle off screen to the bottom left
   // We divide the size by two because we're drawing from the center
   circleX = -circleSize/2;
@@ -82,9 +86,12 @@ function draw() {
   // The frog image will follow the mouse's movements
   frogImageX = mouseX;
   frogImageY = mouseY;
+
   // Display the frog being close to the mouse
-  // while hiding the preloaded image
-  image(frogImage,frogImageX - 87,frogImageY - 50,100,100);
+  // if it's not in the top left
+  if(frogImageX!==0 && frogImageY!==0){
+    image(frogImage,frogImageX,frogImageY,100,100);
+  }
 
   // Move circle up and to the right
   circleX += 1;
