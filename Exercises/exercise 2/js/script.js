@@ -1,9 +1,10 @@
 /******************************************************
 
 Game - The Artful Dodger
-Pippin Barr
+Patrick Chavez-Nadarajah
 
-A simple dodging game with keyboard controls
+An expansion of the simple dodging game with keyboard
+controls
 
 ******************************************************/
 
@@ -29,9 +30,19 @@ let enemyVX = 5;
 // How many dodges the player has made
 let dodges = 0;
 
+// Setting the variable of the Prince Valiant font
+let pvFont;
+
+// preload()
+//
+// Load the fonts and images
+function preload() {
+pvFont = loadFont("assets/fonts/Prince Valiant.ttf");
+}
+
 // setup()
 //
-// Make the canvas, position the avatar and anemy
+// Make the canvas, position the avatar and enemy
 function setup() {
   // Create our playing area
   createCanvas(500,500);
@@ -140,4 +151,13 @@ function draw() {
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
 
+  // Display the number of dodges at the
+  // top-right corner of the canvas
+  // in a fancy font
+  fill(255);
+  textFont(pvFont);
+  textAlign(RIGHT,TOP);
+  textSize(44);
+  text("SCORE:",400,0);
+  text(dodges,450,0);
 }
