@@ -114,6 +114,10 @@ function draw() {
     avatarY = height/2;
     // Reset the dodge counter
     dodges = 0;
+    // Reset the enemy's size to its original variable
+    enemySize = 50;
+    // Reset the enemy's speed to its original variable
+    enemySpeed = 5;
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -125,6 +129,8 @@ function draw() {
     avatarX = width/2;
     avatarY = height/2;
     dodges = 0;
+    enemySize = 50;
+    enemySpeed = 5;
   }
 
   // Check if the enemy has moved all the way across the screen
@@ -133,6 +139,10 @@ function draw() {
     dodges = dodges + 1;
     // Tell them how many dodges they have made
     console.log(dodges + " DODGES!");
+    // The enemy's size will increase after a dodge
+    enemySize = enemySize + 5;
+    // The enemy's speed will increase after a dodge
+    enemySpeed = enemySpeed + 0.25;
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
@@ -160,4 +170,5 @@ function draw() {
   textSize(44);
   text("SCORE:",400,0);
   text(dodges,450,0);
+
 }
