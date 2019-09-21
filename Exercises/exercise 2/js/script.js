@@ -33,11 +33,23 @@ let dodges = 0;
 // Setting the variable of the Prince Valiant font
 let pvFont;
 
+// Setting the look of the avatar
+let diver;
+
+// Setting the look of the enemy
+let angler;
+
+// Setting the look of the background
+let sea1;
+
 // preload()
 //
 // Load the fonts and images
 function preload() {
 pvFont = loadFont("assets/fonts/Prince Valiant.ttf");
+diver = loadImage("assets/images/Diver.png");
+angler = loadImage("assets/images/Angler.png");
+sea1 = loadImage("assets/images/Sea 1.png");
 }
 
 // setup()
@@ -64,8 +76,8 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-  // A pink background
-  background(255,220,220);
+  // A sea background
+  image(sea1,0,0);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -151,15 +163,11 @@ function draw() {
   // Display the number of successful dodges in the console
   console.log(dodges);
 
-  // The player is black
-  fill(0);
-  // Draw the player as a circle
-  ellipse(avatarX,avatarY,avatarSize,avatarSize);
+  // The player is a diver
+  image(diver,avatarX,avatarY,avatarSize,avatarSize);
 
-  // The enemy is red
-  fill(255,0,0);
-  // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
+  // The enemy is an angler
+  image(angler,enemyX,enemyY,enemySize,enemySize);
 
   // Display the number of dodges at the
   // top-right corner of the canvas
