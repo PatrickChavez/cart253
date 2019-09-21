@@ -1,6 +1,6 @@
 /******************************************************
 
-Game - The Artful Dodger
+Game - The Artful Dodger: Diving Edition
 Patrick Chavez-Nadarajah
 
 An expansion of the simple dodging game with keyboard
@@ -39,8 +39,11 @@ let diver;
 // Setting the look of the enemy
 let angler;
 
-// Setting the look of the background
+// Setting the look of the backgrounds
 let sea1;
+let sea2;
+let sea3;
+let sea4;
 
 // preload()
 //
@@ -50,6 +53,9 @@ pvFont = loadFont("assets/fonts/Prince Valiant.ttf");
 diver = loadImage("assets/images/Diver.png");
 angler = loadImage("assets/images/Angler.png");
 sea1 = loadImage("assets/images/Sea 1.png");
+sea2 = loadImage("assets/images/Sea 2.png");
+sea3 = loadImage("assets/images/Sea 3.png");
+sea4 = loadImage("assets/images/Sea 4.png");
 }
 
 // setup()
@@ -78,6 +84,23 @@ function setup() {
 function draw() {
   // A sea background
   image(sea1,0,0);
+
+  // Change the background after every 10 points
+  if (dodges >= 10){
+    image(sea2,0,0);
+    if (dodges >= 20){
+      image(sea3,0,0);
+      if (dodges >= 30){
+        image(sea4,0,0);
+      }
+    }
+  }
+
+  // Reset to default background
+  // if player loses
+  else{
+    image(sea1,0,0);
+  }
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -152,9 +175,9 @@ function draw() {
     // Tell them how many dodges they have made
     console.log(dodges + " DODGES!");
     // The enemy's size will increase after a dodge
-    enemySize = enemySize + 5;
+    enemySize = enemySize + 2.5;
     // The enemy's speed will increase after a dodge
-    enemySpeed = enemySpeed + 0.25;
+    enemySpeed = enemySpeed + 0.2;
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
