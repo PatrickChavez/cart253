@@ -8,22 +8,22 @@ controls
 
 ******************************************************/
 
-// The position and size of our avatar circle
+// The position and size of our avatar diver
 let avatarX;
 let avatarY;
 let avatarSize = 50;
 
-// The speed and velocity of our avatar circle
+// The speed and velocity of our avatar diver
 let avatarSpeed = 10;
 let avatarVX = 0;
 let avatarVY = 0;
 
-// The position and size of the enemy circle
+// The position and size of the enemy angler
 let enemyX;
 let enemyY;
 let enemySize = 50;
 
-// The speed and velocity of our enemy circle
+// The speed and velocity of our enemy angler
 let enemySpeed = 5;
 let enemyVX = 5;
 
@@ -49,13 +49,13 @@ let sea4;
 //
 // Load the fonts and images
 function preload() {
-pvFont = loadFont("assets/fonts/Prince Valiant.ttf");
-diver = loadImage("assets/images/Diver.png");
-angler = loadImage("assets/images/Angler.png");
-sea1 = loadImage("assets/images/Sea 1.png");
-sea2 = loadImage("assets/images/Sea 2.png");
-sea3 = loadImage("assets/images/Sea 3.png");
-sea4 = loadImage("assets/images/Sea 4.png");
+  pvFont = loadFont("assets/fonts/Prince Valiant.ttf");
+  diver = loadImage("assets/images/Diver.png");
+  angler = loadImage("assets/images/Angler.png");
+  sea1 = loadImage("assets/images/Sea 1.png");
+  sea2 = loadImage("assets/images/Sea 2.png");
+  sea3 = loadImage("assets/images/Sea 3.png");
+  sea4 = loadImage("assets/images/Sea 4.png");
 }
 
 // setup()
@@ -96,8 +96,7 @@ function draw() {
     }
   }
 
-  // Reset to default background
-  // if player loses
+  // Reset to default background if player loses
   else{
     image(sea1,0,0);
   }
@@ -186,20 +185,18 @@ function draw() {
   // Display the number of successful dodges in the console
   console.log(dodges);
 
-  // The player is a diver
+  // The avatar is a diver
   image(diver,avatarX,avatarY,avatarSize,avatarSize);
 
   // The enemy is an angler
   image(angler,enemyX,enemyY,enemySize,enemySize);
 
-  // Display the number of dodges at the
-  // top-right corner of the canvas
-  // in a fancy font
+  // Display the number of dodges at the top-right corner of
+  // the canvas in a fancy font
   fill(255);
   textFont(pvFont);
   textAlign(RIGHT,TOP);
   textSize(44);
   text("SCORE:",400,0);
   text(dodges,450,0);
-
 }
