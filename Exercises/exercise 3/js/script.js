@@ -1,8 +1,8 @@
 "use strict";
 
 /******************************************************************************
-Where's Sausage Dog?
-by Pippin Barr
+Where's Sausage Dog Plus?
+by Patrick Chavez-Nadarajah
 
 An algorithmic version of a Where's Wally/Waldo searching game where you
 need to click on the sausage dog you're searching for in amongst all
@@ -10,6 +10,9 @@ the visual noise of other animals.
 
 Animal images from:
 https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal-icon-set/
+
+Saddlebag font from:
+https://www.dafont.com/saddlebag.font
 ******************************************************************************/
 
 // Position and image of the sausage dog we're searching for
@@ -36,9 +39,12 @@ let numDecoys = 100;
 // Keep track of whether they've won
 let gameOver = false;
 
+// Setting the Saddlebag font
+let sbFont;
+
 // preload()
 //
-// Loads the target and decoy images before the program starts
+// Loads the target, decoy images and font before the program starts
 function preload() {
   targetImage = loadImage("assets/images/animals-target.png");
 
@@ -52,6 +58,8 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  sbFont = loadFont("assets/fonts/Saddlebag.ttf");
 }
 
 // setup()
@@ -119,9 +127,14 @@ function setup() {
   stroke(214,68,0);
   fill(245,109,47);
   rect(width-220,0,200,150);
-  // Adding the dog image in the rectangle
-  image(targetImage,width-115,50);
-
+  // Adding the dog image within the rectangle
+  image(targetImage,width - 115,50);
+  // Adding text within the rectangle
+  fill(255);
+  textFont(sbFont);
+  textSize(32);
+  textAlign(RIGHT,TOP);
+  text("MISSING!", width - 40, 100);
 }
 
 
