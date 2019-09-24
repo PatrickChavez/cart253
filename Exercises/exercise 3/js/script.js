@@ -112,6 +112,16 @@ function setup() {
 
   // And draw it (because it's the last thing drawn, it will always be on top)
   image(targetImage,targetX,targetY);
+
+  // Setting up the wanted poster for the dog in the top-right corner
+  // Strokes are modified for aesthetic purposes
+  strokeWeight(8);
+  stroke(214,68,0);
+  fill(245,109,47);
+  rect(width-220,0,200,150);
+  // Adding the dog image in the rectangle
+  image(targetImage,width-115,50);
+
 }
 
 
