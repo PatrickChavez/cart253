@@ -5,7 +5,8 @@ Patrick Chavez-Nadarajah
 
 An expansion of the simple dodging game with keyboard
 controls
-
+The Prince Valiant font was obtained from
+https://www.dafont.com/prince-valiant.font
 ******************************************************/
 
 // The position and size of our avatar diver
