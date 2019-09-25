@@ -15,10 +15,13 @@ Saddlebag font from:
 https://www.dafont.com/saddlebag.font
 ******************************************************************************/
 
-// Position and image of the sausage dog we're searching for
+// Position, image, movement and speed of the sausage dog we're searching for
 let targetX;
 let targetY;
+let targetVX;
+let targetVY;
 let targetImage;
+let targetSpeed = 1;
 
 // The ten decoy images
 let decoyImage1;
@@ -118,6 +121,10 @@ function setup() {
   targetX = random(0,width);
   targetY = random(0,height);
 
+  // Setting the velocity of the target
+  targetVX = 0;
+  targetVY = 0;
+
   // And draw it (because it's the last thing drawn, it will always be on top)
   image(targetImage,targetX,targetY);
 
@@ -152,14 +159,14 @@ function draw() {
     fill(random(255));
 
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("YOU'RE WINNER!",width/2,height/2);
 
-    // Draw a circle around the sausage dog to show where it is (even though
-    // they already know because they found it!)
-    noFill();
-    stroke(random(255));
-    strokeWeight(10);
-    ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    // Have the sausage dog leave a trail upon winning
+    targetVX = targetVX + random(-targetSpeed,targetSpeed);
+    targetVY = targetVY + random(-targetSpeed,targetSpeed);
+    targetX = targetX + targetVX;
+    targetY = targetY + targetVY;
+    image(targetImage,targetX,targetY);
   }
 }
 
