@@ -1,7 +1,7 @@
 "use strict";
 
 /******************************************************************************
-Where's Sausage Dog Plus?
+Where's Sausage Dog? - ERRATIC EDITION
 by Patrick Chavez-Nadarajah
 
 An algorithmic version of a Where's Wally/Waldo searching game where you
@@ -21,7 +21,7 @@ let targetY;
 let targetVX;
 let targetVY;
 let targetImage;
-let targetSpeed = 1;
+let targetSpeed = 0.5;
 
 // The ten decoy images
 let decoyImage1;
@@ -35,9 +35,13 @@ let decoyImage8;
 let decoyImage9;
 let decoyImage10;
 
+// Setting the height and width of images
+let imageHeight;
+let imageWidth;
+
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
-let numDecoys = 100;
+let numDecoys = 500;
 
 // Keep track of whether they've won
 let gameOver = false;
@@ -74,6 +78,10 @@ function setup() {
   background("#ffff00");
   imageMode(CENTER);
 
+  // Setting the decoy image height and width for amusement purposes
+  let imageWidth = random(100,300);
+  let imageHeight = random(100,300);
+
   // Use a for loop to draw as many decoys as we need
   for (let i = 0; i < numDecoys; i++) {
     // Choose a random location on the canvas for this decoy
@@ -86,34 +94,34 @@ function setup() {
     // We'll talk more about this nice quality of random soon enough.
     // But basically each "if" and "else if" has a 10% chance of being true
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.2) {
-      image(decoyImage2,x,y);
+      image(decoyImage2,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.3) {
-      image(decoyImage3,x,y);
+      image(decoyImage3,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.4) {
-      image(decoyImage4,x,y);
+      image(decoyImage4,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.5) {
-      image(decoyImage5,x,y);
+      image(decoyImage5,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8,x,y,imageWidth,imageHeight);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9,x,y,imageWidth,imageHeight);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10,x,y,imageWidth,imageHeight);
     }
   }
 
@@ -126,7 +134,9 @@ function setup() {
   targetVY = 0;
 
   // And draw it (because it's the last thing drawn, it will always be on top)
-  image(targetImage,targetX,targetY);
+  // The target will also have a random value in order to
+  // blend-in with the other decoys
+  image(targetImage,targetX,targetY,imageWidth,imageHeight);
 
   // Setting up the wanted poster for the dog in the top-right corner
   // Strokes are modified for aesthetic purposes
@@ -162,11 +172,15 @@ function draw() {
     text("YOU'RE WINNER!",width/2,height/2);
 
     // Have the sausage dog leave a trail upon winning
+    // Setting the image size to have a frantic effect
+    let imageWidth = random(100,300);
+    let imageHeight = random(100,300);
+    // The dog will move erratically
     targetVX = targetVX + random(-targetSpeed,targetSpeed);
     targetVY = targetVY + random(-targetSpeed,targetSpeed);
     targetX = targetX + targetVX;
     targetY = targetY + targetVY;
-    image(targetImage,targetX,targetY);
+    image(targetImage,targetX,targetY,imageWidth,imageHeight);
   }
 }
 
