@@ -78,7 +78,7 @@ function setup() {
   background("#ffff00");
   imageMode(CENTER);
 
-  // Setting the decoy image height and width for amusement purposes
+  // Setting the decoy image height and width as random for amusement purposes
   let imageWidth = random(100,300);
   let imageHeight = random(100,300);
 
@@ -172,7 +172,7 @@ function draw() {
     text("YOU'RE WINNER!",width/2,height/2);
 
     // Have the sausage dog leave a trail upon winning
-    // Setting the image size to have a frantic effect
+    // Modifying the image so that the dog's size changes rapidly
     let imageWidth = random(100,300);
     let imageHeight = random(100,300);
     // The dog will move erratically
