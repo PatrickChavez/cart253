@@ -31,13 +31,15 @@ let playerMaxHealth = 255;
 // Player fill color
 let playerFill = 50;
 
-// Prey position, size, velocity
+// Prey position, size, velocity and noise time
 let preyX;
 let preyY;
 let preyRadius = 25;
 let preyVX;
 let preyVY;
 let preyMaxSpeed = 4;
+let preyTX;
+let preyTY;
 // Prey health
 let preyHealth;
 let preyMaxHealth = 100;
@@ -64,13 +66,16 @@ function setup() {
 
 // setupPrey()
 //
-// Initialises prey's position, velocity, and health
+// Initialises prey's position, velocity, health and noise time
 function setupPrey() {
   preyX = width / 5;
   preyY = height / 2;
   preyVX = -preyMaxSpeed;
   preyVY = preyMaxSpeed;
   preyHealth = preyMaxHealth;
+  // Make two seperate noise values to prevent mirrored movement
+  preyTX = random(0, 1000);
+  preyTY = random(0, 1000);
 }
 
 // setupPlayer()
@@ -215,12 +220,12 @@ function checkEating() {
 //
 // Moves the prey based on random velocity changes
 function movePrey() {
-  // Make the prey move based on noise
-  preyX = width * noise(preyVX);
-  preyY = height * noise(preyVY);
+  // Make the prey's velocity change based on noise
+  preyVX = map(noise(preyTX),0,1,-preyMaxSpeed,preyMaxSpeed);
+  preyVY = map(noise(preyTY),0,1,-preyMaxSpeed,preyMaxSpeed);
 
-  preyVX = preyVX + 0.01;
-  preyVY = preyVY + 0.01;
+  preyTX = preyTX + 0.01;
+  preyTY = preyTY + 0.01;
 
   // Update prey position based on velocity
   preyX = preyX + preyVX;
