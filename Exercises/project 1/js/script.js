@@ -139,6 +139,16 @@ function handleInput() {
   else {
     playerVY = 0;
   }
+
+  // The player moves faster when the shift key is pressed
+  // However, they also lose more health
+  if (keyIsDown(SHIFT)){
+    playerMaxSpeed = 4;
+    playerHealth = playerHealth - 1;
+  }
+  else {
+    playerMaxSpeed = 2;
+  }
 }
 
 // movePlayer()
