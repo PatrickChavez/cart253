@@ -108,6 +108,9 @@ function draw() {
 
     drawPrey();
     drawPlayer();
+
+    showScore();
+
   }
   else {
     showGameOver();
@@ -287,4 +290,15 @@ function showGameOver() {
   gameOverText = gameOverText + "before you died."
   // Display it in the centre of the screen
   text(gameOverText, width / 2, height / 2);
+}
+
+// showScore()
+//
+// Display the number of prey eaten on the bottom right of the canvas
+function showScore(){
+  fill(255);
+  textAlign(RIGHT,BOTTOM);
+  textSize(32);
+  text("SCORE:",460,500);
+  text(preyEaten,490,500);
 }
