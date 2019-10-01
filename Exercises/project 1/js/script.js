@@ -51,6 +51,20 @@ let eatHealth = 10;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
+// Adding variables for the art assets
+let playerExorcist;
+let preyGhost;
+let graveBackground;
+
+// preload()
+//
+// Preloads the various media assets
+function preload() {
+  playerExorcist = loadImage("assets/images/Exorcist.png");
+  preyGhost = loadImage("assets/images/Ghost.png");
+  graveBackground = loadImage("assets/images/Graveyard.png");
+}
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -95,7 +109,8 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100, 100, 200);
+  // Setting up the background
+  image(graveBackground,0,0);
 
   if (!gameOver) {
     handleInput();
@@ -110,6 +125,7 @@ function draw() {
     drawPlayer();
 
     showScore();
+    showHealth();
 
   }
   else {
@@ -273,7 +289,7 @@ function drawPrey() {
 // Draw the player as an ellipse with alpha value based on health
 function drawPlayer() {
   fill(playerFill, playerHealth);
-  ellipse(playerX, playerY, playerRadius * 2);
+  image(playerExorcist, playerX, playerY, playerRadius * 2, playerRadius * 2);
 }
 
 // showGameOver()
@@ -294,11 +310,22 @@ function showGameOver() {
 
 // showScore()
 //
-// Display the number of prey eaten on the bottom right of the canvas
+// Display the number of prey eaten at the bottom-right of the canvas
 function showScore(){
   fill(255);
   textAlign(RIGHT,BOTTOM);
   textSize(32);
   text("SCORE:",460,500);
   text(preyEaten,490,500);
+}
+
+// showHealth
+//
+// Display the player's current health at the bottom-left of the canvas
+function showHealth(){
+  fill(255);
+  textAlign(LEFT,BOTTOM);
+  textSize(32);
+  text("HEALTH:",0,500);
+  text(playerHealth,150,500);
 }
