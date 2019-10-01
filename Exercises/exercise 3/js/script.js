@@ -74,19 +74,19 @@ function preload() {
 // Creates the canvas, sets basic modes, draws correct number
 // of decoys in random positions, then the target
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(windowWidth, windowHeight);
   background("#ffff00");
   imageMode(CENTER);
 
   // Setting the decoy image height and width as random for amusement purposes
-  let imageWidth = random(100,300);
-  let imageHeight = random(100,300);
+  let imageWidth = random(100, 300);
+  let imageHeight = random(100, 300);
 
   // Use a for loop to draw as many decoys as we need
   for (let i = 0; i < numDecoys; i++) {
     // Choose a random location on the canvas for this decoy
-    let x = random(0,width);
-    let y = random(0,height);
+    let x = random(0, width);
+    let y = random(0, height);
     // Generate a random number we can use for probability
     let r = random();
     // Use the random number to display one of the ten decoy
@@ -94,40 +94,31 @@ function setup() {
     // We'll talk more about this nice quality of random soon enough.
     // But basically each "if" and "else if" has a 10% chance of being true
     if (r < 0.1) {
-      image(decoyImage1,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.2) {
-      image(decoyImage2,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.3) {
-      image(decoyImage3,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.4) {
-      image(decoyImage4,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.5) {
-      image(decoyImage5,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.6) {
-      image(decoyImage6,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.7) {
-      image(decoyImage7,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.8) {
-      image(decoyImage8,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 0.9) {
-      image(decoyImage9,x,y,imageWidth,imageHeight);
-    }
-    else if (r < 1.0) {
-      image(decoyImage10,x,y,imageWidth,imageHeight);
+      image(decoyImage1, x, y, imageWidth, imageHeight);
+    } else if (r < 0.2) {
+      image(decoyImage2, x, y, imageWidth, imageHeight);
+    } else if (r < 0.3) {
+      image(decoyImage3, x, y, imageWidth, imageHeight);
+    } else if (r < 0.4) {
+      image(decoyImage4, x, y, imageWidth, imageHeight);
+    } else if (r < 0.5) {
+      image(decoyImage5, x, y, imageWidth, imageHeight);
+    } else if (r < 0.6) {
+      image(decoyImage6, x, y, imageWidth, imageHeight);
+    } else if (r < 0.7) {
+      image(decoyImage7, x, y, imageWidth, imageHeight);
+    } else if (r < 0.8) {
+      image(decoyImage8, x, y, imageWidth, imageHeight);
+    } else if (r < 0.9) {
+      image(decoyImage9, x, y, imageWidth, imageHeight);
+    } else if (r < 1.0) {
+      image(decoyImage10, x, y, imageWidth, imageHeight);
     }
   }
 
   // Once we've displayed all decoys, we choose a random location for the target
-  targetX = random(0,width);
-  targetY = random(0,height);
+  targetX = random(0, width);
+  targetY = random(0, height);
 
   // Setting the velocity of the target
   targetVX = 0;
@@ -136,21 +127,21 @@ function setup() {
   // And draw it (because it's the last thing drawn, it will always be on top)
   // The target will also have a random value in order to
   // blend-in with the other decoys
-  image(targetImage,targetX,targetY,imageWidth,imageHeight);
+  image(targetImage, targetX, targetY, imageWidth, imageHeight);
 
   // Setting up the wanted poster for the dog in the top-right corner
   // Strokes are modified for aesthetic purposes
   strokeWeight(8);
-  stroke(214,68,0);
-  fill(245,109,47);
-  rect(width-220,0,200,150);
+  stroke(214, 68, 0);
+  fill(245, 109, 47);
+  rect(width - 220, 0, 200, 150);
   // Adding the dog image within the rectangle
-  image(targetImage,width - 115,50);
+  image(targetImage, width - 115, 50);
   // Adding text within the rectangle
   fill(255);
   textFont(sbFont);
   textSize(32);
-  textAlign(RIGHT,TOP);
+  textAlign(RIGHT, TOP);
   text("MISSING!", width - 40, 100);
 }
 
@@ -164,23 +155,23 @@ function draw() {
     // Prepare our typography
     textFont("Helvetica");
     textSize(128);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     noStroke();
     fill(random(255));
 
     // Tell them they won!
-    text("YOU'RE WINNER!",width/2,height/2);
+    text("YOU'RE WINNER!", width / 2, height / 2);
 
     // Have the sausage dog leave a trail upon winning
     // Modifying the image so that the dog's size changes rapidly
-    let imageWidth = random(100,300);
-    let imageHeight = random(100,300);
+    let imageWidth = random(100, 300);
+    let imageHeight = random(100, 300);
     // The dog will move erratically
-    targetVX = targetVX + random(-targetSpeed,targetSpeed);
-    targetVY = targetVY + random(-targetSpeed,targetSpeed);
+    targetVX = targetVX + random(-targetSpeed, targetSpeed);
+    targetVY = targetVY + random(-targetSpeed, targetSpeed);
     targetX = targetX + targetVX;
     targetY = targetY + targetVY;
-    image(targetImage,targetX,targetY,imageWidth,imageHeight);
+    image(targetImage, targetX, targetY, imageWidth, imageHeight);
   }
 }
 
@@ -192,10 +183,10 @@ function mousePressed() {
   // Check if the cursor is in the x range of the target
   // (We're subtracting the image's width/2 because we're using imageMode(CENTER) -
   // the key is we want to determine the left and right edges of the image.)
-  if (mouseX > targetX - targetImage.width/2 && mouseX < targetX + targetImage.width/2) {
+  if (mouseX > targetX - targetImage.width / 2 && mouseX < targetX + targetImage.width / 2) {
     // Check if the cursor is also in the y range of the target
     // i.e. check if it's within the top and bottom of the image
-    if (mouseY > targetY - targetImage.height/2 && mouseY < targetY + targetImage.height/2) {
+    if (mouseY > targetY - targetImage.height / 2 && mouseY < targetY + targetImage.height / 2) {
       gameOver = true;
     }
   }
