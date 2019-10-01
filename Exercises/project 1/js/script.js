@@ -288,8 +288,9 @@ function drawPrey() {
 //
 // Draw the player as an ellipse with alpha value based on health
 function drawPlayer() {
-  fill(playerFill, playerHealth);
+  tint(255, playerHealth);
   image(playerExorcist, playerX, playerY, playerRadius * 2, playerRadius * 2);
+  tint(255, 255);
 }
 
 // showGameOver()
@@ -315,7 +316,7 @@ function showScore(){
   fill(255);
   textAlign(RIGHT,BOTTOM);
   textSize(32);
-  text("SCORE:",460,500);
+  text("SCORE:",450,500);
   text(preyEaten,490,500);
 }
 
