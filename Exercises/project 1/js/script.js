@@ -21,7 +21,7 @@ let gameOver = false;
 // Player position, size, velocity
 let playerX;
 let playerY;
-let playerRadius = 25;
+let playerRadius = 40;
 let playerVX = 0;
 let playerVY = 0;
 let playerMaxSpeed = 2;
@@ -34,7 +34,7 @@ let playerFill = 50;
 // Prey position, size, velocity and noise time
 let preyX;
 let preyY;
-let preyRadius = 25;
+let preyRadius = 40;
 let preyVX;
 let preyVY;
 let preyMaxSpeed = 4;
@@ -278,15 +278,16 @@ function movePrey() {
 
 // drawPrey()
 //
-// Draw the prey as an ellipse with alpha based on health
+// Draw the prey as a ghost
 function drawPrey() {
-  fill(preyFill, preyHealth);
-  ellipse(preyX, preyY, preyRadius * 2);
+  tint(255, preyHealth);
+  image(preyGhost, preyX, preyY, preyRadius * 2, preyRadius * 2);
+  tint(255, 255);
 }
 
 // drawPlayer()
 //
-// Draw the player as an ellipse with alpha value based on health
+// Draw the player as an exorcist
 function drawPlayer() {
   tint(255, playerHealth);
   image(playerExorcist, playerX, playerY, playerRadius * 2, playerRadius * 2);
