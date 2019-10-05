@@ -18,7 +18,7 @@ random movement, screen wrap.
 // Track whether the game is over
 let gameOver = false;
 
-// Player position, size, velocity
+// Player position, size and velocity
 let playerX;
 let playerY;
 let playerRadius = 40;
@@ -46,6 +46,16 @@ let preyMaxHealth = 100;
 // Prey fill color
 let preyFill = 200;
 
+// Predator position, size, veocity and noise time
+let predatorX;
+let predatorY;
+let predatorRadius = 40;
+let predatorVX;
+let predatorVY;
+let predatorMaxSpeed = 4;
+let predatorTX;
+let predatorTY;
+
 // Amount of health obtained per frame of "eating" (overlapping) the prey
 let eatHealth = 10;
 // Number of prey eaten during the game (the "score")
@@ -55,6 +65,7 @@ let preyEaten = 0;
 let playerExorcist;
 let preyGhost;
 let graveBackground;
+let predatorReaper;
 
 // preload()
 //
@@ -63,6 +74,7 @@ function preload() {
   playerExorcist = loadImage("assets/images/Exorcist.png");
   preyGhost = loadImage("assets/images/Ghost.png");
   graveBackground = loadImage("assets/images/Graveyard.png");
+  predatorReaper = loadImage("assets/images/Reaper.png");
 }
 
 // setup()
@@ -76,6 +88,7 @@ function setup() {
   // We're using simple functions to separate code out
   setupPrey();
   setupPlayer();
+  setupPredator();
 }
 
 // setupPrey()
@@ -101,6 +114,19 @@ function setupPlayer() {
   playerHealth = playerMaxHealth;
 }
 
+// setupPredator()
+//
+// Initialises predator's position, velocity and noise time
+function setupPredator() {
+  predatorX = width / 2;
+  predatorY = height / 2;
+  predatorVX = -predatorMaxSpeed;
+  predatorVY = predatorMaxSpeed;
+  // Make two seperate noise values to prevent mirrored movement
+  predatorTX = random(0, 1000);
+  predatorTY = random(0, 1000);
+}
+
 // draw()
 //
 // While the game is active, checks input
@@ -117,12 +143,15 @@ function draw() {
 
     movePlayer();
     movePrey();
+    movePredator();
 
     updateHealth();
     checkEating();
+    dangerZone();
 
     drawPrey();
     drawPlayer();
+    drawPredator();
 
     showScore();
     showHealth();
@@ -245,6 +274,51 @@ function checkEating() {
   }
 }
 
+// dangerZone()
+//
+// Checks if the player overlaps with the predator and
+// updates the former's health
+function dangerZone() {
+  // Get distance of player to predator
+  let d = dist(playerX, playerY, predatorX, predatorY);
+  // Check if it's an overlap
+  if (d < playerRadius + predatorRadius) {
+    // Decrease the player's health
+    playerHealth = playerHealth - 3;
+  }
+}
+
+// movePredator()
+//
+// Moves the predator based on random velocity changes
+function movePredator() {
+  // Make the predator's velocity change based on noise
+  predatorVX = map(noise(predatorTX),0,1,-preyMaxSpeed,preyMaxSpeed);
+  predatorVY = map(noise(predatorTY),0,1,-preyMaxSpeed,preyMaxSpeed);
+
+  predatorTX = predatorTX + 0.01;
+  predatorTY = predatorTY + 0.01;
+
+  // Update predator position based on velocity
+  predatorX = predatorX + predatorVX;
+  predatorY = predatorY + predatorVY;
+
+  // Screen wrapping
+  if (predatorX < 0) {
+    predatorX = predatorX + width;
+  }
+  else if (predatorX > width) {
+    predatorX = predatorX - width;
+  }
+
+  if (predatorY < 0) {
+    predatorY = predatorY + height;
+  }
+  else if (predatorY > height) {
+    predatorY = predatorY - height;
+  }
+}
+
 // movePrey()
 //
 // Moves the prey based on random velocity changes
@@ -294,6 +368,15 @@ function drawPlayer() {
   tint(255, 255);
 }
 
+// drawPredator()
+//
+// Draw the predator as a reaper
+function drawPredator() {
+  tint(255);
+  image(predatorReaper, predatorX, predatorY, predatorRadius * 2, predatorRadius * 2);
+  tint(255, 255);
+}
+
 // showGameOver()
 //
 // Display text about the game being over!
@@ -301,7 +384,7 @@ function showGameOver() {
   // Set up the font
   textSize(32);
   textAlign(CENTER, CENTER);
-  fill(0);
+  fill(255);
   // Set up the text to display
   let gameOverText = "GAME OVER\n"; // \n means "new line"
   gameOverText = gameOverText + "You ate " + preyEaten + " prey\n";
@@ -313,7 +396,7 @@ function showGameOver() {
 // showScore()
 //
 // Display the number of prey eaten at the bottom-right of the canvas
-function showScore(){
+function showScore() {
   fill(255);
   textAlign(RIGHT,BOTTOM);
   textSize(32);
@@ -324,7 +407,7 @@ function showScore(){
 // showHealth
 //
 // Display the player's current health at the bottom-left of the canvas
-function showHealth(){
+function showHealth() {
   fill(255);
   textAlign(LEFT,BOTTOM);
   textSize(32);
