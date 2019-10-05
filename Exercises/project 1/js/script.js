@@ -16,6 +16,13 @@ random movement, screen wrap.
 Augusta font obtained from:
 https://www.dafont.com/augusta.font?l[]=10&l[]=1
 
+error3.wav obtained from TAM Music Factory
+https://www.tam-music.com/se000_category/menu
+
+shinigamitowaltz.mp3/Grim Reaper and Waltz/死神とワルツ obtained
+from Amacha Music Studio
+https://amachamusic.chagasi.com/image_bukimi.html
+
 ******************************************************/
 
 // Track whether the game is over
@@ -70,6 +77,8 @@ let preyGhost;
 let graveBackground;
 let predatorReaper;
 let aFont;
+let ghostSound;
+let gameMusic;
 
 // preload()
 //
@@ -80,6 +89,8 @@ function preload() {
   graveBackground = loadImage("assets/images/Graveyard.png");
   predatorReaper = loadImage("assets/images/Reaper.png");
   aFont = loadFont("assets/fonts/Augusta.ttf");
+  ghostSound = loadSound("assets/sounds/error3.wav");
+  gameMusic = loadSound("assets/sounds/shinigamitowaltz.mp3");
 }
 
 // setup()
@@ -89,6 +100,9 @@ function setup() {
   createCanvas(500, 500);
 
   noStroke();
+
+  // Setting up the music
+  gameMusic.loop();
 
   // We're using simple functions to separate code out
   setupPrey();
@@ -268,6 +282,8 @@ function checkEating() {
 
     // Check if the prey died (health 0)
     if (preyHealth === 0) {
+      // Play a sound effect
+      ghostSound.play();
       // Move the "new" prey to a nearby gravestone
       // Make r a random number for probability
       let r = random(0, 1);
