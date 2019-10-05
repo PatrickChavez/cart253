@@ -13,6 +13,9 @@ eating to stay alive.
 Includes: Physics-based movement, keyboard controls, health/stamina,
 random movement, screen wrap.
 
+Augusta font obtained from:
+https://www.dafont.com/augusta.font?l[]=10&l[]=1
+
 ******************************************************/
 
 // Track whether the game is over
@@ -66,6 +69,7 @@ let playerExorcist;
 let preyGhost;
 let graveBackground;
 let predatorReaper;
+let aFont;
 
 // preload()
 //
@@ -75,6 +79,7 @@ function preload() {
   preyGhost = loadImage("assets/images/Ghost.png");
   graveBackground = loadImage("assets/images/Graveyard.png");
   predatorReaper = loadImage("assets/images/Reaper.png");
+  aFont = loadFont("assets/fonts/Augusta.ttf");
 }
 
 // setup()
@@ -414,6 +419,7 @@ function drawPredator() {
 function showGameOver() {
   // Set up the font
   textSize(32);
+  textFont(aFont);
   textAlign(CENTER, CENTER);
   fill(255);
   // Set up the text to display
@@ -429,9 +435,10 @@ function showGameOver() {
 // Display the number of prey eaten at the bottom-right of the canvas
 function showScore() {
   fill(255);
+  textFont(aFont);
   textAlign(RIGHT,BOTTOM);
   textSize(32);
-  text("SCORE:",450,500);
+  text("Score:",450,500);
   text(preyEaten,490,500);
 }
 
@@ -440,8 +447,9 @@ function showScore() {
 // Display the player's current health at the bottom-left of the canvas
 function showHealth() {
   fill(255);
+  textFont(aFont);
   textAlign(LEFT,BOTTOM);
   textSize(32);
-  text("HEALTH:",0,500);
-  text(playerHealth,150,500);
+  text("Health:",0,500);
+  text(playerHealth,130,500);
 }
