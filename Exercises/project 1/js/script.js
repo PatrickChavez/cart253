@@ -263,13 +263,44 @@ function checkEating() {
 
     // Check if the prey died (health 0)
     if (preyHealth === 0) {
-      // Move the "new" prey to a random position
-      preyX = random(0, width);
-      preyY = random(0, height);
+      // Move the "new" prey to a nearby gravestone
+      // Make r a random number for probability
+      let r = random(0, 1);
+      // Give every gravestone but the center one a 10% chance of spawning prey
+      if (r < 0.1) {
+        preyX = 50;
+        preyY = 50;
+      } else if (r < 0.2) {
+        preyX = 230;
+        preyY = 50;
+      } else if (r < 0.3) {
+        preyX = 400;
+        preyY = 50;
+      } else if (r < 0.4) {
+        preyX = 50;
+        preyY = 230;
+      } else if (r < 0.5) {
+        preyX = 400;
+        preyY = 230;
+      } else if (r < 0.6) {
+        preyX = 50;
+        preyY = 400;
+      } else if (r < 0.7) {
+        preyX = 230;
+        preyY = 400;
+      } else if (r < 0.8) {
+        preyX = 400;
+        preyY = 400;
+      } else {
+        preyX = 230;
+        preyY = 230;
+      }
       // Give it full health
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten = preyEaten + 1;
+      // Increase the size of the predator
+      predatorRadius = predatorRadius + 2;
     }
   }
 }
@@ -284,7 +315,7 @@ function dangerZone() {
   // Check if it's an overlap
   if (d < playerRadius + predatorRadius) {
     // Decrease the player's health
-    playerHealth = playerHealth - 3;
+    playerHealth = playerHealth - 5;
   }
 }
 
