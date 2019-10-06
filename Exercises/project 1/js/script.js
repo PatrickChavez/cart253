@@ -37,7 +37,7 @@ let playerVY = 0;
 let playerMaxSpeed = 2;
 // Player health
 let playerHealth;
-let playerMaxHealth = 255;
+let playerMaxHealth = 300;
 // Player fill color
 let playerFill = 50;
 
@@ -67,7 +67,7 @@ let predatorTX;
 let predatorTY;
 
 // Amount of health obtained per frame of "eating" (overlapping) the prey
-let eatHealth = 10;
+let eatHealth = 30;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
@@ -210,8 +210,8 @@ function handleInput() {
   // The player moves faster when the shift key is pressed
   // However, they also lose more health
   if (keyIsDown(SHIFT)){
-    playerMaxSpeed = 4;
-    playerHealth = playerHealth - 1;
+    playerMaxSpeed = 6;
+    playerHealth = playerHealth - 2;
   }
   else {
     playerMaxSpeed = 2;
@@ -253,7 +253,7 @@ function movePlayer() {
 // Check if the player is dead
 function updateHealth() {
   // Reduce player health
-  playerHealth = playerHealth - 0.5;
+  playerHealth = playerHealth - 1;
   // Constrain the result to a sensible range
   playerHealth = constrain(playerHealth, 0, playerMaxHealth);
   // Check if the player is dead (0 health)
@@ -336,7 +336,7 @@ function dangerZone() {
   // Check if it's an overlap
   if (d < playerRadius + predatorRadius) {
     // Decrease the player's health
-    playerHealth = playerHealth - 5;
+    playerHealth = playerHealth - 10;
   }
 }
 
