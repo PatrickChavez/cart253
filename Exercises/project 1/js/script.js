@@ -34,7 +34,7 @@ let playerY;
 let playerRadius = 40;
 let playerVX = 0;
 let playerVY = 0;
-let playerMaxSpeed = 2;
+let playerMaxSpeed = 4;
 // Player health
 let playerHealth;
 let playerMaxHealth = 300;
@@ -155,7 +155,7 @@ function setupPredator() {
 // When the game is over, shows the game over screen.
 function draw() {
   // Setting up the background
-  image(graveBackground,0,0);
+  image(graveBackground, 0, 0);
 
   if (!gameOver) {
     handleInput();
@@ -175,8 +175,7 @@ function draw() {
     showScore();
     showHealth();
 
-  }
-  else {
+  } else {
     showGameOver();
   }
 }
@@ -188,33 +187,28 @@ function handleInput() {
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
+  } else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
-  }
-  else {
+  } else {
     playerVX = 0;
   }
 
   // Check for vertical movement
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
+  } else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerMaxSpeed;
-  }
-  else {
+  } else {
     playerVY = 0;
   }
 
   // The player moves faster when the shift key is pressed
   // However, they also lose more health
-  if (keyIsDown(SHIFT)){
+  if (keyIsDown(SHIFT)) {
     playerMaxSpeed = 6;
     playerHealth = playerHealth - 2;
-  }
-  else {
-    playerMaxSpeed = 2;
+  } else {
+    playerMaxSpeed = 4;
   }
 }
 
@@ -231,8 +225,7 @@ function movePlayer() {
   if (playerX < 0) {
     // Off the left side, so add the width to reset to the right
     playerX = playerX + width;
-  }
-  else if (playerX > width) {
+  } else if (playerX > width) {
     // Off the right side, so subtract the width to reset to the left
     playerX = playerX - width;
   }
@@ -240,8 +233,7 @@ function movePlayer() {
   if (playerY < 0) {
     // Off the top, so add the height to reset to the bottom
     playerY = playerY + height;
-  }
-  else if (playerY > height) {
+  } else if (playerY > height) {
     // Off the bottom, so subtract the height to reset to the top
     playerY = playerY - height;
   }
@@ -320,8 +312,9 @@ function checkEating() {
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten = preyEaten + 1;
-      // Increase the size of the predator
+      // Increase the size and speed of the predator
       predatorRadius = predatorRadius + 2;
+      predatorMaxSpeed = predatorMaxSpeed + 1;
     }
   }
 }
@@ -336,7 +329,7 @@ function dangerZone() {
   // Check if it's an overlap
   if (d < playerRadius + predatorRadius) {
     // Decrease the player's health
-    playerHealth = playerHealth - 10;
+    playerHealth = playerHealth - 7;
   }
 }
 
@@ -345,8 +338,8 @@ function dangerZone() {
 // Moves the predator based on random velocity changes
 function movePredator() {
   // Make the predator's velocity change based on noise
-  predatorVX = map(noise(predatorTX),0,1,-preyMaxSpeed,preyMaxSpeed);
-  predatorVY = map(noise(predatorTY),0,1,-preyMaxSpeed,preyMaxSpeed);
+  predatorVX = map(noise(predatorTX), 0, 1, -predatorMaxSpeed, predatorMaxSpeed);
+  predatorVY = map(noise(predatorTY), 0, 1, -predatorMaxSpeed, predatorMaxSpeed);
 
   predatorTX = predatorTX + 0.01;
   predatorTY = predatorTY + 0.01;
@@ -358,15 +351,13 @@ function movePredator() {
   // Screen wrapping
   if (predatorX < 0) {
     predatorX = predatorX + width;
-  }
-  else if (predatorX > width) {
+  } else if (predatorX > width) {
     predatorX = predatorX - width;
   }
 
   if (predatorY < 0) {
     predatorY = predatorY + height;
-  }
-  else if (predatorY > height) {
+  } else if (predatorY > height) {
     predatorY = predatorY - height;
   }
 }
@@ -376,8 +367,8 @@ function movePredator() {
 // Moves the prey based on random velocity changes
 function movePrey() {
   // Make the prey's velocity change based on noise
-  preyVX = map(noise(preyTX),0,1,-preyMaxSpeed,preyMaxSpeed);
-  preyVY = map(noise(preyTY),0,1,-preyMaxSpeed,preyMaxSpeed);
+  preyVX = map(noise(preyTX), 0, 1, -preyMaxSpeed, preyMaxSpeed);
+  preyVY = map(noise(preyTY), 0, 1, -preyMaxSpeed, preyMaxSpeed);
 
   preyTX = preyTX + 0.01;
   preyTY = preyTY + 0.01;
@@ -389,15 +380,13 @@ function movePrey() {
   // Screen wrapping
   if (preyX < 0) {
     preyX = preyX + width;
-  }
-  else if (preyX > width) {
+  } else if (preyX > width) {
     preyX = preyX - width;
   }
 
   if (preyY < 0) {
     preyY = preyY + height;
-  }
-  else if (preyY > height) {
+  } else if (preyY > height) {
     preyY = preyY - height;
   }
 }
@@ -452,10 +441,10 @@ function showGameOver() {
 function showScore() {
   fill(255);
   textFont(aFont);
-  textAlign(RIGHT,BOTTOM);
+  textAlign(RIGHT, BOTTOM);
   textSize(32);
-  text("Score:",450,500);
-  text(preyEaten,490,500);
+  text("Score:", 450, 500);
+  text(preyEaten, 490, 500);
 }
 
 // showHealth
@@ -464,8 +453,8 @@ function showScore() {
 function showHealth() {
   fill(255);
   textFont(aFont);
-  textAlign(LEFT,BOTTOM);
+  textAlign(LEFT, BOTTOM);
   textSize(32);
-  text("Health:",0,500);
-  text(playerHealth,130,500);
+  text("Health:", 0, 500);
+  text(playerHealth, 130, 500);
 }
