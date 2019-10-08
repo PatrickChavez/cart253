@@ -2,16 +2,16 @@
 
 /******************************************************
 
-Game - Chaser
+Game - Chaser - Exorcist Edition!
 Patrick Chavez-Nadarajah
 
-A "simple" game of cat and mouse. The player is a circle and can move with keys,
-if they overlap the (randomly moving) prey they "eat it" by sucking out its life
-and adding it to their own. The player "dies" slowly over time so they have to keep
-eating to stay alive.
+An expansion of the "simple" game of cat and mouse. The player is the lingering
+ghost of an exorcist. Purify spirits and take their energy to keep yourself
+attached to this world! But beware, the Grim Reaper stalks the area and becomes
+more restless as spirits are purged!
 
 Includes: Physics-based movement, keyboard controls, health/stamina,
-random movement, screen wrap.
+random movement, screen wrap and spookiness.
 
 Augusta font obtained from:
 https://www.dafont.com/augusta.font?l[]=10&l[]=1
@@ -151,7 +151,7 @@ function setupPredator() {
 // While the game is active, checks input
 // updates positions of prey and player,
 // checks health (dying), checks eating (overlaps)
-// displays the two agents.
+// displays the three agents.
 // When the game is over, shows the game over screen.
 function draw() {
   // Setting up the background
@@ -205,7 +205,7 @@ function handleInput() {
   // The player moves faster when the shift key is pressed
   // However, they also lose more health
   if (keyIsDown(SHIFT)) {
-    playerMaxSpeed = 6;
+    playerMaxSpeed = 8;
     playerHealth = playerHealth - 2;
   } else {
     playerMaxSpeed = 4;
@@ -423,14 +423,14 @@ function drawPredator() {
 // Display text about the game being over!
 function showGameOver() {
   // Set up the font
-  textSize(32);
+  textSize(48);
   textFont(aFont);
   textAlign(CENTER, CENTER);
   fill(255);
   // Set up the text to display
   let gameOverText = "GAME OVER\n"; // \n means "new line"
-  gameOverText = gameOverText + "You ate " + preyEaten + " prey\n";
-  gameOverText = gameOverText + "before you died."
+  gameOverText = gameOverText + "You exorcised " + preyEaten + " spirits\n";
+  gameOverText = gameOverText + "before passing on.";
   // Display it in the centre of the screen
   text(gameOverText, width / 2, height / 2);
 }
