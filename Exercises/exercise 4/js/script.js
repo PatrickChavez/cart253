@@ -59,6 +59,23 @@ let rightPaddle = {
   downKey: 40
 }
 
+// FLAGS
+
+// Set a visual indicators for the score
+let leftFlag = {
+  x: 100,
+  y: 480,
+  w: 20,
+  h: 70,
+}
+
+let rightFlag = {
+  x: 540,
+  y: 480,
+  w: 20,
+  h: 70,
+}
+
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
 
@@ -122,8 +139,8 @@ function draw() {
     checkBallPaddleCollision(leftPaddle);
     checkBallPaddleCollision(rightPaddle);
 
-    // Display the score
-    displayScore();
+    // Increase the height of the flags
+    updateFlag();
 
     // Check if the ball went out of bounds and respond if so
     // (Note how we can use a function that returns a truth value
@@ -144,6 +161,10 @@ function draw() {
   displayPaddle(leftPaddle);
   displayPaddle(rightPaddle);
   displayBall();
+
+  // Display the flags to indicate the score
+  displayFlag(leftFlag);
+  displayFlag(rightFlag);
 }
 
 // handleInput()
@@ -270,6 +291,14 @@ function displayBall() {
   rect(ball.x, ball.y, ball.size, ball.size);
 }
 
+// displayFlag(flag)
+//
+// Draws the specified flag
+function displayFlag(flag) {
+  // Draw the flags
+  rect(flag.x, flag.y, flag.w, flag.h);
+}
+
 // resetBall()
 //
 // Sets the starting position and velocity of the ball
@@ -292,25 +321,17 @@ function displayStartMessage() {
   pop();
 
   push();
-  displayScore();
+  updateFlag();
   pop();
 }
 
-// displayScore()
+// updateFlag()
 //
-// Shows the current score of the game
-function displayScore() {
-  push();
-  textAlign(CENTER, TOP);
-  textSize(32);
-  text(leftScore, 280, 50);
-  pop();
+// Increases the height of the flags upon scoring
+function updateFlag() {
+  rightFlag.h = rightScore * 5;
 
-  push();
-  textAlign(CENTER, TOP);
-  textSize(32);
-  text(rightScore, 360, 50);
-  pop();
+  leftFlag.h = leftScore * 5;
 }
 
 // mousePressed()
