@@ -104,10 +104,8 @@ function setup() {
   // Setting up the music
   gameMusic.loop();
 
-  // We're using simple functions to separate code out
-  setupPrey();
-  setupPlayer();
-  setupPredator();
+  // Setting up the initial positions of the three agents
+  resetGame();
 }
 
 // setupPrey()
@@ -430,7 +428,8 @@ function showGameOver() {
   // Set up the text to display
   let gameOverText = "GAME OVER\n"; // \n means "new line"
   gameOverText = gameOverText + "You exorcised " + preyEaten + " spirits\n";
-  gameOverText = gameOverText + "before passing on.";
+  gameOverText = gameOverText + "before passing on.\n";
+  gameOverText = gameOverText + "Click to retry.";
   // Display it in the centre of the screen
   text(gameOverText, width / 2, height / 2);
 }
@@ -447,7 +446,7 @@ function showScore() {
   text(preyEaten, 490, 500);
 }
 
-// showHealth
+// showHealth()
 //
 // Display the player's current health at the bottom-left of the canvas
 function showHealth() {
@@ -457,4 +456,27 @@ function showHealth() {
   textSize(32);
   text("Health:", 0, 500);
   text(playerHealth, 130, 500);
+}
+
+// resetGame()
+//
+// Calls back the setup functions upon (re)starting the game
+function resetGame() {
+  setupPrey();
+  setupPlayer();
+  setupPredator();
+}
+
+// function mousePressed()
+//
+// Reset the game when the player clicks their mouse on the Game Over screen
+function mousePressed() {
+  if (gameOver === true) {
+    resetGame();
+    playerMaxHealth = 300;
+    preyEaten = 0;
+    predatorRadius = 40;
+    predatorMaxSpeed = 4;
+    gameOver = false;
+  }
 }
