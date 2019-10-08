@@ -284,29 +284,29 @@ function checkEating() {
         preyX = 50;
         preyY = 50;
       } else if (r < 0.2) {
-        preyX = 230;
+        preyX = 200;
         preyY = 50;
       } else if (r < 0.3) {
-        preyX = 400;
+        preyX = 360;
         preyY = 50;
       } else if (r < 0.4) {
         preyX = 50;
         preyY = 230;
       } else if (r < 0.5) {
-        preyX = 400;
+        preyX = 380;
         preyY = 230;
       } else if (r < 0.6) {
         preyX = 50;
         preyY = 400;
       } else if (r < 0.7) {
-        preyX = 230;
-        preyY = 400;
+        preyX = 200;
+        preyY = 380;
       } else if (r < 0.8) {
-        preyX = 400;
-        preyY = 400;
+        preyX = 380;
+        preyY = 360;
       } else {
-        preyX = 230;
-        preyY = 230;
+        preyX = 210;
+        preyY = 210;
       }
       // Give it full health
       preyHealth = preyMaxHealth;
