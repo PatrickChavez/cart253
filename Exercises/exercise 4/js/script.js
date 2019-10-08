@@ -62,6 +62,10 @@ let rightPaddle = {
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
 
+// Adding the scores of the left and right side
+let leftScore = 0;
+let rightScore = 0;
+
 // preload()
 //
 // Loads the beep audio for the sound of bouncing
@@ -117,6 +121,9 @@ function draw() {
     checkBallWallCollision();
     checkBallPaddleCollision(leftPaddle);
     checkBallPaddleCollision(rightPaddle);
+
+    // Display the score
+    displayScore();
 
     // Check if the ball went out of bounds and respond if so
     // (Note how we can use a function that returns a truth value
@@ -183,6 +190,13 @@ function updateBall() {
 // Checks if the ball has gone off the left or right
 // Returns true if so, false otherwise
 function ballIsOutOfBounds() {
+  // Update the score depending on where the ball went
+  if (ball.x < 0) {
+    rightScore = rightScore + 1;
+  }
+  if (ball.x > width) {
+    leftScore = leftScore + 1;
+  }
   // Check for ball going off the sides
   if (ball.x < 0 || ball.x > width) {
     return true;
@@ -275,6 +289,27 @@ function displayStartMessage() {
   textAlign(CENTER, CENTER);
   textSize(32);
   text("CLICK TO START", width / 2, height / 2);
+  pop();
+
+  push();
+  displayScore();
+  pop();
+}
+
+// displayScore()
+//
+// Shows the current score of the game
+function displayScore() {
+  push();
+  textAlign(CENTER, TOP);
+  textSize(32);
+  text(leftScore, 280, 50);
+  pop();
+
+  push();
+  textAlign(CENTER, TOP);
+  textSize(32);
+  text(rightScore, 360, 50);
   pop();
 }
 
