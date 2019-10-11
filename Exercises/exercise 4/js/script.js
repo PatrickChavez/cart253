@@ -301,13 +301,23 @@ function displayFlag(flag) {
 
 // resetBall()
 //
-// Sets the starting position and velocity of the ball
+// Sets the starting position and velocity of the ball depending on who won
 function resetBall() {
   // Initialise the ball's position and velocity
-  ball.x = width / 2;
-  ball.y = height / 2;
-  ball.vx = ball.speed;
-  ball.vy = ball.speed;
+  // If the right side won
+  if (ball.x < 0) {
+    ball.x = width / 2;
+    ball.y = height / 2;
+    ball.vx = ball.speed;
+    ball.vy = random(1, 7);
+  }
+  // If the left side won
+  if (ball.x > width) {
+    ball.x = width / 2;
+    ball.y = height / 2;
+    ball.vx = - ball.speed;
+    ball.vy = random(1, 7);
+  }
 }
 
 // displayStartMessage()
@@ -329,15 +339,20 @@ function displayStartMessage() {
 //
 // Increases the height of the flags upon scoring
 function updateFlag() {
-  rightFlag.h = rightScore * 5;
+  rightFlag.h = rightScore * 10;
 
-  leftFlag.h = leftScore * 5;
+  leftFlag.h = leftScore * 10;
 }
 
 // mousePressed()
 //
-// Here to require a click to start playing the game
+// Here to require a click to start playing the game and reset the ball
 // Which will help us be allowed to play audio in the browser
 function mousePressed() {
   playing = true;
+  // Resets the ball's initial position and make it go right
+  ball.x = width / 2;
+  ball.y = height / 2;
+  ball.vx = ball.speed;
+  ball.vy = random(1, 7);
 }
