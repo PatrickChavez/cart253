@@ -61,23 +61,33 @@ let rightPaddle = {
 
 // FLAGS
 
-// Set a visual indicators for the score
+// Set visual indicators for the score
 let leftFlag = {
   x: 100,
-  y: 480,
+  y: 430,
   w: 20,
   h: 70,
 }
 
 let rightFlag = {
   x: 540,
-  y: 480,
+  y: 430,
   w: 20,
   h: 70,
 }
 
+// Setting up the media variables
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
+// A variable for the backround music
+let bgMusic;
+// Variables for the images
+let leftPlayer;
+let rightPlayer;
+let ballImage;
+let backgroundImage;
+let rightPoint;
+let leftPoint;
 
 // Adding the scores of the left and right side
 let leftScore = 0;
@@ -85,9 +95,16 @@ let rightScore = 0;
 
 // preload()
 //
-// Loads the beep audio for the sound of bouncing
+// Loads the various media files
 function preload() {
-  beepSFX = new Audio("assets/sounds/beep.wav");
+  beepSFX = new Audio("assets/sounds/cursor3.wav");
+  bgMusic = loadSound("assets/sounds/tanoshiimugibatake.mp3");
+  leftPlayer = loadImage("assets/images/Paddle Left.png");
+  rightPlayer = loadImage("assets/images/Paddle Right.png");
+  ballImage = loadImage("assets/images/Ball.png");
+  backgroundImage = loadImage("assets/images/Pong Landscape.png");
+  rightPoint = loadImage("assets/images/Flag Right.png");
+  leftPoint = loadImage("assets/images/Flag Left.png");
 }
 
 // setup()
@@ -101,6 +118,9 @@ function setup() {
   rectMode(CENTER);
   noStroke();
   fill(fgColor);
+
+  // Set the music
+  bgMusic.loop();
 
   setupPaddles();
   resetBall();
@@ -124,8 +144,8 @@ function setupPaddles() {
 // Calls the appropriate functions to run the game
 // See how tidy it looks?!
 function draw() {
-  // Fill the background
-  background(bgColor);
+  // Set the background
+  image(backgroundImage, 0, 0);
 
   if (playing) {
     // If the game is in play, we handle input and move the elements around
@@ -278,25 +298,27 @@ function checkBallPaddleCollision(paddle) {
 // displayPaddle(paddle)
 //
 // Draws the specified paddle
-function displayPaddle(paddle) {
+function displayPaddle() {
   // Draw the paddles
-  rect(paddle.x, paddle.y, paddle.w, paddle.h);
+  image(leftPlayer, leftPaddle.x, leftPaddle.y, leftPaddle.w, leftPaddle.h);
+  image(rightPlayer, rightPaddle.x, rightPaddle.y, rightPaddle.w, rightPaddle.h);
 }
 
 // displayBall()
 //
-// Draws the ball on screen as a square
+// Draws the ball on screen as a shocked ball
 function displayBall() {
   // Draw the ball
-  rect(ball.x, ball.y, ball.size, ball.size);
+  image(ballImage, ball.x, ball.y, ball.size, ball.size);
 }
 
 // displayFlag(flag)
 //
 // Draws the specified flag
-function displayFlag(flag) {
+function displayFlag() {
   // Draw the flags
-  rect(flag.x, flag.y, flag.w, flag.h);
+  image(rightPoint, rightFlag.x, rightFlag.y, rightFlag.w, rightFlag.h);
+  image(leftPoint, leftFlag.x, leftFlag.y, leftFlag.w, leftFlag.h);
 }
 
 // resetBall()
@@ -339,9 +361,9 @@ function displayStartMessage() {
 //
 // Increases the height of the flags upon scoring
 function updateFlag() {
-  rightFlag.h = rightScore * 10;
+  rightFlag.h = rightScore * 5;
 
-  leftFlag.h = leftScore * 10;
+  leftFlag.h = leftScore * 5;
 }
 
 // mousePressed()
