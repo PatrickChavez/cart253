@@ -15,6 +15,8 @@
 // tanoshiimugibatake.mp3/Fun Wheat Field/楽しい麦畑
 // obtained from Amacha Music Studio
 // https://amachamusic.chagasi.com/image_akarui.html
+//
+// ComickBook font obtained from https://www.dafont.com/comickbook.font?l[]=10&l[]=1
 
 // Whether the game has started
 let playing = false;
@@ -88,6 +90,8 @@ let rightFlag = {
 let beepSFX;
 // A variable for the backround music
 let bgMusic;
+// A variable for the font
+let comickFont;
 // Variables for the images
 let leftPlayer;
 let rightPlayer;
@@ -104,6 +108,7 @@ let rightScore = 0;
 function preload() {
   beepSFX = new Audio("assets/sounds/cursor3.wav");
   bgMusic = loadSound("assets/sounds/tanoshiimugibatake.mp3");
+  comickFont = loadFont("assets/fonts/ComickBook_Simple.ttf");
   leftPlayer = loadImage("assets/images/Paddle Left.png");
   rightPlayer = loadImage("assets/images/Paddle Right.png");
   ballImage = loadImage("assets/images/Ball.png");
@@ -174,20 +179,19 @@ function draw() {
       // This is where we would likely count points, depending on which side
       // the ball went off...
     }
-  }
-  else {
+  } else {
     // Otherwise we display the message to start the game
     displayStartMessage();
   }
+
+  // Display the flags to indicate the score
+  displayFlag(leftFlag);
+  displayFlag(rightFlag);
 
   // We always display the paddles and ball so it looks like Pong!
   displayPaddle(leftPaddle);
   displayPaddle(rightPaddle);
   displayBall();
-
-  // Display the flags to indicate the score
-  displayFlag(leftFlag);
-  displayFlag(rightFlag);
 }
 
 // handleInput()
@@ -205,8 +209,7 @@ function handleInput(paddle) {
   else if (keyIsDown(paddle.downKey)) {
     // Move down
     paddle.vy = paddle.speed;
-  }
-  else {
+  } else {
     // Otherwise stop moving
     paddle.vy = 0;
   }
@@ -244,8 +247,7 @@ function ballIsOutOfBounds() {
   // Check for ball going off the sides
   if (ball.x < 0 || ball.x > width) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -322,12 +324,12 @@ function displayFlag() {
   // Draw the flags
   // The red flag
   push();
-  fill(255, 0, 0);
+  fill(117, 32, 32);
   rect(rightFlag.x, rightFlag.y, rightFlag.w, rightFlag.h);
   pop();
   // The blue flag
   push()
-  fill(0, 0, 255);
+  fill(32, 47, 117);
   rect(leftFlag.x, leftFlag.y, leftFlag.w, leftFlag.h);
   pop();
 }
@@ -348,7 +350,7 @@ function resetBall() {
   if (ball.x > width) {
     ball.x = width / 2;
     ball.y = height / 2;
-    ball.vx = - ball.speed;
+    ball.vx = -ball.speed;
     ball.vy = random(1, 7);
   }
 }
@@ -359,8 +361,10 @@ function resetBall() {
 function displayStartMessage() {
   push();
   textAlign(CENTER, CENTER);
-  textSize(32);
-  text("CLICK TO START", width / 2, height / 2);
+  textSize(50);
+  fill(0);
+  textFont(comickFont);
+  text("CLICK TO START!", width / 2, height / 2);
   pop();
 
   push();
