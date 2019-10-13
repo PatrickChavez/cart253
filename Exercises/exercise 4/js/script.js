@@ -1,13 +1,20 @@
 "use strict";
 
-// Pong
-// by Pippin Barr
+// Somewhat Cute Pong
+// by Patrick Chavez-Nadarajah
 //
-// A "simple" implementation of Pong with no scoring system
-// just the ability to play the game with the keyboard.
+// A "simple" implementation of Pong with a scoring system.
+// The game is played with the keyboard.
 //
 // Up and down keys control the right hand paddle, W and S keys control
 // the left hand paddle
+//
+// cursor3.wav obtained from TAM Music Factory
+// https://www.tam-music.com/se000_category/menu
+//
+// tanoshiimugibatake.mp3/Fun Wheat Field/楽しい麦畑
+// obtained from Amacha Music Studio
+// https://amachamusic.chagasi.com/image_akarui.html
 
 // Whether the game has started
 let playing = false;
@@ -64,14 +71,14 @@ let rightPaddle = {
 // Set visual indicators for the score
 let leftFlag = {
   x: 100,
-  y: 430,
+  y: 480,
   w: 20,
   h: 70,
 }
 
 let rightFlag = {
   x: 540,
-  y: 430,
+  y: 480,
   w: 20,
   h: 70,
 }
@@ -86,8 +93,6 @@ let leftPlayer;
 let rightPlayer;
 let ballImage;
 let backgroundImage;
-let rightPoint;
-let leftPoint;
 
 // Adding the scores of the left and right side
 let leftScore = 0;
@@ -103,8 +108,6 @@ function preload() {
   rightPlayer = loadImage("assets/images/Paddle Right.png");
   ballImage = loadImage("assets/images/Ball.png");
   backgroundImage = loadImage("assets/images/Pong Landscape.png");
-  rightPoint = loadImage("assets/images/Flag Right.png");
-  leftPoint = loadImage("assets/images/Flag Left.png");
 }
 
 // setup()
@@ -135,7 +138,7 @@ function setupPaddles() {
   leftPaddle.y = height / 2;
 
   // Initialise the right paddle position
-  rightPaddle.x = width - rightPaddle.w;
+  rightPaddle.x = width - 40;
   rightPaddle.y = height / 2;
 }
 
@@ -300,8 +303,8 @@ function checkBallPaddleCollision(paddle) {
 // Draws the specified paddle
 function displayPaddle() {
   // Draw the paddles
-  image(leftPlayer, leftPaddle.x, leftPaddle.y, leftPaddle.w, leftPaddle.h);
-  image(rightPlayer, rightPaddle.x, rightPaddle.y, rightPaddle.w, rightPaddle.h);
+  image(leftPlayer, leftPaddle.x, leftPaddle.y);
+  image(rightPlayer, rightPaddle.x, rightPaddle.y);
 }
 
 // displayBall()
@@ -317,8 +320,16 @@ function displayBall() {
 // Draws the specified flag
 function displayFlag() {
   // Draw the flags
-  image(rightPoint, rightFlag.x, rightFlag.y, rightFlag.w, rightFlag.h);
-  image(leftPoint, leftFlag.x, leftFlag.y, leftFlag.w, leftFlag.h);
+  // The red flag
+  push();
+  fill(255, 0, 0);
+  rect(rightFlag.x, rightFlag.y, rightFlag.w, rightFlag.h);
+  pop();
+  // The blue flag
+  push()
+  fill(0, 0, 255);
+  rect(leftFlag.x, leftFlag.y, leftFlag.w, leftFlag.h);
+  pop();
 }
 
 // resetBall()
@@ -361,9 +372,9 @@ function displayStartMessage() {
 //
 // Increases the height of the flags upon scoring
 function updateFlag() {
-  rightFlag.h = rightScore * 5;
+  rightFlag.h = rightScore * 10;
 
-  leftFlag.h = leftScore * 5;
+  leftFlag.h = leftScore * 10;
 }
 
 // mousePressed()
