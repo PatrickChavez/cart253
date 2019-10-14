@@ -55,7 +55,7 @@ let leftPaddle = {
 
 // RIGHT PADDLE
 
-// Basic definition of a left paddle object with its key properties of
+// Basic definition of a right paddle object with its key properties of
 // position, size, velocity, and speed
 let rightPaddle = {
   x: 0,
@@ -127,9 +127,6 @@ function setup() {
   noStroke();
   fill(fgColor);
 
-  // Set the music
-  bgMusic.loop();
-
   setupPaddles();
   resetBall();
 }
@@ -176,8 +173,6 @@ function draw() {
     if (ballIsOutOfBounds()) {
       // If it went off either side, reset it
       resetBall();
-      // This is where we would likely count points, depending on which side
-      // the ball went off...
     }
   } else {
     // Otherwise we display the message to start the game
@@ -321,7 +316,6 @@ function displayBall() {
 //
 // Draws the specified flag
 function displayFlag() {
-  // Draw the flags
   // The red flag
   push();
   fill(117, 32, 32);
@@ -387,6 +381,8 @@ function updateFlag() {
 // Which will help us be allowed to play audio in the browser
 function mousePressed() {
   playing = true;
+  // Starts the music
+  bgMusic.loop();
   // Resets the ball's initial position and make it go right
   ball.x = width / 2;
   ball.y = height / 2;
