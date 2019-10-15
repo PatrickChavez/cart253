@@ -377,15 +377,17 @@ function updateFlag() {
 
 // mousePressed()
 //
-// Here to require a click to start playing the game and reset the ball
+// Here to require a click to start playing the game
 // Which will help us be allowed to play audio in the browser
 function mousePressed() {
-  playing = true;
-  // Starts the music
-  bgMusic.loop();
-  // Resets the ball's initial position and make it go right
-  ball.x = width / 2;
-  ball.y = height / 2;
-  ball.vx = ball.speed;
-  ball.vy = random(1, 7);
+  if (!playing) {
+    playing = true;
+    // Starts the music
+    bgMusic.loop();
+    // Makes the ball go right
+    ball.x = width / 2;
+    ball.y = height / 2;
+    ball.vx = ball.speed;
+    ball.vy = random(1, 7);
+  }
 }
