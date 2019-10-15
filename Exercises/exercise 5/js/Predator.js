@@ -61,6 +61,13 @@ class Predator {
     else {
       this.vy = 0;
     }
+    // Handling "sprinting"
+    if (keyIsDown(SHIFT)) {
+      this.speed = 10;
+    }
+    else {
+      this.speed = 5;
+    }
   }
 
   // move
