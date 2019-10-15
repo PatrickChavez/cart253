@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predators' properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey) {
+  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey, name) {
     // Position
     this.x = x;
     this.y = y;
@@ -31,6 +31,9 @@ class Predator {
     this.downKey = downKey;
     this.leftKey = leftKey;
     this.rightKey = rightKey;
+    // Checks how many prey were eaten
+    this.preyEaten = 0;
+    this.name = name;
   }
 
   // handleInput
@@ -113,8 +116,12 @@ class Predator {
       // Decrease prey health by the same amount
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
+      // Also increase the number of prey eaten
       if (prey.health < 0) {
         prey.reset();
+        this.preyEaten = this.preyEaten + 1;
+        // Adding console log to keep track of the predators' score
+        console.log (this.name + ":I've eaten" + this.preyEaten + "prey");
       }
     }
   }

@@ -21,9 +21,9 @@ let bee;
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW);
-  lion = new Predator(200, 200, 5, color(165, 120, 50), 40, 87, 83, 65, 68);
-  boar = new Predator (300, 300, 5, color(130, 40, 25), 40, 73, 75, 74, 76);
+  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, "Tiger");
+  lion = new Predator(200, 200, 5, color(165, 120, 50), 40, 87, 83, 65, 68, "Lion");
+  boar = new Predator (300, 300, 5, color(130, 40, 25), 40, 73, 75, 74, 76, "Boar");
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
