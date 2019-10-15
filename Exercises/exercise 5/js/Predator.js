@@ -1,16 +1,16 @@
 // Predator
 //
-// A class that represents a simple predator
-// controlled by the arrow keys. It can move around
-// the screen and consume Prey objects to maintain its health.
+// A class that represents simple predators
+// controlled by the arrow, WASD and IJKL keys. They can move around
+// the screen and consume Prey objects to maintain their health.
 
 class Predator {
 
   // constructor
   //
-  // Sets the initial values for the Predator's properties
+  // Sets the initial values for the Predators' properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) {
+  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey) {
     // Position
     this.x = x;
     this.y = y;
@@ -27,15 +27,15 @@ class Predator {
     this.fillColor = fillColor;
     this.radius = this.health; // Radius is defined in terms of health
     // Input properties
-    this.upKey = UP_ARROW;
-    this.downKey = DOWN_ARROW;
-    this.leftKey = LEFT_ARROW;
-    this.rightKey = RIGHT_ARROW;
+    this.upKey = upKey;
+    this.downKey = downKey;
+    this.leftKey = leftKey;
+    this.rightKey = rightKey;
   }
 
   // handleInput
   //
-  // Checks if an arrow key is pressed and sets the predator's
+  // Checks if a key is pressed and sets the predator's
   // velocity appropriately.
   handleInput() {
     // Horizontal movement
