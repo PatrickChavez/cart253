@@ -18,6 +18,7 @@ class Predator {
     this.vx = 0;
     this.vy = 0;
     this.speed = speed;
+    this.sprintSpeed = 10;
     // Health properties
     this.maxHealth = radius;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
@@ -63,7 +64,7 @@ class Predator {
     }
     // Handling "sprinting"
     if (keyIsDown(SHIFT)) {
-      this.speed = 10;
+      this.speed = this.sprintSpeed;
     }
     else {
       this.speed = 5;
@@ -137,12 +138,19 @@ class Predator {
   //
   // Draw the predator as an ellipse on the canvas
   // with a radius the same size as its current health.
+  // The number of eaten prey will also be displayed on its center.
   display() {
     push();
     noStroke();
     fill(this.fillColor);
     this.radius = this.health;
     ellipse(this.x, this.y, this.radius * 2);
+    push();
+    fill(0);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text(this.preyEaten, this.x, this.y);
+    pop();
     pop();
   }
 }
