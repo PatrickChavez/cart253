@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predators' properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey, name) {
+  constructor(x, y, speed, image, radius, upKey, downKey, leftKey, rightKey, name) {
     // Position
     this.x = x;
     this.y = y;
@@ -25,7 +25,7 @@ class Predator {
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
-    this.fillColor = fillColor;
+    this.image = image;
     this.radius = this.health; // Radius is defined in terms of health
     // Input properties
     this.upKey = upKey;
@@ -136,15 +136,15 @@ class Predator {
 
   // display
   //
-  // Draw the predator as an ellipse on the canvas
+  // Draw the predator as a designated image
   // with a radius the same size as its current health.
   // The number of eaten prey will also be displayed on its center.
   display() {
     push();
     noStroke();
-    fill(this.fillColor);
     this.radius = this.health;
-    ellipse(this.x, this.y, this.radius * 2);
+    imageMode(CENTER);
+    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     push();
     fill(0);
     textSize(20);

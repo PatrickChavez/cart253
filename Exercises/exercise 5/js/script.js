@@ -15,26 +15,48 @@ let antelope;
 let zebra;
 let bee;
 
+// The art assets
+let tigerImage;
+let lionImage;
+let boarImage;
+let antelopeImage;
+let zebraImage;
+let beeImage;
+let bgGrass;
+
+// preload()
+//
+// Loads the various art assets
+function preload() {
+  tigerImage = loadImage("assets/images/Tiger.png");
+  lionImage = loadImage("assets/images/Lion.png");
+  boarImage = loadImage("assets/images/Boar.png");
+  antelopeImage = loadImage("assets/images/Antelope.png");
+  zebraImage = loadImage("assets/images/Zebra.png");
+  beeImage = loadImage("assets/images/Bee.png");
+  bgGrass = loadImage("assets/images/Grass.png");
+}
+
 // setup()
 //
 // Sets up a canvas
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, "Tiger");
-  lion = new Predator(200, 200, 5, color(165, 120, 50), 40, 87, 83, 65, 68, "Lion");
-  boar = new Predator (300, 300, 5, color(130, 40, 25), 40, 73, 75, 74, 76, "Boar");
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  tiger = new Predator(100, 100, 5, tigerImage, 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, "Tiger");
+  lion = new Predator(200, 200, 5, lionImage, 40, 87, 83, 65, 68, "Lion");
+  boar = new Predator (300, 300, 5, boarImage, 40, 73, 75, 74, 76, "Boar");
+  antelope = new Prey(100, 100, 10, antelopeImage, 50);
+  zebra = new Prey(100, 100, 8, zebraImage, 60);
+  bee = new Prey(100, 100, 20, beeImage, 10);
 }
 
 // draw()
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Clear the background to black
-  background(0);
+  // The background consists of grass
+  image(bgGrass,0, 0, windowWidth, windowHeight);
 
   // Handle input for the predators
   tiger.handleInput();
