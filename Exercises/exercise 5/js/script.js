@@ -1,8 +1,8 @@
-// Predator-Prey Simulation
-// by Pippin Barr
+// Predator-Prey Simulation - Cute(?) Edition
+// by Patrick Chavez-Nadarajah
 //
-// Creates a predator and three prey (of different sizes and speeds)
-// The predator chases the prey using the arrow keys and consumes them.
+// Creates three predator and prey (of different sizes and speeds).
+// The predator chases the prey using the arrow, WASD and IJKL keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
 
 // Our predators
@@ -40,12 +40,12 @@ function preload() {
 // setup()
 //
 // Sets up a canvas
-// Creates objects for the predator and three prey
+// Creates objects for the three predator and prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(100, 100, 5, tigerImage, 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, "Tiger");
   lion = new Predator(200, 200, 5, lionImage, 40, 87, 83, 65, 68, "Lion");
-  boar = new Predator (300, 300, 5, boarImage, 40, 73, 75, 74, 76, "Boar");
+  boar = new Predator(300, 300, 5, boarImage, 40, 73, 75, 74, 76, "Boar");
   antelope = new Prey(100, 100, 10, antelopeImage, 50);
   zebra = new Prey(100, 100, 8, zebraImage, 60);
   bee = new Prey(100, 100, 20, beeImage, 10);
@@ -56,14 +56,14 @@ function setup() {
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
   // The background consists of grass
-  image(bgGrass,0, 0, windowWidth, windowHeight);
+  image(bgGrass, 0, 0, windowWidth, windowHeight);
 
   // Handle input for the predators
   tiger.handleInput();
   lion.handleInput();
   boar.handleInput();
 
-  // Move all the "animals"
+  // Move all the animals
   tiger.move();
   lion.move();
   boar.move();
@@ -84,7 +84,7 @@ function draw() {
   boar.handleEating(zebra);
   boar.handleEating(bee);
 
-  // Display all the "animals"
+  // Display all the animals
   tiger.display();
   lion.display();
   boar.display();
