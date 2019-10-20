@@ -5,6 +5,9 @@
 // The predator chases the prey using the arrow keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
 
+// Checks to see if the game has started
+let playing = false;
+
 // Our predator
 let tiger;
 
@@ -12,6 +15,16 @@ let tiger;
 let antelope;
 let zebra;
 let bee;
+
+// The title screen
+let titleScreen;
+
+// preload()
+//
+// Loads the art assets
+function preload() {
+  titleScreen = loadImage("assets/images/Title Placeholder.png");
+}
 
 // setup()
 //
@@ -29,26 +42,41 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Clear the background to black
-  background(0);
+  // Setting the title screen
+  image(titleScreen, 0, 0, windowWidth, windowHeight);
 
-  // Handle input for the tiger
-  tiger.handleInput();
+  if (playing) {
 
-  // Move all the "animals"
-  tiger.move();
-  antelope.move();
-  zebra.move();
-  bee.move();
+    // Clear the background to black
+    background(0);
 
-  // Handle the tiger eating any of the prey
-  tiger.handleEating(antelope);
-  tiger.handleEating(zebra);
-  tiger.handleEating(bee);
+    // Handle input for the tiger
+    tiger.handleInput();
 
-  // Display all the "animals"
-  tiger.display();
-  antelope.display();
-  zebra.display();
-  bee.display();
+    // Move all the "animals"
+    tiger.move();
+    antelope.move();
+    zebra.move();
+    bee.move();
+
+    // Handle the tiger eating any of the prey
+    tiger.handleEating(antelope);
+    tiger.handleEating(zebra);
+    tiger.handleEating(bee);
+
+    // Display all the "animals"
+    tiger.display();
+    antelope.display();
+    zebra.display();
+    bee.display();
+  }
+}
+
+// mousePressed()
+//
+// Allows the game to start upon clicking the screen
+function mousePressed() {
+  if (!playing) {
+    playing = true;
+  }
 }
