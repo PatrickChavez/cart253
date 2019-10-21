@@ -74,6 +74,8 @@ class Predator {
     this.health = constrain(this.health, 0, this.maxHealth);
     // Handle wrapping
     this.handleWrapping();
+    // Game over condition
+    this.gameOver();
   }
 
   // handleWrapping
@@ -116,6 +118,17 @@ class Predator {
       if (prey.health < 0) {
         prey.reset();
       }
+    }
+  }
+
+  // gameOver
+  //
+  // If the predator's health reaches 0, then the game ends
+  gameOver() {
+    if (this.health === 0) {
+      playing = false;
+      titleScreen = false;
+      image(gameOverScreen, 0, 0, windowWidth, windowHeight);
     }
   }
 

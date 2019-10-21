@@ -16,14 +16,16 @@ let antelope;
 let zebra;
 let bee;
 
-// The title screen
+// The title/game over screen(s)
 let titleScreen;
+let gameOverScreen;
 
 // preload()
 //
 // Loads the art assets
 function preload() {
   titleScreen = loadImage("assets/images/Title Placeholder.png");
+  gameOverScreen = loadImage("assets/images/Game Over Placeholder.png");
 }
 
 // setup()
