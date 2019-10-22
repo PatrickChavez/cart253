@@ -41,21 +41,17 @@ class Predator {
     // Horizontal movement
     if (keyIsDown(this.leftKey)) {
       this.vx = -this.speed;
-    }
-    else if (keyIsDown(this.rightKey)) {
+    } else if (keyIsDown(this.rightKey)) {
       this.vx = this.speed;
-    }
-    else {
+    } else {
       this.vx = 0;
     }
     // Vertical movement
     if (keyIsDown(this.upKey)) {
       this.vy = -this.speed;
-    }
-    else if (keyIsDown(this.downKey)) {
+    } else if (keyIsDown(this.downKey)) {
       this.vy = this.speed;
-    }
-    else {
+    } else {
       this.vy = 0;
     }
   }
@@ -84,15 +80,13 @@ class Predator {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
@@ -130,5 +124,23 @@ class Predator {
     this.radius = this.health;
     ellipse(this.x, this.y, this.radius * 2);
     pop();
+    this.displayHealth();
+  }
+
+  // displayHealth
+  //
+  // Shows a health bar at the top-left of the screen
+  displayHealth() {
+    // The color changes based on the number of health left
+    rectMode(CENTER);
+    noFill();
+    if (this.health < 13.2) {
+      fill(255, 0, 0);
+    } else if (this.health < 26.4) {
+      fill(255, 255, 0);
+    } else {
+      fill(0, 255, 0);
+    }
+    rect(this.x, this.y - this.radius * 2, this.health * 4, 20);
   }
 }
