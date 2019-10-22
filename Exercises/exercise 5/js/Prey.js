@@ -78,7 +78,7 @@ class Prey {
     imageMode(CENTER);
     // Avoids flickering by not displaying image during reset
     if (this.health > 0) {
-    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+      image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     }
     pop();
   }

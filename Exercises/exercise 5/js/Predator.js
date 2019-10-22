@@ -60,8 +60,8 @@ class Predator {
     } else {
       this.vy = 0;
     }
-    // Handling "sprinting"
-    if (keyIsDown(SHIFT)) {
+    // Handling "sprinting" with the H key
+    if (keyIsDown(72)) {
       this.speed = this.sprintSpeed;
     } else {
       this.speed = this.defaultSpeed;
@@ -142,7 +142,7 @@ class Predator {
     imageMode(CENTER);
     // Avoids image getting restored to default upon losing all health
     if (this.health > 0) {
-    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+      image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     }
     // Displaying the number of prey eaten
     push();

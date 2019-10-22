@@ -3,6 +3,7 @@
 //
 // Creates three predator and prey (of different sizes and speeds).
 // The predator chases the prey using the arrow, WASD and IJKL keys and consumes them.
+// Holding the H key allows them to sprint.
 // The predator loses health over time, so must keep eating to survive.
 
 // Our predators
