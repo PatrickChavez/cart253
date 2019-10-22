@@ -17,6 +17,7 @@ class Predator {
     // Velocity and speed
     this.vx = 0;
     this.vy = 0;
+    this.defaultSpeed = speed;
     this.speed = speed;
     this.sprintSpeed = 10;
     // Health properties
@@ -34,6 +35,7 @@ class Predator {
     this.rightKey = rightKey;
     // Checks how many prey were eaten
     this.preyEaten = 0;
+    // Name is used for console.log properties
     this.name = name;
   }
 
@@ -62,7 +64,7 @@ class Predator {
     if (keyIsDown(SHIFT)) {
       this.speed = this.sprintSpeed;
     } else {
-      this.speed = 5;
+      this.speed = this.defaultSpeed;
     }
   }
 
@@ -136,8 +138,13 @@ class Predator {
     push();
     noStroke();
     this.radius = this.health;
+    // Centering image for precise collision
     imageMode(CENTER);
+    // Avoids image getting restored to default upon losing all health
+    if (this.health > 0) {
     image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+    }
+    // Displaying the number of prey eaten
     push();
     fill(0);
     textSize(20);
