@@ -52,6 +52,9 @@ function draw() {
     // Clear the background to black
     background(0);
 
+    // Display the health bar
+    displayHealth();
+
     // Handle input for the tiger
     tiger.handleInput();
 
@@ -71,6 +74,37 @@ function draw() {
     antelope.display();
     zebra.display();
     bee.display();
+
+    // The game is over once the predator's health reaches 0
+    gameOver();
+  }
+}
+
+// gameOver
+//
+// If the predator's health reaches 0, then the game ends
+function gameOver() {
+  if (tiger.health === 0) {
+    playing = false;
+    titleScreen = false;
+    image(gameOverScreen, 0, 0, windowWidth, windowHeight);
+  }
+}
+
+// displayHealth
+//
+// Shows a health bar at the top-left of the screen
+function displayHealth() {
+  rect(0, 0, tiger.health, 20);
+  // The color changes based on the number of health left
+  if (tiger.health < 0.66) {
+    fill(255, 255, 0);
+  }
+  else if (tiger.health < 0.33) {
+    fill(255, 0, 0);
+  }
+  else {
+    fill(0, 255, 0);
   }
 }
 
