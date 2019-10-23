@@ -16,6 +16,9 @@ let antelope;
 let zebra;
 let bee;
 
+// The Danger Zone
+let danger;
+
 // The title/game over screen(s)
 let titleScreen;
 let gameOverScreen;
@@ -38,6 +41,7 @@ function setup() {
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
 }
 
 // draw()
@@ -60,17 +64,22 @@ function draw() {
     antelope.move();
     zebra.move();
     bee.move();
+    danger.move();
 
     // Handle the tiger eating any of the prey
     tiger.handleEating(antelope);
     tiger.handleEating(zebra);
     tiger.handleEating(bee);
 
+    // Handle the danger damaging the tiger
+    danger.damage(tiger);
+    
     // Display all the "animals"
     tiger.display();
     antelope.display();
     zebra.display();
     bee.display();
+    danger.display();
 
     // The game is over once the predator's health reaches 0
     gameOver();
