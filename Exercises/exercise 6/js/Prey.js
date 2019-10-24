@@ -8,13 +8,13 @@
 // ~10 ERRORS IN HERE
 /////////////////////////
 
-class Prey //////////////// FIXED {
+class Prey { //////////////// FIXED
 
   // constructor
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) //////////////// FIXED {
+  constructor(x, y, speed, fillColor, radius) { //////////////// FIXED
     // Position
     this.x = x;
     this.y = y;
