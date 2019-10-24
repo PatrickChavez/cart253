@@ -41,7 +41,7 @@ function setup() {
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
-  danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
+  danger = new DangerZone(400, 400, 5, 4, color(255, 0, 0), 50);
 }
 
 // draw()
@@ -73,7 +73,7 @@ function draw() {
 
     // Handle the danger damaging the tiger
     danger.damage(tiger);
-    
+
     // Display all the "animals"
     tiger.display();
     antelope.display();

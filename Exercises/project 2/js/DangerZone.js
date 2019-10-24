@@ -9,7 +9,7 @@ class DangerZone {
   //
   // Sets the initial values for the Danger Zone's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) {
+  constructor(x, y, speed, segments, fillColor, radius) {
     // Position
     this.x = x;
     this.y = y;
@@ -17,6 +17,8 @@ class DangerZone {
     this.vx = speed;
     this.vy = speed;
     this.speed = speed;
+    // The number of segments it has
+    this.segments = segments;
     // Display properties
     this.fillColor = fillColor;
     this.radius = radius;
@@ -59,12 +61,15 @@ class DangerZone {
 
   // display
   //
-  // Draw the Danger Zone as an ellipse on the canvas
+  // Draw the Danger Zone as a group of ellipses on the canvas
   display() {
     push();
     noStroke();
     fill(this.fillColor);
-    ellipse(this.x, this.y, this.radius * 2);
+    for (let i = 0; i < this.segments; i++) {
+      ellipse(this.x, this.y, this.radius * 2);
+      
+    }
     pop();
   }
 }
