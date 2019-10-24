@@ -49,13 +49,14 @@ class Prey { //////////////// FIXED
     this.ty += 0.01;
     // Handle wrapping
     this.handleWarping();
+  }
 
 
     // handleWrapping
     //
     // Checks if the prey has gone off the canvas and
     // wraps it to the other side if so
-    handleWrapping() {
+    handleWrapping() { //////////////// FIXED
       // Off the left or right
       if (this.x > 0) {
         this.x += width;
