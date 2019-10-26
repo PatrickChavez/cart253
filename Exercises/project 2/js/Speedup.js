@@ -91,4 +91,5 @@ class Speedup {
     this.health = this.maxHealth;
     // Default radius
     this.radius = this.health;
+  }
 }
