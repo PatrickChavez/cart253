@@ -143,6 +143,31 @@ class Predator {
     }
   }
 
+  // handleSlowdown
+  //
+  // Takes a Slowdown object as an argument and checks if the predator
+  // overlaps it. If so, reduces the Speedup's health.
+  // If it dies, it gets reset.
+  handleSlowdown(slowdown) {
+    // Calculate distance from this predator to the prey
+    let d = dist(this.x, this.y, slowdown.x, slowdown.y);
+    // Check if the distance is less than their two radii (an overlap)
+    if (d < this.radius + slowdown.radius) {
+      // Gradually decrease Speedup health
+      slowdown.health -= this.healthGainPerEat;
+      // Check if the prey died and reset it if so
+      // Increase the number of prey eaten if so
+      if (slowdown.health < 0) {
+        slowdown.reset();
+        // Decrease predator speed and constrain it to its possible range
+        this.speed = this.speed - 1;
+        this.speed = constrain(this.speed,1,10);
+        // Keeping track of the predator's speed
+        console.log("My speed is" + this.speed);
+      }
+    }
+  }
+
   // display
   //
   // Draw the predator as an ellipse on the canvas

@@ -55,7 +55,7 @@ class DangerZone {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a large amount
-      predator.health = predator.health - 2;
+      predator.health = predator.health - 1;
     }
   }
 
