@@ -31,6 +31,8 @@ class Predator {
     this.downKey = DOWN_ARROW;
     this.leftKey = LEFT_ARROW;
     this.rightKey = RIGHT_ARROW;
+    // Checks how many prey were eaten
+    this.preyEaten = 0;
   }
 
   // handleInput
@@ -96,6 +98,7 @@ class Predator {
   // Takes a Prey object as an argument and checks if the predator
   // overlaps it. If so, reduces the prey's health and increases
   // the predator's. If the prey dies, it gets reset.
+  // The number of prey eaten also gets increased.
   handleEating(prey) {
     // Calculate distance from this predator to the prey
     let d = dist(this.x, this.y, prey.x, prey.y);
@@ -107,8 +110,10 @@ class Predator {
       // Decrease prey health by the same amount
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
+      // Increase the number of prey eaten if so
       if (prey.health < 0) {
         prey.reset();
+        this.preyEaten = this.preyEaten + 1;
       }
     }
   }
@@ -124,11 +129,12 @@ class Predator {
     ellipse(this.x, this.y, this.radius);
     pop();
     this.displayHealth();
+    this.displayScore();
   }
 
   // displayHealth
   //
-  // Shows a health bar at the top-left of the screen
+  // Shows a health bar on top of the predator
   displayHealth() {
     // The color changes based on the number of health left
     rectMode(CENTER);
@@ -141,5 +147,16 @@ class Predator {
       fill(0, 255, 0);
     }
     rect(this.x, this.y - this.radius * 2, this.health * 4, 20);
+  }
+
+  // displayScore
+  //
+  // Shows the number of prey eaten on top of the predator
+  displayScore() {
+    // The text is white and is displyed at the center
+    fill(255);
+    textSize(32);
+    textAlign(CENTER,CENTER);
+    text(this.preyEaten, this.x, this.y - this.radius);
   }
 }
