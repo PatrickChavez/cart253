@@ -1,6 +1,6 @@
 // DangerZone
 //
-// A class that represents a harmful cage that saps the player's health
+// A class that represents a harmful area that saps the player's health
 // if they come into contact with it.
 // It bounces around the canvas.
 
@@ -68,7 +68,7 @@ class DangerZone {
     fill(this.fillColor);
     for (let i = 0; i < this.segments; i++) {
       ellipse(this.x, this.y, this.radius * 2);
-      
+
     }
     pop();
   }
