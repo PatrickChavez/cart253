@@ -135,8 +135,8 @@ class Predator {
       if (speedup.health < 0) {
         speedup.reset();
         // Increase predator speed and constrain it to its possible range
-        this.speed = this.speed + 1;
-        this.speed = constrain(this.speed,1,10);
+        this.speed = this.speed + 5;
+        this.speed = constrain(this.speed,1,20);
         // Keeping track of the predator's speed
         console.log("My speed is" + this.speed);
       }
@@ -161,7 +161,7 @@ class Predator {
         slowdown.reset();
         // Decrease predator speed and constrain it to its possible range
         this.speed = this.speed - 1;
-        this.speed = constrain(this.speed,1,10);
+        this.speed = constrain(this.speed,1,20);
         // Keeping track of the predator's speed
         console.log("My speed is" + this.speed);
       }
