@@ -38,6 +38,8 @@ let gameOverScreen;
 function preload() {
   titleScreen = loadImage("assets/images/Title Placeholder.png");
   gameOverScreen = loadImage("assets/images/Game Over Placeholder.png");
+  gameOverScreenTwo = loadImage("assets/images/Game Over Placeholder 2.png");
+  gameOverScreenThree = loadImage("assets/images/Game Over Placeholder 3.png");
 }
 
 // setup()
@@ -103,11 +105,28 @@ function draw() {
     danger.display();
     speedGuy.display();
     slowGuy.display();
-    
+
 
     // The game is over once the predator's health reaches 0
     gameOver();
   }
+}
+
+// resetGame
+//
+// Restores the objects back to their original positions
+// and resets predator health and score
+function resetGame() {
+  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
+  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
+  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  danger = new DangerZone(400, 400, 5, 4, color(255, 0, 0), 50);
+  speedGuy = new Speedup(100, 100, 2, color(0, 0, 255), 40);
+  slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
+
+  tiger.health = tiger.maxHealth;
+  tiger.preyEaten = 0;
 }
 
 // gameOver
@@ -117,7 +136,15 @@ function gameOver() {
   if (tiger.health === 0) {
     playing = false;
     titleScreen = false;
+    if (tiger.preyEaten >= 15) {
+      image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
+    }
+    else if (tiger.preyEaten >= 10) {
+      image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
+    }
+    else {
     image(gameOverScreen, 0, 0, windowWidth, windowHeight);
+    }
   }
 }
 

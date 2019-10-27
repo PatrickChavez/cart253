@@ -66,6 +66,7 @@ class DangerZone {
     push();
     noStroke();
     fill(this.fillColor);
+    ellipse(this.x,this.y,this.radius * 2);
     pop();
   }
 }
