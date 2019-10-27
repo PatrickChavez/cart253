@@ -25,6 +25,9 @@ let speedGuy;
 // The Slowdown
 let slowGuy;
 
+// The stars and the array storing them
+let stars;
+
 // The title/game over screen(s)
 let titleScreen;
 let gameOverScreen;
@@ -40,7 +43,7 @@ function preload() {
 // setup()
 //
 // Sets up a canvas
-// Creates objects for the predator and three prey
+// Creates objects for the variables
 function setup() {
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
@@ -50,6 +53,7 @@ function setup() {
   danger = new DangerZone(400, 400, 5, 4, color(255, 0, 0), 50);
   speedGuy = new Speedup(100, 100, 2, color(0, 0, 255), 40);
   slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
+
 }
 
 // draw()
@@ -76,6 +80,7 @@ function draw() {
     speedGuy.move();
     slowGuy.move();
 
+
     // Handle the tiger eating any of the prey
     tiger.handleEating(antelope);
     tiger.handleEating(zebra);
@@ -98,6 +103,7 @@ function draw() {
     danger.display();
     speedGuy.display();
     slowGuy.display();
+    
 
     // The game is over once the predator's health reaches 0
     gameOver();
