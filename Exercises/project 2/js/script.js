@@ -129,6 +129,22 @@ function resetGame() {
   tiger.preyEaten = 0;
 }
 
+// gameOverMessage
+//
+// Displays a message on the Game Over screen that
+// tells the player what their score was
+function gameOverMessage() {
+  // Setting the text aesthetics
+  textSize(42);
+  textAlign(BOTTOM,BOTTOM);
+  fill(0);
+  // Setting up the text to display
+  let gameOverText;
+  gameOverText = "You've eaten " + tiger.preyEaten + " prey.\n";
+  gameOverText = gameOverText + "Click to retry.";
+  text(gameOverText, width / 2, height / 2);
+}
+
 // gameOver
 //
 // If the predator's health reaches 0, then the game ends
@@ -136,6 +152,7 @@ function gameOver() {
   if (tiger.health === 0) {
     playing = false;
     titleScreen = false;
+    // A different screen appears depending on the number of prey eaten
     if (tiger.preyEaten >= 15) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
     }
@@ -145,6 +162,8 @@ function gameOver() {
     else {
     image(gameOverScreen, 0, 0, windowWidth, windowHeight);
     }
+    // Show Game Over text
+    gameOverMessage();
   }
 }
 
