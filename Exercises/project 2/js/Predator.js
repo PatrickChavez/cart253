@@ -128,6 +128,9 @@ class Predator {
     let d = dist(this.x, this.y, speedup.x, speedup.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + speedup.radius) {
+      // Increase predator health and constrain it to its possible range
+      this.health += this.healthGainPerEat;
+      this.health = constrain(this.health, 0, this.maxHealth);
       // Gradually decrease Speedup health
       speedup.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so

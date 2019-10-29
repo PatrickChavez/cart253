@@ -10,7 +10,7 @@ class Stars {
   //
   // Sets the initial values for the Stars' properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius, numStars) {
+  constructor(x, y, speed, fillColor, radius) {
     // Position
     this.x = x;
     this.y = y;
@@ -21,10 +21,6 @@ class Stars {
     // General aesthetics
     this.fillColor = fillColor;
     this.radius = radius;
-    // Number of stars to be stored
-    this.numStars = numStars;
-    // The array to store them
-    this.starGroup = [];
   }
 
   // move
@@ -34,8 +30,7 @@ class Stars {
   // Handles wrapping
   move() {
     // Update position based on velocity
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x -= this.vx;
     // Handle wrapping
     this.handleWrapping();
   }
@@ -66,15 +61,7 @@ class Stars {
     push();
     noStroke();
     fill(this.fillColor);
-    // Creating a for loop that generates stars for the array
-    for (let i = 0; i < this.numStars; i++) {
-      this.x;
-      this.y;
-      this.speed;
-      this.fillColor;
-      this.radius;
-      starGroup.push(stars);
-    }
+    ellipse(this.x, this.y, this.radius * 2);
     pop();
   }
 }
