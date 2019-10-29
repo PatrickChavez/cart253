@@ -9,7 +9,7 @@ class DangerZone {
   //
   // Sets the initial values for the Danger Zone's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, segments, fillColor, radius) {
+  constructor(x, y, speed, fillColor, radius) {
     // Position
     this.x = x;
     this.y = y;
@@ -17,11 +17,19 @@ class DangerZone {
     this.vx = speed;
     this.vy = speed;
     this.speed = speed;
-    // The number of segments it has
-    this.segments = segments;
     // Display properties
     this.fillColor = fillColor;
     this.radius = radius;
+    // An array to display a trail of danger zones
+    //this.trail = [];
+    // Setting up a for loop to generate the number of trail "bits"
+    // for (let i = 0; i < 100; i++) {
+    //   let location = {
+    //     x: this.x,
+    //     y: this.y;
+    // 
+    //   }
+    // }
   }
 
   // move

@@ -8,6 +8,9 @@
 // Checks to see if the game has started
 let playing = false;
 
+//
+let gameOver = false;
+
 // Our predator
 let tiger;
 
@@ -16,7 +19,7 @@ let antelope;
 let zebra;
 let bee;
 
-// The Danger Zone
+// The Danger Zones, their number and the array storing them
 let danger;
 
 // The Speedup
@@ -26,9 +29,9 @@ let speedGuy;
 let slowGuy;
 
 // The stars, their number and the array storing them
+let starGroup;
 let starArray = [];
 let starNumber = 100;
-let starGroup;
 
 // The title/game over screen(s)
 let titleScreen;
@@ -55,7 +58,7 @@ function setup() {
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
   danger = new DangerZone(400, 400, 5, 4, color(255, 0, 0), 50);
-  speedGuy = new Speedup(100, 100, 2, color(0, 0, 255), 40);
+  speedGuy = new Speedup(100, 100, 5, color(0, 0, 255), 40);
   slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
   // Putting a for loop to generate stars
   for (let i = 0; i < starNumber; i++) {
@@ -68,8 +71,7 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Setting the title screen
-  image(titleScreen, 0, 0, windowWidth, windowHeight);
+
 
   if (playing) {
 
@@ -122,7 +124,11 @@ function draw() {
 
 
     // The game is over once the predator's health reaches 0
-    gameOver();
+    gameOverState();
+  }
+  else if (gameOver === false) {
+    // Setting the title screen
+    image(titleScreen, 0, 0, windowWidth, windowHeight);
   }
 }
 
@@ -131,6 +137,7 @@ function draw() {
 // Restores the objects back to their original positions
 // and resets predator health and score
 function resetGame() {
+  gameOver = false;
   tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
@@ -162,10 +169,11 @@ function gameOverMessage() {
 // gameOver
 //
 // If the predator's health reaches 0, then the game ends
-function gameOver() {
+function gameOverState() {
   if (tiger.health === 0) {
     playing = false;
-    titleScreen = false;
+    gameOver = true;
+    // titleScreen = false;
     // A different screen appears depending on the number of prey eaten
     if (tiger.preyEaten >= 15) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
@@ -187,5 +195,6 @@ function gameOver() {
 function mousePressed() {
   if (!playing) {
     playing = true;
+    resetGame();
   }
 }
