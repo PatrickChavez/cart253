@@ -15,9 +15,7 @@ let gameOver = false;
 let tiger;
 
 // The three prey
-let antelope;
 let zebra;
-let bee;
 
 // The Danger Zones, their number and the array storing them
 let danger;
@@ -36,15 +34,29 @@ let starNumber = 100;
 // The title/game over screen(s)
 let titleScreen;
 let gameOverScreen;
+let gameOverScreenTwo;
+let gameOverScreenThree;
+
+// The backround music
+let bgMusic;
+
+// The background during play
+let backgroundGame;
+
+// The images for the characters
+let preyImage;
 
 // preload()
 //
 // Loads the art assets
 function preload() {
-  titleScreen = loadImage("assets/images/Title Placeholder.png");
-  gameOverScreen = loadImage("assets/images/Game Over Placeholder.png");
-  gameOverScreenTwo = loadImage("assets/images/Game Over Placeholder 2.png");
-  gameOverScreenThree = loadImage("assets/images/Game Over Placeholder 3.png");
+  titleScreen = loadImage("assets/images/Title.png");
+  gameOverScreen = loadImage("assets/images/GameOver1.png");
+  gameOverScreenTwo = loadImage("assets/images/GameOver2.png");
+  gameOverScreenThree = loadImage("assets/images/GameOver3.png");
+  bgMusic = loadSound("assets/sounds/yume.mp3");
+  backgroundGame = loadImage("assets/images/MoonBackground.png");
+  preyImage = loadImage("assets/images/GoldDragonfly.png");
 }
 
 // setup()
@@ -54,9 +66,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  zebra = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
   speedGuy = new Speedup(100, 100, 5, color(0, 0, 255), 40);
   slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
@@ -83,9 +93,7 @@ function draw() {
 
     // Move all the "animals"
     tiger.move();
-    antelope.move();
     zebra.move();
-    bee.move();
     danger.move();
     speedGuy.move();
     slowGuy.move();
@@ -94,9 +102,7 @@ function draw() {
 
 
     // Handle the tiger eating any of the prey
-    tiger.handleEating(antelope);
     tiger.handleEating(zebra);
-    tiger.handleEating(bee);
 
     // Handle the tiger getting faster
     tiger.handleSpeedup(speedGuy);
@@ -110,9 +116,7 @@ function draw() {
     // Display all the "animals"
     danger.display();
     tiger.display();
-    antelope.display();
     zebra.display();
-    bee.display();
     speedGuy.display();
     slowGuy.display();
 
@@ -139,9 +143,7 @@ function draw() {
 function resetGame() {
   gameOver = false;
   tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  zebra = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
   speedGuy = new Speedup(100, 100, 2, color(0, 0, 255), 40);
   slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
