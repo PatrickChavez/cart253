@@ -9,7 +9,7 @@ class DangerZone {
   //
   // Sets the initial values for the Danger Zone's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) {
+  constructor(x, y, speed, image, radius, trailImage) {
     // Position
     this.x = x;
     this.y = y;
@@ -18,7 +18,8 @@ class DangerZone {
     this.vy = speed;
     this.speed = speed;
     // Display properties
-    this.fillColor = fillColor;
+    this.image = image;
+    this.trailImage = trailImage;
     this.radius = radius;
     // An array to display a trail of danger zones
     this.trail = [];
@@ -87,12 +88,14 @@ class DangerZone {
     // The trail gets a different color
     push();
     for (let i = 0; i < this.trail.length; i++) {
-      fill(100, 0, 0);
-      ellipse(this.trail[i].x, this.trail[i].y, this.radius * 2);
+      imageMode(CENTER);
+      // tint(255);
+      image(this.trailImage, this.trail[i].x, this.trail[i].y, this.radius * 2, this.radius * 2);
     }
     pop();
-    fill(this.fillColor);
-    ellipse(this.x,this.y,this.radius * 2);
+    // Centering image for precise collision
+    imageMode(CENTER);
+    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     pop();
   }
 }

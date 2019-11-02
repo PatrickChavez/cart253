@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, health) {
+  constructor(x, y, speed, image, health) {
     // Position
     this.x = x;
     this.y = y;
@@ -24,7 +24,7 @@ class Predator {
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
-    this.fillColor = fillColor;
+    this.image = image;
     this.radius = 40; // Determines the size of the predator
     // Input properties
     this.upKey = UP_ARROW;
@@ -178,8 +178,9 @@ class Predator {
   display() {
     push();
     noStroke();
-    fill(this.fillColor);
-    ellipse(this.x, this.y, this.radius);
+    // Centering image for precise collision
+    imageMode(CENTER);
+    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     pop();
     this.displayHealth();
     this.displayScore();
@@ -210,6 +211,6 @@ class Predator {
     fill(255);
     textSize(32);
     textAlign(CENTER,CENTER);
-    text(this.preyEaten, this.x, this.y - this.radius);
+    text(this.preyEaten, this.x, this.y - this.radius - 10);
   }
 }

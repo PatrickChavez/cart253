@@ -8,7 +8,7 @@ class Speedup {
   //
   // Sets the initial values for the speedup's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) {
+  constructor(x, y, speed, image, radius) {
     // Position
     this.x = x;
     this.y = y;
@@ -23,7 +23,7 @@ class Speedup {
     this.maxHealth = radius;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties
-    this.fillColor = fillColor;
+    this.image = image;
     this.radius = this.health;
   }
 
@@ -73,9 +73,13 @@ class Speedup {
   display() {
     push();
     noStroke();
-    fill(this.fillColor);
     this.radius = this.health;
-    ellipse(this.x, this.y, this.radius * 2);
+    // Centering image for precise collision
+    imageMode(CENTER);
+    // Making it so the image doesn't flicker when it disapears
+    if (this.health > 0) {
+    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+    }
     pop();
   }
 

@@ -37,14 +37,25 @@ let gameOverScreen;
 let gameOverScreenTwo;
 let gameOverScreenThree;
 
-// The backround music
+// The various sounds
 let bgMusic;
+let preySound;
+let speedSound;
+let slowSound;
 
 // The background during play
 let backgroundGame;
 
+// The Cirkus font
+let cFont;
+
 // The images for the characters
 let preyImage;
+let playerImage;
+let speedImage;
+let slowImage;
+let dangerImage;
+let dangerBody;
 
 // preload()
 //
@@ -54,9 +65,18 @@ function preload() {
   gameOverScreen = loadImage("assets/images/GameOver1.png");
   gameOverScreenTwo = loadImage("assets/images/GameOver2.png");
   gameOverScreenThree = loadImage("assets/images/GameOver3.png");
-  bgMusic = loadSound("assets/sounds/yume.mp3");
   backgroundGame = loadImage("assets/images/MoonBackground.png");
   preyImage = loadImage("assets/images/GoldDragonfly.png");
+  playerImage = loadImage("assets/images/WitchAvatar.png");
+  speedImage = loadImage("assets/images/DragonflyFast.png");
+  slowImage = loadImage("assets/images/DragonflySlow.png");
+  dangerImage = loadImage("assets/images/Sundew.png");
+  dangerBody = loadImage("assets/images/SundewBody.png");
+  bgMusic = loadSound("assets/sounds/yume.mp3");
+  preySound = loadSound("assets/sounds/icedown1.mp3");
+  speedSound = loadSound("assets/sounds/status1.wav");
+  slowSound = loadSound("assets/sounds/status2.wav");
+  cFont = loadFont("assets/fonts/Cirkus.ttf");
 }
 
 // setup()
@@ -65,14 +85,14 @@ function preload() {
 // Creates objects for the variables
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  tiger = new Predator(100, 100, 5, playerImage, 40);
   zebra = new Prey(100, 100, 8, preyImage, 60);
-  danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
-  speedGuy = new Speedup(100, 100, 5, color(0, 0, 255), 40);
-  slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
+  danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
+  speedGuy = new Speedup(100, 100, 5, speedImage, 40);
+  slowGuy = new Slowdown(100, 100, 2, slowImage, 40);
   // Putting a for loop to generate stars
   for (let i = 0; i < starNumber; i++) {
-  starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 20), random(1, 20));
+  starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
   starArray.push(starGroup);
   }
 }
@@ -85,8 +105,8 @@ function draw() {
 
   if (playing) {
 
-    // Clear the background to black
-    background(0);
+    // Set the moon background
+    image(backgroundGame, 0, 0, windowWidth, windowHeight);
 
     // Handle input for the tiger
     tiger.handleInput();
@@ -142,11 +162,11 @@ function draw() {
 // and resets predator health and score
 function resetGame() {
   gameOver = false;
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  tiger = new Predator(100, 100, 5, playerImage, 40);
   zebra = new Prey(100, 100, 8, preyImage, 60);
-  danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
-  speedGuy = new Speedup(100, 100, 2, color(0, 0, 255), 40);
-  slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
+  danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
+  speedGuy = new Speedup(100, 100, 2, speedImage, 40);
+  slowGuy = new Slowdown(100, 100, 2, slowImage, 40);
 
   tiger.health = tiger.maxHealth;
   tiger.preyEaten = 0;

@@ -78,7 +78,7 @@ class Prey {
     this.radius = this.health;
     // Centering image for precise collision
     imageMode(CENTER);
-    // Making it so the image doesn't flicker when it dissapears
+    // Making it so the image doesn't flicker when it disapears
     if (this.health > 0) {
     image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     }
