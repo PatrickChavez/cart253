@@ -8,7 +8,7 @@
 // Checks to see if the game has started
 let playing = false;
 
-//
+// Checks to see if the game is over
 let gameOver = false;
 
 // Our predator
@@ -57,7 +57,7 @@ function setup() {
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
-  danger = new DangerZone(400, 400, 5, 4, color(255, 0, 0), 50);
+  danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
   speedGuy = new Speedup(100, 100, 5, color(0, 0, 255), 40);
   slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
   // Putting a for loop to generate stars
@@ -108,11 +108,11 @@ function draw() {
     danger.damage(tiger);
 
     // Display all the "animals"
+    danger.display();
     tiger.display();
     antelope.display();
     zebra.display();
     bee.display();
-    danger.display();
     speedGuy.display();
     slowGuy.display();
 
@@ -142,7 +142,7 @@ function resetGame() {
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
-  danger = new DangerZone(400, 400, 5, 4, color(255, 0, 0), 50);
+  danger = new DangerZone(400, 400, 5, color(255, 0, 0), 50);
   speedGuy = new Speedup(100, 100, 2, color(0, 0, 255), 40);
   slowGuy = new Slowdown(100, 100, 2, color(0, 255, 0), 40);
 
