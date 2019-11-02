@@ -26,6 +26,7 @@ class Predator {
     // Display properties
     this.image = image;
     this.radius = 40; // Determines the size of the predator
+
     // Input properties
     this.upKey = UP_ARROW;
     this.downKey = DOWN_ARROW;
@@ -110,8 +111,9 @@ class Predator {
       // Decrease prey health by the same amount
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
-      // Increase the number of prey eaten if so
+      // Increase the number of prey eaten and play a sound effect
       if (prey.health < 0) {
+        preySound.play();
         prey.reset();
         this.preyEaten = this.preyEaten + 1;
       }
@@ -140,6 +142,8 @@ class Predator {
         // Increase predator speed and constrain it to its possible range
         this.speed = this.speed + 5;
         this.speed = constrain(this.speed,1,20);
+        // Play a sound
+        speedSound.play();
         // Keeping track of the predator's speed
         console.log("My speed is" + this.speed);
       }
@@ -165,6 +169,8 @@ class Predator {
         // Decrease predator speed and constrain it to its possible range
         this.speed = this.speed - 1;
         this.speed = constrain(this.speed,1,20);
+        // Play a sound
+        slowSound.play();
         // Keeping track of the predator's speed
         console.log("My speed is" + this.speed);
       }

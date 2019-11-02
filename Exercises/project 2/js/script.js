@@ -82,9 +82,11 @@ function preload() {
 // setup()
 //
 // Sets up a canvas
+// Lets the music play
 // Creates objects for the variables
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  bgMusic.loop();
   tiger = new Predator(100, 100, 5, playerImage, 40);
   zebra = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
@@ -101,7 +103,6 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-
 
   if (playing) {
 
