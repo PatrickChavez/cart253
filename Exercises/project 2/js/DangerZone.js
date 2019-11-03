@@ -65,7 +65,7 @@ class DangerZone {
     }
   }
 
-  // handleEating
+  // damage
   //
   // Takes a Predator object as an argument and checks if the Danger Zone
   // overlaps it. If so, greatly reduces the predator's health.

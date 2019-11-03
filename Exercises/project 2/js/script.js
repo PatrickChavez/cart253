@@ -1,9 +1,17 @@
-// Predator-Prey Simulation
-// by Pippin Barr
+// Predator-Prey Simulation: Dragonfly Catcher Edition
+// by Patrick Chavez-Nadarajah
 //
-// Creates a predator and three prey (of different sizes and speeds)
-// The predator chases the prey using the arrow keys and consumes them.
-// The predator loses health over time, so must keep eating to survive.
+// An expanded version of the Predator-Prey game.
+// Story and instructions are found within the game.
+//
+// Yume/Dream/夢 from Amacha Music Studio
+// https://amachamusic.chagasi.com/image_gensouteki.html
+//
+// Status 1 and 2 from TAM Music Factory
+// https://www.tam-music.com/se000_category/game
+//
+// Icedown1 from TAM Music Factory
+// https://www.tam-music.com/se000_category/natural
 
 // Checks to see if the game has started
 let playing = false;
@@ -12,19 +20,21 @@ let playing = false;
 let gameOver = false;
 
 // Our predator
-let tiger;
+let witch;
 
-// The three prey
-let zebra;
+// The prey and the array storing them
+let fly;
+let flyArray = [];
 
-// The Danger Zones, their number and the array storing them
+// The Danger Zone
 let danger;
 
 // The Speedup
 let speedGuy;
 
-// The Slowdown
+// The Slowdowns and the array storing them
 let slowGuy;
+let slowArray = [];
 
 // The stars, their number and the array storing them
 let starGroup;
@@ -91,12 +101,16 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   bgMusic.loop();
-  tiger = new Predator(100, 100, 5, playerImage, 40);
-  zebra = new Prey(100, 100, 8, preyImage, 60);
+  witch = new Predator(100, 100, 5, playerImage, 40);
+  fly = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
   speedGuy = new Speedup(100, 100, 5, speedImage, 40);
-  slowGuy = new Slowdown(100, 100, 2, slowImage, 40);
-  // Putting a for loop to generate stars
+  // Putting a for loop to generate various characters
+  for (let i = 0; i < 5; i++) {
+  slowGuy = new Slowdown(random(200, width), random (200, height), random(2, 5), slowImage, random(20, 40));
+  slowArray.push(slowGuy);
+  }
+
   for (let i = 0; i < starNumber; i++) {
   starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
   starArray.push(starGroup);
@@ -113,42 +127,46 @@ function draw() {
     // Set the moon background
     image(backgroundGame, 0, 0, windowWidth, windowHeight);
 
-    // Handle input for the tiger
-    tiger.handleInput();
+    // Handle input for the witch
+    witch.handleInput();
 
     // Move all the "animals"
-    tiger.move();
-    zebra.move();
+    witch.move();
+    fly.move();
     danger.move();
     speedGuy.move();
-    slowGuy.move();
+
 
 
 
 
     // Handle the tiger eating any of the prey
-    tiger.handleEating(zebra);
+    witch.handleEating(fly);
 
     // Handle the tiger getting faster
-    tiger.handleSpeedup(speedGuy);
+    witch.handleSpeedup(speedGuy);
 
-    // Handle the tiger getting faster
-    tiger.handleSlowdown(slowGuy);
+    // Handle the witch getting slower
+    witch.handleSlowdown(slowGuy);
 
-    // Handle the danger damaging the tiger
-    danger.damage(tiger);
+    // Handle the danger damaging the witch
+    danger.damage(witch);
 
-    // Display all the "animals"
+    // Display all the characters
     danger.display();
-    tiger.display();
-    zebra.display();
+    witch.display();
+    fly.display();
     speedGuy.display();
-    slowGuy.display();
 
-    // Displaying the stars using a for loop with arrays
+    // Displaying various characters using a for loop with arrays
     for (let i = 0; i < starArray.length; i++) {
     starArray[i].display();
     starArray[i].move();
+    }
+
+    for (let i = 0; i < slowArray.length; i++) {
+    slowArray[i].display();
+    slowArray[i].move();
     }
 
 
@@ -167,14 +185,17 @@ function draw() {
 // and resets predator health and score
 function resetGame() {
   gameOver = false;
-  tiger = new Predator(100, 100, 5, playerImage, 40);
-  zebra = new Prey(100, 100, 8, preyImage, 60);
+  witch = new Predator(100, 100, 5, playerImage, 40);
+  fly = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
   speedGuy = new Speedup(100, 100, 2, speedImage, 40);
-  slowGuy = new Slowdown(100, 100, 2, slowImage, 40);
+  for (let i = 0; i < 5; i++) {
+  slowGuy = new Slowdown(random(200, width), random (200, height), random(2, 5), slowImage, random(20, 40));
+  slowArray.push(slowGuy);
+  }
 
-  tiger.health = tiger.maxHealth;
-  tiger.preyEaten = 0;
+  witch.health = witch.maxHealth;
+  witch.preyEaten = 0;
 }
 
 // gameOverMessage
@@ -189,7 +210,7 @@ function gameOverMessage() {
   fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You have caught " + tiger.preyEaten + " dragonflies.\n";
+  gameOverText = "You have caught " + witch.preyEaten + " dragonflies.\n";
   gameOverText = gameOverText + "Better luck next time!\n";
   gameOverText = gameOverText + "Click to retry.";
   text(gameOverText, 50, 600);
@@ -207,7 +228,7 @@ function gameOverMessageTwo() {
   fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You have caught " + tiger.preyEaten + " dragonflies.\n";
+  gameOverText = "You have caught " + witch.preyEaten + " dragonflies.\n";
   gameOverText = gameOverText + "Not bad!\n";
   gameOverText = gameOverText + "Click to retry.";
   text(gameOverText, width/2, 0);
@@ -225,7 +246,7 @@ function gameOverMessageThree() {
   fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You have caught " + tiger.preyEaten + " dragonflies.\n";
+  gameOverText = "You have caught " + witch.preyEaten + " dragonflies.\n";
   gameOverText = gameOverText + "Good job!\n";
   gameOverText = gameOverText + "Click to retry.";
   text(gameOverText, 1300, 600);
@@ -235,16 +256,16 @@ function gameOverMessageThree() {
 //
 // If the predator's health reaches 0, then the game ends
 function gameOverState() {
-  if (tiger.health === 0) {
+  if (witch.health === 0) {
     playing = false;
     gameOver = true;
     // A different screen appears depending on the number of prey eaten
-    if (tiger.preyEaten >= 5) {
+    if (witch.preyEaten >= 5) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageThree();
     }
-    else if (tiger.preyEaten >= 2) {
+    else if (witch.preyEaten >= 2) {
       image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageTwo();
