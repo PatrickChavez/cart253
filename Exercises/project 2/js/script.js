@@ -102,7 +102,6 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   bgMusic.loop();
   witch = new Predator(100, 100, 5, playerImage, 40);
-  fly = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
   speedGuy = new Speedup(100, 100, 5, speedImage, 40);
   // Putting a for loop to generate various characters
@@ -110,7 +109,10 @@ function setup() {
   slowGuy = new Slowdown(random(200, width), random (200, height), random(2, 5), slowImage, random(20, 40));
   slowArray.push(slowGuy);
   }
-
+  for (let i = 0; i < 3; i++) {
+    fly = new Prey(random(200, width), random(200, height), random(2, 5), preyImage, random(20, 40));
+    flyArray.push(fly);
+  }
   for (let i = 0; i < starNumber; i++) {
   starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
   starArray.push(starGroup);
@@ -132,7 +134,6 @@ function draw() {
 
     // Move all the "animals"
     witch.move();
-    fly.move();
     danger.move();
     speedGuy.move();
 
@@ -148,6 +149,7 @@ function draw() {
 
     // Handle the witch getting slower
     witch.handleSlowdown(slowGuy);
+    witch.handleSlowdown(slowArray);
 
     // Handle the danger damaging the witch
     danger.damage(witch);
@@ -155,7 +157,6 @@ function draw() {
     // Display all the characters
     danger.display();
     witch.display();
-    fly.display();
     speedGuy.display();
 
     // Displaying various characters using a for loop with arrays
@@ -169,6 +170,10 @@ function draw() {
     slowArray[i].move();
     }
 
+    for (let i = 0; i < flyArray.length; i++) {
+    flyArray[i].display();
+    flyArray[i].move();
+    }
 
     // The game is over once the predator's health reaches 0
     gameOverState();
@@ -186,13 +191,8 @@ function draw() {
 function resetGame() {
   gameOver = false;
   witch = new Predator(100, 100, 5, playerImage, 40);
-  fly = new Prey(100, 100, 8, preyImage, 60);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
   speedGuy = new Speedup(100, 100, 2, speedImage, 40);
-  for (let i = 0; i < 5; i++) {
-  slowGuy = new Slowdown(random(200, width), random (200, height), random(2, 5), slowImage, random(20, 40));
-  slowArray.push(slowGuy);
-  }
 
   witch.health = witch.maxHealth;
   witch.preyEaten = 0;
