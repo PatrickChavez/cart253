@@ -31,8 +31,10 @@ let starGroup;
 let starArray = [];
 let starNumber = 100;
 
-// The title/game over screen(s)
+// The title, story, instructions and game over screens
 let titleScreen;
+let storyScreen;
+let instructionsScreen;
 let gameOverScreen;
 let gameOverScreenTwo;
 let gameOverScreenThree;
@@ -65,6 +67,8 @@ function preload() {
   gameOverScreen = loadImage("assets/images/GameOver1.png");
   gameOverScreenTwo = loadImage("assets/images/GameOver2.png");
   gameOverScreenThree = loadImage("assets/images/GameOver3.png");
+  storyScreen = loadImage("assets/images/StoryScreen.png")
+  instructionsScreen = loadImage("assets/images/InstructionsScreen.png");
   backgroundGame = loadImage("assets/images/MoonBackground.png");
   preyImage = loadImage("assets/images/GoldDragonfly.png");
   playerImage = loadImage("assets/images/WitchAvatar.png");
@@ -179,14 +183,52 @@ function resetGame() {
 // tells the player what their score was
 function gameOverMessage() {
   // Setting the text aesthetics
-  textSize(42);
-  textAlign(BOTTOM,BOTTOM);
-  fill(0);
+  textFont(cFont);
+  textSize(50);
+  textAlign(LEFT,BOTTOM);
+  fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You've eaten " + tiger.preyEaten + " prey.\n";
+  gameOverText = "You have caught " + tiger.preyEaten + " dragonflies.\n";
+  gameOverText = gameOverText + "Better luck next time!\n";
   gameOverText = gameOverText + "Click to retry.";
-  text(gameOverText, width / 2, height / 2);
+  text(gameOverText, 50, 600);
+}
+
+// gameOverMessageTwo
+//
+// Displays another message on the Game Over screen that
+// tells the player what their score was
+function gameOverMessageTwo() {
+  // Setting the text aesthetics
+  textFont(cFont);
+  textSize(60);
+  textAlign(CENTER,TOP);
+  fill(255, 240, 0);
+  // Setting up the text to display
+  let gameOverText;
+  gameOverText = "You have caught " + tiger.preyEaten + " dragonflies.\n";
+  gameOverText = gameOverText + "Not bad!\n";
+  gameOverText = gameOverText + "Click to retry.";
+  text(gameOverText, width/2, 0);
+}
+
+// gameOverMessageThree
+//
+// Displays yet another message on the Game Over screen that
+// tells the player what their score was
+function gameOverMessageThree() {
+  // Setting the text aesthetics
+  textFont(cFont);
+  textSize(70);
+  textAlign(RIGHT,BOTTOM);
+  fill(255, 240, 0);
+  // Setting up the text to display
+  let gameOverText;
+  gameOverText = "You have caught " + tiger.preyEaten + " dragonflies.\n";
+  gameOverText = gameOverText + "Good job!\n";
+  gameOverText = gameOverText + "Click to retry.";
+  text(gameOverText, 1300, 600);
 }
 
 // gameOver
@@ -196,19 +238,22 @@ function gameOverState() {
   if (tiger.health === 0) {
     playing = false;
     gameOver = true;
-    // titleScreen = false;
     // A different screen appears depending on the number of prey eaten
-    if (tiger.preyEaten >= 15) {
+    if (tiger.preyEaten >= 5) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
+      // Show Game Over text
+      gameOverMessageThree();
     }
-    else if (tiger.preyEaten >= 10) {
+    else if (tiger.preyEaten >= 2) {
       image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
+      // Show Game Over text
+      gameOverMessageTwo();
     }
     else {
     image(gameOverScreen, 0, 0, windowWidth, windowHeight);
-    }
     // Show Game Over text
     gameOverMessage();
+    }
   }
 }
 

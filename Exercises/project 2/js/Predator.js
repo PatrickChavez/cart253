@@ -214,9 +214,10 @@ class Predator {
   // Shows the number of prey eaten on top of the predator
   displayScore() {
     // The text is white and is displyed at the center
+    textFont(cFont);
     fill(255);
-    textSize(32);
+    textSize(40);
     textAlign(CENTER,CENTER);
-    text(this.preyEaten, this.x, this.y - this.radius - 10);
+    text(this.preyEaten, this.x, this.y - this.radius - 15);
   }
 }
