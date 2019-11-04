@@ -103,7 +103,7 @@ function setup() {
   bgMusic.loop();
   witch = new Predator(100, 100, 5, playerImage, 40);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
-  speedGuy = new Speedup(100, 100, 5, speedImage, 40);
+  speedGuy = new Speedup(100, 100, 10, speedImage, 40);
   // Putting a for loop to generate various characters
   for (let i = 0; i < 5; i++) {
   slowGuy = new Slowdown(random(200, width), random (200, height), random(2, 5), slowImage, random(20, 40));
@@ -132,7 +132,7 @@ function draw() {
     // Handle input for the witch
     witch.handleInput();
 
-    // Move all the "animals"
+    // Move all the characters
     witch.move();
     danger.move();
     speedGuy.move();
@@ -192,7 +192,7 @@ function resetGame() {
   gameOver = false;
   witch = new Predator(100, 100, 5, playerImage, 40);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
-  speedGuy = new Speedup(100, 100, 2, speedImage, 40);
+  speedGuy = new Speedup(100, 100, 10, speedImage, 40);
 
   witch.health = witch.maxHealth;
   witch.preyEaten = 0;
@@ -277,6 +277,7 @@ function gameOverState() {
     }
   }
 }
+
 
 // mousePressed()
 //

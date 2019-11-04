@@ -39,8 +39,8 @@ class Speedup {
     this.x += this.vx;
     this.y += this.vy;
     // Update time properties
-    this.tx += 0.05;
-    this.ty += 0.05;
+    this.tx += 0.02;
+    this.ty += 0.02;
     // Handle wrapping
     this.handleWrapping();
   }

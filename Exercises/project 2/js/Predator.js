@@ -94,6 +94,7 @@ class Predator {
     }
   }
 
+
   // handleEating
   //
   // Takes a Prey object as an argument and checks if the predator
