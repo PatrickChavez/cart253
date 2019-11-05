@@ -70,13 +70,24 @@ class DangerZone {
   // Takes a Predator object as an argument and checks if the Danger Zone
   // overlaps it. If so, greatly reduces the predator's health.
   damage(predator) {
-    // Calculate distance from the predator to the prey
+    // Calculate distance from the danger to the predator
     let d = dist(this.x, this.y, predator.x, predator.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a large amount
-      predator.health = predator.health - 1;
+      predator.health = predator.health - 0.5;
     }
+
+    for (let i = 0; i < this.trail.length; i++) {
+      // Calculate distance from the trail to the predator
+      let d = dist(this.trail[i].x, this.trail[i].y, predator.x, predator.y);
+      // Check if the distance is less than their two radii (an overlap)
+      if (d < this.radius + predator.radius) {
+        // Decrease predator health by a large amount
+        predator.health = predator.health - 0.5;
+      }
+    }
+
   }
 
   // display
@@ -89,7 +100,6 @@ class DangerZone {
     push();
     for (let i = 0; i < this.trail.length; i++) {
       imageMode(CENTER);
-      // tint(255);
       image(this.trailImage, this.trail[i].x, this.trail[i].y, this.radius * 2, this.radius * 2);
     }
     pop();

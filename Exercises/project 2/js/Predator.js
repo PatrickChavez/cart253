@@ -144,7 +144,7 @@ class Predator {
         // Play a sound
         speedSound.play();
         // Keeping track of the predator's speed
-        console.log("My speed is" + this.speed);
+        console.log("My speed is " + this.speed);
       }
     }
   }

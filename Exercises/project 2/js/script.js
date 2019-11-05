@@ -22,9 +22,9 @@ let gameOver = false;
 // Our predator
 let witch;
 
-// The prey and the array storing them
-let fly;
+// The prey, their number and the array storing them
 let flyArray = [];
+let flyNumber = 3;
 
 // The Danger Zone
 let danger;
@@ -32,12 +32,11 @@ let danger;
 // The Speedup
 let speedGuy;
 
-// The Slowdowns and the array storing them
-let slowGuy;
+// The Slowdowns, their number and the array storing them
 let slowArray = [];
+let slowNumber = 5;
 
 // The stars, their number and the array storing them
-let starGroup;
 let starArray = [];
 let starNumber = 100;
 
@@ -105,16 +104,16 @@ function setup() {
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
   speedGuy = new Speedup(100, 100, 10, speedImage, 40);
   // Putting a for loop to generate various characters
-  for (let i = 0; i < 5; i++) {
-    slowGuy = new Slowdown(random(200, width), random(200, height), random(2, 5), slowImage, random(20, 40));
+  for (let i = 0; i < slowNumber; i++) {
+    let slowGuy = new Slowdown(random(200, width), random(200, height), random(2, 5), slowImage, random(20, 40));
     slowArray.push(slowGuy);
   }
-  for (let i = 0; i < 3; i++) {
-    fly = new Prey(random(200, width), random(200, height), random(2, 5), preyImage, random(20, 40));
+  for (let i = 0; i < flyNumber; i++) {
+    let fly = new Prey(random(200, width), random(200, height), random(2, 5), preyImage, random(20, 40));
     flyArray.push(fly);
   }
   for (let i = 0; i < starNumber; i++) {
-    starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
+    let starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
     starArray.push(starGroup);
   }
 }
@@ -138,15 +137,8 @@ function draw() {
     danger.move();
     speedGuy.move();
 
-    // Handle the witch "eating" any of the prey
-    witch.handleEating(fly);
-
     // Handle the witch getting faster
     witch.handleSpeedup(speedGuy);
-
-    // Handle the witch getting slower
-    witch.handleSlowdown(slowGuy);
-    witch.handleSlowdown(slowArray);
 
     // Handle the danger damaging the witch
     danger.damage(witch);
@@ -163,14 +155,19 @@ function draw() {
     }
 
     for (let i = 0; i < slowArray.length; i++) {
+      witch.handleSlowdown(slowArray[i]);
       slowArray[i].display();
       slowArray[i].move();
     }
 
     for (let i = 0; i < flyArray.length; i++) {
+      witch.handleEating(flyArray[i]);
       flyArray[i].display();
       flyArray[i].move();
     }
+
+    // Handling the danger speeding up
+    //dangerSpeedup();
 
     // The game is over once the predator's health reaches 0
     gameOverState();
@@ -179,6 +176,16 @@ function draw() {
     image(titleScreen, 0, 0, windowWidth, windowHeight);
   }
 }
+
+// dangerSpeedup
+//
+// A function that increases the Danger Zone's speed
+// whenever the predator consumes prey
+// ///function dangerSpeedup() {
+//   if (fly.health < 0) {
+//     danger.speed = danger.speed + 5;
+//   }
+// }
 
 // resetGame
 //
@@ -256,11 +263,11 @@ function gameOverState() {
     playing = false;
     gameOver = true;
     // A different screen appears depending on the number of prey eaten
-    if (witch.preyEaten >= 5) {
+    if (witch.preyEaten >= 25) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageThree();
-    } else if (witch.preyEaten >= 2) {
+    } else if (witch.preyEaten >= 10) {
       image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageTwo();
