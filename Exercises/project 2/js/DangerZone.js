@@ -24,7 +24,7 @@ class DangerZone {
     // An array to display a trail of danger zones
     this.trail = [];
     // Setting up a for loop to generate the number of trail "bits"
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       let location = {
         x: this.x,
         y: this.y,
@@ -39,7 +39,11 @@ class DangerZone {
   // Moves based on the resulting velocity
   // It also bounces around the canvas by reversing its velocity
   // The trail follows the previous "unit's" movements
+  // A teriary operator is used in order to emulate speed
+  // and allow the danger to speed up when prey is eaten
   move() {
+    this.vx = (this.vx > 0)? this.speed : -this.speed;
+    this.vy = this.speed * Math.sign(this.vy);
     // Update position based on velocity
     this.x += this.vx;
     this.y += this.vy;
@@ -87,7 +91,6 @@ class DangerZone {
         predator.health = predator.health - 0.5;
       }
     }
-
   }
 
   // display

@@ -22,6 +22,9 @@ let gameOver = false;
 // Our predator
 let witch;
 
+// Checks the current state of the game (i.e. what screen is displayed)
+let state;
+
 // The prey, their number and the array storing them
 let flyArray = [];
 let flyNumber = 3;
@@ -99,10 +102,12 @@ function preload() {
 // Creates objects for the variables
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // Setting the initial state to the title screen
+  state = "TITLE";
   bgMusic.loop();
   witch = new Predator(100, 100, 5, playerImage, 40);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
-  speedGuy = new Speedup(100, 100, 10, speedImage, 40);
+  speedGuy = new Speedup(100, 100, 9, speedImage, 40);
   // Putting a for loop to generate various characters
   for (let i = 0; i < slowNumber; i++) {
     let slowGuy = new Slowdown(random(200, width), random(200, height), random(2, 5), slowImage, random(20, 40));
@@ -123,6 +128,16 @@ function setup() {
 // Handles input, movement, eating, and displaying for the system's
 // objects and screens
 function draw() {
+  // Seting a sequence from the title screen to playing
+  if (state === "TITLE") {
+    displayTitle();
+  }
+  else if (state === "STORY") {
+    displayStory();
+  }
+  else if (state === "INSTRUCTIONS") {
+    displayInstructions();
+  }
 
   if (playing) {
 
@@ -161,31 +176,36 @@ function draw() {
     }
 
     for (let i = 0; i < flyArray.length; i++) {
-      witch.handleEating(flyArray[i]);
+      witch.handleEating(flyArray[i], danger);
       flyArray[i].display();
       flyArray[i].move();
     }
 
-    // Handling the danger speeding up
-    //dangerSpeedup();
-
     // The game is over once the predator's health reaches 0
     gameOverState();
-  } else if (gameOver === false) {
-    // Setting the title screen
-    image(titleScreen, 0, 0, windowWidth, windowHeight);
   }
 }
 
-// dangerSpeedup
+// displayTitle
 //
-// A function that increases the Danger Zone's speed
-// whenever the predator consumes prey
-// ///function dangerSpeedup() {
-//   if (fly.health < 0) {
-//     danger.speed = danger.speed + 5;
-//   }
-// }
+// Displays the title screen
+function displayTitle() {
+  image(titleScreen, 0, 0, windowWidth, windowHeight);
+}
+
+// displayStory
+//
+// Displays the story screen
+function displayStory() {
+  image(storyScreen, 0, 0, windowWidth, windowHeight);
+}
+
+// displayInstructions
+//
+// Displays the instructions screen
+function displayInstructions() {
+  image(instructionsScreen, 0, 0, windowWidth, windowHeight);
+}
 
 // resetGame
 //
@@ -195,7 +215,7 @@ function resetGame() {
   gameOver = false;
   witch = new Predator(100, 100, 5, playerImage, 40);
   danger = new DangerZone(400, 400, 5, dangerImage, 50, dangerBody);
-  speedGuy = new Speedup(100, 100, 10, speedImage, 40);
+  speedGuy = new Speedup(100, 100, 9, speedImage, 40);
 
   witch.health = witch.maxHealth;
   witch.preyEaten = 0;
@@ -216,7 +236,7 @@ function gameOverMessage() {
   gameOverText = "You caught " + witch.preyEaten + " golden dragonflies.\n";
   gameOverText = gameOverText + "Better luck next time!\n";
   gameOverText = gameOverText + "Click to retry.";
-  text(gameOverText, 50, 600);
+  text(gameOverText, 50, 650);
 }
 
 // gameOverMessageTwo
@@ -263,11 +283,11 @@ function gameOverState() {
     playing = false;
     gameOver = true;
     // A different screen appears depending on the number of prey eaten
-    if (witch.preyEaten >= 25) {
+    if (witch.preyEaten >= 30) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageThree();
-    } else if (witch.preyEaten >= 10) {
+    } else if (witch.preyEaten >= 15) {
       image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageTwo();
@@ -279,12 +299,18 @@ function gameOverState() {
   }
 }
 
-
 // mousePressed()
 //
-// Allows the game to start upon clicking the screen
+// Allows the game to cycle through states upon clicking the screen
 function mousePressed() {
-  if (!playing) {
+  if (state === "TITLE") {
+    state = "STORY";
+  }
+  else if (state === "STORY") {
+    state = "INSTRUCTIONS";
+  }
+  else {
+    state = false;
     playing = true;
     resetGame();
   }

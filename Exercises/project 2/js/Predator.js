@@ -100,7 +100,7 @@ class Predator {
   // overlaps it. If so, reduces the prey's health and increases
   // the predator's. If the prey dies, it gets reset.
   // The number of prey eaten also gets increased.
-  handleEating(prey) {
+  handleEating(prey, danger) {
     // Calculate distance from this predator to the prey
     let d = dist(this.x, this.y, prey.x, prey.y);
     // Check if the distance is less than their two radii (an overlap)
@@ -116,6 +116,7 @@ class Predator {
         preySound.play();
         prey.reset();
         this.preyEaten = this.preyEaten + 1;
+        danger.speed = danger.speed + 0.5;
       }
     }
   }
@@ -140,7 +141,7 @@ class Predator {
         speedup.reset();
         // Increase predator speed and constrain it to its possible range
         this.speed = this.speed + 5;
-        this.speed = constrain(this.speed, 5, 40);
+        this.speed = constrain(this.speed, 5, 20);
         // Play a sound
         speedSound.play();
         // Keeping track of the predator's speed
@@ -165,7 +166,7 @@ class Predator {
       if (slowdown.health < 0) {
         slowdown.reset();
         // Decrease predator speed and constrain it to its possible range
-        this.speed = this.speed - 1;
+        this.speed = this.speed - 2;
         this.speed = constrain(this.speed, 5, 40);
         // Play a sound
         slowSound.play();
