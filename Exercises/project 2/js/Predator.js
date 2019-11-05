@@ -26,7 +26,6 @@ class Predator {
     // Display properties
     this.image = image;
     this.radius = 40; // Determines the size of the predator
-
     // Input properties
     this.upKey = UP_ARROW;
     this.downKey = DOWN_ARROW;
@@ -125,9 +124,9 @@ class Predator {
   //
   // Takes a Speedup object as an argument and checks if the predator
   // overlaps it. If so, reduces the Speedup's health.
-  // If it dies, it gets reset.
+  // If the Speedup dies, it gets reset.
   handleSpeedup(speedup) {
-    // Calculate distance from this predator to the prey
+    // Calculate distance from this predator to the Speedup
     let d = dist(this.x, this.y, speedup.x, speedup.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + speedup.radius) {
@@ -136,13 +135,12 @@ class Predator {
       this.health = constrain(this.health, 0, this.maxHealth);
       // Gradually decrease Speedup health
       speedup.health -= this.healthGainPerEat;
-      // Check if the prey died and reset it if so
-      // Increase the number of prey eaten if so
+      // Check if the Speedup died and reset it if so
       if (speedup.health < 0) {
         speedup.reset();
         // Increase predator speed and constrain it to its possible range
         this.speed = this.speed + 5;
-        this.speed = constrain(this.speed,1,20);
+        this.speed = constrain(this.speed, 5, 40);
         // Play a sound
         speedSound.play();
         // Keeping track of the predator's speed
@@ -154,22 +152,21 @@ class Predator {
   // handleSlowdown
   //
   // Takes a Slowdown object as an argument and checks if the predator
-  // overlaps it. If so, reduces the Speedup's health.
+  // overlaps it. If so, reduces the Slowdown's health.
   // If it dies, it gets reset.
   handleSlowdown(slowdown) {
-    // Calculate distance from this predator to the prey
+    // Calculate distance from this predator to the Slowdown
     let d = dist(this.x, this.y, slowdown.x, slowdown.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + slowdown.radius) {
-      // Gradually decrease Speedup health
+      // Gradually decrease Slowdown health
       slowdown.health -= this.healthGainPerEat;
-      // Check if the prey died and reset it if so
-      // Increase the number of prey eaten if so
+      // Check if the Slowdown died and reset it if so
       if (slowdown.health < 0) {
         slowdown.reset();
         // Decrease predator speed and constrain it to its possible range
         this.speed = this.speed - 1;
-        this.speed = constrain(this.speed,1,20);
+        this.speed = constrain(this.speed, 5, 40);
         // Play a sound
         slowSound.play();
         // Keeping track of the predator's speed
@@ -180,8 +177,7 @@ class Predator {
 
   // display
   //
-  // Draw the predator as an ellipse on the canvas
-  // with a fixed radius.
+  // Draw the predator as a witch on the canvas with a fixed radius.
   display() {
     push();
     noStroke();
@@ -218,7 +214,7 @@ class Predator {
     textFont(cFont);
     fill(255);
     textSize(40);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     text(this.preyEaten, this.x, this.y - this.radius - 15);
   }
 }

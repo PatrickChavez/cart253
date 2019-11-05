@@ -55,22 +55,20 @@ class Prey {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
 
   // display
   //
-  // Draw the prey as an ellipse on the canvas
+  // Draw the prey as a gold dragonfly on the canvas
   // with a radius the same size as its current health.
   display() {
     push();
@@ -80,7 +78,7 @@ class Prey {
     imageMode(CENTER);
     // Making it so the image doesn't flicker when it disapears
     if (this.health > 0) {
-    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+      image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     }
     pop();
   }

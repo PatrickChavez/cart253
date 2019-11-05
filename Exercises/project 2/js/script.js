@@ -106,22 +106,23 @@ function setup() {
   speedGuy = new Speedup(100, 100, 10, speedImage, 40);
   // Putting a for loop to generate various characters
   for (let i = 0; i < 5; i++) {
-  slowGuy = new Slowdown(random(200, width), random (200, height), random(2, 5), slowImage, random(20, 40));
-  slowArray.push(slowGuy);
+    slowGuy = new Slowdown(random(200, width), random(200, height), random(2, 5), slowImage, random(20, 40));
+    slowArray.push(slowGuy);
   }
   for (let i = 0; i < 3; i++) {
     fly = new Prey(random(200, width), random(200, height), random(2, 5), preyImage, random(20, 40));
     flyArray.push(fly);
   }
   for (let i = 0; i < starNumber; i++) {
-  starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
-  starArray.push(starGroup);
+    starGroup = new Stars(random(0, width), random(0, height), 3, color(255, 255, 255, 40), random(1, 20));
+    starArray.push(starGroup);
   }
 }
 
 // draw()
 //
-// Handles input, movement, eating, and displaying for the system's objects
+// Handles input, movement, eating, and displaying for the system's
+// objects and screens
 function draw() {
 
   if (playing) {
@@ -132,19 +133,15 @@ function draw() {
     // Handle input for the witch
     witch.handleInput();
 
-    // Move all the characters
+    // Move the non array characters
     witch.move();
     danger.move();
     speedGuy.move();
 
-
-
-
-
-    // Handle the tiger eating any of the prey
+    // Handle the witch "eating" any of the prey
     witch.handleEating(fly);
 
-    // Handle the tiger getting faster
+    // Handle the witch getting faster
     witch.handleSpeedup(speedGuy);
 
     // Handle the witch getting slower
@@ -154,31 +151,30 @@ function draw() {
     // Handle the danger damaging the witch
     danger.damage(witch);
 
-    // Display all the characters
+    // Display all the non array characters
     danger.display();
     witch.display();
     speedGuy.display();
 
-    // Displaying various characters using a for loop with arrays
+    // Displaying various other characters using a for loop with arrays
     for (let i = 0; i < starArray.length; i++) {
-    starArray[i].display();
-    starArray[i].move();
+      starArray[i].display();
+      starArray[i].move();
     }
 
     for (let i = 0; i < slowArray.length; i++) {
-    slowArray[i].display();
-    slowArray[i].move();
+      slowArray[i].display();
+      slowArray[i].move();
     }
 
     for (let i = 0; i < flyArray.length; i++) {
-    flyArray[i].display();
-    flyArray[i].move();
+      flyArray[i].display();
+      flyArray[i].move();
     }
 
     // The game is over once the predator's health reaches 0
     gameOverState();
-  }
-  else if (gameOver === false) {
+  } else if (gameOver === false) {
     // Setting the title screen
     image(titleScreen, 0, 0, windowWidth, windowHeight);
   }
@@ -206,11 +202,11 @@ function gameOverMessage() {
   // Setting the text aesthetics
   textFont(cFont);
   textSize(50);
-  textAlign(LEFT,BOTTOM);
+  textAlign(LEFT, BOTTOM);
   fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You have caught " + witch.preyEaten + " dragonflies.\n";
+  gameOverText = "You caught " + witch.preyEaten + " golden dragonflies.\n";
   gameOverText = gameOverText + "Better luck next time!\n";
   gameOverText = gameOverText + "Click to retry.";
   text(gameOverText, 50, 600);
@@ -224,14 +220,14 @@ function gameOverMessageTwo() {
   // Setting the text aesthetics
   textFont(cFont);
   textSize(60);
-  textAlign(CENTER,TOP);
+  textAlign(CENTER, TOP);
   fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You have caught " + witch.preyEaten + " dragonflies.\n";
+  gameOverText = "You caught " + witch.preyEaten + " golden dragonflies.\n";
   gameOverText = gameOverText + "Not bad!\n";
   gameOverText = gameOverText + "Click to retry.";
-  text(gameOverText, width/2, 0);
+  text(gameOverText, width / 2, 0);
 }
 
 // gameOverMessageThree
@@ -242,11 +238,11 @@ function gameOverMessageThree() {
   // Setting the text aesthetics
   textFont(cFont);
   textSize(70);
-  textAlign(RIGHT,BOTTOM);
+  textAlign(RIGHT, BOTTOM);
   fill(255, 240, 0);
   // Setting up the text to display
   let gameOverText;
-  gameOverText = "You have caught " + witch.preyEaten + " dragonflies.\n";
+  gameOverText = "You caught " + witch.preyEaten + " golden dragonflies.\n";
   gameOverText = gameOverText + "Good job!\n";
   gameOverText = gameOverText + "Click to retry.";
   text(gameOverText, 1300, 600);
@@ -264,16 +260,14 @@ function gameOverState() {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageThree();
-    }
-    else if (witch.preyEaten >= 2) {
+    } else if (witch.preyEaten >= 2) {
       image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageTwo();
-    }
-    else {
-    image(gameOverScreen, 0, 0, windowWidth, windowHeight);
-    // Show Game Over text
-    gameOverMessage();
+    } else {
+      image(gameOverScreen, 0, 0, windowWidth, windowHeight);
+      // Show Game Over text
+      gameOverMessage();
     }
   }
 }

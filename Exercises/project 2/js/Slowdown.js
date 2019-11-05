@@ -1,12 +1,12 @@
 // Slowdown
 //
-// Class that represents a circle that decreases the player's speed
+// Class that represents a green dragonfly that decreases the player's speed
 // if they consume it. It moves around based on the noise() function.
 
 class Slowdown {
   // constructor
   //
-  // Sets the initial values for the speedup's properties
+  // Sets the initial values for the Slowdown's properties
   // Either sets default values or uses the arguments provided
   constructor(x, y, speed, image, radius) {
     // Position
@@ -47,28 +47,26 @@ class Slowdown {
 
   // handleWrapping
   //
-  // Checks if the prey has gone off the canvas and
+  // Checks if the Slowdown has gone off the canvas and
   // wraps it to the other side if so
   handleWrapping() {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
 
   // display
   //
-  // Draw the Slowdown as an ellipse on the canvas
+  // Draw the Slowdown as a green dragonfly on the canvas
   // with a radius the same size as its current health.
   display() {
     push();
@@ -78,7 +76,7 @@ class Slowdown {
     imageMode(CENTER);
     // Making it so the image doesn't flicker when it disapears
     if (this.health > 0) {
-    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
+      image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     }
     pop();
   }

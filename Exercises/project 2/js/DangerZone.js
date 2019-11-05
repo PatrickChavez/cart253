@@ -81,11 +81,11 @@ class DangerZone {
 
   // display
   //
-  // Draw the Danger Zone as a group of ellipses on the canvas
+  // Draw the Danger Zone as a sundew on the canvas
   display() {
     push();
     noStroke();
-    // The trail gets a different color
+    // The trail becomes its extended body
     push();
     for (let i = 0; i < this.trail.length; i++) {
       imageMode(CENTER);
