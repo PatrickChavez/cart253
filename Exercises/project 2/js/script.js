@@ -131,11 +131,9 @@ function draw() {
   // Seting a sequence from the title screen to playing
   if (state === "TITLE") {
     displayTitle();
-  }
-  else if (state === "STORY") {
+  } else if (state === "STORY") {
     displayStory();
-  }
-  else if (state === "INSTRUCTIONS") {
+  } else if (state === "INSTRUCTIONS") {
     displayInstructions();
   }
 
@@ -283,11 +281,11 @@ function gameOverState() {
     playing = false;
     gameOver = true;
     // A different screen appears depending on the number of prey eaten
-    if (witch.preyEaten >= 30) {
+    if (witch.preyEaten >= 25) {
       image(gameOverScreenThree, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageThree();
-    } else if (witch.preyEaten >= 15) {
+    } else if (witch.preyEaten >= 12) {
       image(gameOverScreenTwo, 0, 0, windowWidth, windowHeight);
       // Show Game Over text
       gameOverMessageTwo();
@@ -305,11 +303,9 @@ function gameOverState() {
 function mousePressed() {
   if (state === "TITLE") {
     state = "STORY";
-  }
-  else if (state === "STORY") {
+  } else if (state === "STORY") {
     state = "INSTRUCTIONS";
-  }
-  else {
+  } else if (!playing) {
     state = false;
     playing = true;
     resetGame();

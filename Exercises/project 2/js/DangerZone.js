@@ -24,7 +24,7 @@ class DangerZone {
     // An array to display a trail of danger zones
     this.trail = [];
     // Setting up a for loop to generate the number of trail "bits"
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
       let location = {
         x: this.x,
         y: this.y,
@@ -42,7 +42,7 @@ class DangerZone {
   // A teriary operator is used in order to emulate speed
   // and allow the danger to speed up when prey is eaten
   move() {
-    this.vx = (this.vx > 0)? this.speed : -this.speed;
+    this.vx = (this.vx > 0) ? this.speed : -this.speed;
     this.vy = this.speed * Math.sign(this.vy);
     // Update position based on velocity
     this.x += this.vx;
@@ -78,7 +78,7 @@ class DangerZone {
     let d = dist(this.x, this.y, predator.x, predator.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
-      // Decrease predator health by a large amount
+      // Decrease predator health by a good amount
       predator.health = predator.health - 0.5;
     }
 
@@ -87,7 +87,7 @@ class DangerZone {
       let d = dist(this.trail[i].x, this.trail[i].y, predator.x, predator.y);
       // Check if the distance is less than their two radii (an overlap)
       if (d < this.radius + predator.radius) {
-        // Decrease predator health by a large amount
+        // Decrease predator health by a good amount
         predator.health = predator.health - 0.5;
       }
     }

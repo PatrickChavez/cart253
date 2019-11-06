@@ -116,7 +116,7 @@ class Predator {
         preySound.play();
         prey.reset();
         this.preyEaten = this.preyEaten + 1;
-        danger.speed = danger.speed + 0.5;
+        danger.speed = danger.speed + 0.2;
       }
     }
   }
