@@ -1,5 +1,5 @@
 // Predator-Prey Simulation Project 3
-// by Pippin Barr
+// by Patrick Chavez-Nadarajah
 //
 // Creates a predator and three prey (of different sizes and speeds)
 // The predator chases the prey using the arrow keys and consumes them.
