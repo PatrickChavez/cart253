@@ -18,14 +18,17 @@ class Predator {
     this.vx = 0;
     this.vy = 0;
     this.speed = speed;
+    // The other speed "states"
+    this.defaultSpeed = speed;
+    this.sprintSpeed = 10;
     // Health properties
-    this.maxHealth = radius;
+    this.maxHealth = 255;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
     this.fillColor = fillColor;
-    this.radius = this.health; // Radius is defined in terms of health
+    this.radius = radius;
     // Input properties
     this.upKey = UP_ARROW;
     this.downKey = DOWN_ARROW;
@@ -57,6 +60,13 @@ class Predator {
     }
     else {
       this.vy = 0;
+    }
+    // Allow the predator to sprint using the SHIFT key
+    if (keyIsDown(SHIFT)) {
+      this.speed = this.sprintSpeed;
+    }
+    else {
+      this.speed = this.defaultSpeed;
     }
   }
 
@@ -127,7 +137,6 @@ class Predator {
     push();
     noStroke();
     fill(this.fillColor);
-    this.radius = this.health;
     ellipse(this.x, this.y, this.radius * 2);
     pop();
   }
