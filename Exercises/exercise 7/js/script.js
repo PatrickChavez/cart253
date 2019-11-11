@@ -19,6 +19,18 @@ let antelope;
 let zebra;
 let bee;
 
+// The dangers, its array and the number storing them
+// let cageLeft;
+// let cageRight;
+// let cageTop;
+// let cageBottom;
+let cageNumber = 5;
+let cageArray = [];
+
+// The mini danger, its array and the number storing them
+let miniNumber = 5;
+let miniArray = [];
+
 // The art assets
 let titleScreen;
 
@@ -36,10 +48,15 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  tiger = new Predator(width/2, height/2, 5, color(200, 200, 0), 40);
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  // Setting a for loop to generate multiple objects
+  for (let i = 0; i < miniNumber; i++) {
+    let miniDanger = new MiniDanger(random(0, width), 0, 5, color(105, 0, 255), (random(10, 40)));
+    miniArray.push(miniDanger);
+  }
 }
 
 // draw()
@@ -76,6 +93,13 @@ function draw() {
     antelope.display();
     zebra.display();
     bee.display();
+
+    // Moving and displaying the arrays
+    for (let i = 0; i < miniArray.length; i++) {
+      miniArray[i].move();
+      miniArray[i].display();
+      miniArray[i].damage(tiger);
+    }
   }
 }
 

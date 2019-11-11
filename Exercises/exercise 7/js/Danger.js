@@ -14,30 +14,28 @@ class Danger {
     this.x = x;
     this.y = y;
     // Velocity and speed
-    this.vx = 0;
-    this.vy = 0;
+    this.vx = speed;
+    this.vy = speed;
     this.speed = speed;
-    // Time properties for noise() function
-    this.tx = random(0, 1000); // To make x and y noise different
-    this.ty = random(0, 1000); // we use random starting values
     // Display properties
     this.fillColor = fillColor;
+    // The radius
+    this.radius = radius;
   }
 
   // move
   //
-  // Sets velocity based on the noise() function and the Danger's speed
+  // Sets movement based on the Danger's speed
   // Moves based on the resulting velocity and handles wrapping
   move() {
-    // Set velocity via noise()
-    this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
-    this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
     // Update position
     this.x += this.vx;
     this.y += this.vy;
-    // Update time properties
-    this.tx += 0.01;
-    this.ty += 0.01;
+    // Check for collisions with top or bottom of the canvas
+   if (this.y < 0 || this.y > height) {
+     // It hit so reverse velocity
+     this.vy = -this.vy;
+   }
     // Handle wrapping
     this.handleWrapping();
   }

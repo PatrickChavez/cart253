@@ -26,7 +26,7 @@ class MiniDanger extends Danger {
   // handleWrapping
   //
   // Checks if the MiniDanger has gone off the canvas and
-  // wrap them to the other side if so
+  // wraps them to the other side if so
   handleWrapping() {
     // Off the left or right
     if (this.x < 0) {
