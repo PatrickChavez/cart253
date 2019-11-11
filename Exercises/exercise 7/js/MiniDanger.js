@@ -21,6 +21,7 @@ class MiniDanger extends Danger {
     this.y += this.vy;
     // Handle wrapping
     this.handleWrapping();
+    this.warp();
   }
 
   // handleWrapping
@@ -39,6 +40,17 @@ class MiniDanger extends Danger {
       this.y += height;
     } else if (this.y > height) {
       this.y -= height;
+    }
+  }
+
+  // warp
+  //
+  // Moves the mini danger to a random position when it
+  // reaches the bottom of the screen. The radius also changes.
+  warp() {
+    if (this.y > height - 4) {
+      this.x = random(0, width);
+      this.radius = random(10, 40);
     }
   }
 }
