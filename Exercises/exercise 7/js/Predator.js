@@ -22,7 +22,7 @@ class Predator {
     this.defaultSpeed = speed;
     this.sprintSpeed = 10;
     // Health properties
-    this.maxHealth = 255;
+    this.maxHealth = 100;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
@@ -131,13 +131,37 @@ class Predator {
 
   // display
   //
-  // Draw the predator as an ellipse on the canvas
-  // with a radius the same size as its current health.
+  // Draw the predator as an ellipse on the canvas.
   display() {
     push();
     noStroke();
     fill(this.fillColor);
     ellipse(this.x, this.y, this.radius * 2);
+    pop();
+    // Displaying health.
+    this.displayHealth()
+  }
+
+  // displayHealth
+  //
+  // Displays a health bar on top of the predator.
+  // The color changes based on the the amount left.
+  displayHealth() {
+    push();
+    rectMode(CENTER);
+    // Health will be red at critical levels
+    if (this.health <= 33) {
+      fill(255, 0 , 0);
+    }
+    // Health will be yellow at medium levels
+    else if (this.health <= 66) {
+      fill(255, 220, 0);
+    }
+    // Health is green otherwise
+    else {
+      fill(0, 255, 0);
+    }
+    rect(this.x, this.y - this.radius * 2, this.health, 30);
     pop();
   }
 }
