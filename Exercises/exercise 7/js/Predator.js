@@ -81,9 +81,7 @@ class Predator {
     // Update position
     this.x += this.vx;
     this.y += this.vy;
-    // Update health
-    this.health = this.health - this.healthLossPerMove;
-    this.health = constrain(this.health, 0, this.maxHealth);
+
     // Handle wrapping
     this.handleWrapping();
   }
@@ -126,6 +124,28 @@ class Predator {
       if (prey.health < 0) {
         prey.reset();
         this.preyEaten += 1;
+      }
+    }
+  }
+
+  // handleHealing
+  //
+  // Takes a Healer object as an argument and checks if the predator
+  // overlaps it. If so, reduces the Healer's health and increases
+  // the predator's. If the Healer dies, it gets reset.
+  handleHealing(healer) {
+    // Calculate distance from this predator to the healer
+    let d = dist(this.x, this.y, healer.x, healer.y);
+    // Check if the distance is less than their two radii (an overlap)
+    if (d < this.radius + healer.radius) {
+      // Increase predator health and constrain it to its possible range
+      this.health += this.healthGainPerEat;
+      this.health = constrain(this.health, 0, this.maxHealth);
+      // Decrease prey health by the same amount
+      healer.health -= this.healthGainPerEat;
+      // Check if the healer died and reset it if so
+      if (healer.health < 0) {
+        healer.reset();
       }
     }
   }

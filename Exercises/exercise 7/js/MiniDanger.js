@@ -19,7 +19,7 @@ class MiniDanger extends Danger {
   move() {
     // Update position based on velocity
     this.y += this.vy;
-    // Handle wrapping
+    // Handle wrapping and warping
     this.handleWrapping();
     this.warp();
   }

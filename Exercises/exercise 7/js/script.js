@@ -19,6 +19,9 @@ let antelope;
 let zebra;
 let bee;
 
+// The healer
+let healer;
+
 // The dangers, its array and the number storing them
 // let cageLeft;
 // let cageRight;
@@ -52,6 +55,7 @@ function setup() {
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  healer = new Healer(0, random(0, height), 4, color(0, 255, 0), 20);
   // Setting a for loop to generate multiple objects
   for (let i = 0; i < miniNumber; i++) {
     let miniDanger = new MiniDanger(random(0, width), 0, 5, color(105, 0, 255), (random(10, 40)));
@@ -82,17 +86,22 @@ function draw() {
     antelope.move();
     zebra.move();
     bee.move();
+    healer.move();
 
     // Handle the tiger eating any of the prey
     tiger.handleEating(antelope);
     tiger.handleEating(zebra);
     tiger.handleEating(bee);
 
+    // Handle the healing
+    tiger.handleHealing(healer);
+
     // Display all the "animals"
     tiger.display();
     antelope.display();
     zebra.display();
     bee.display();
+    healer.display();
 
     // Moving and displaying the arrays
     for (let i = 0; i < miniArray.length; i++) {
