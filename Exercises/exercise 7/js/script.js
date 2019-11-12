@@ -26,7 +26,7 @@ let healer;
 let goalText = "Catch 40 prey!";
 let goalTextY = 700;
 
-// The dangers, its array and the number storing them
+// The dangers, their array and the number storing them
 // let cageLeft;
 // let cageRight;
 // let cageTop;
@@ -40,12 +40,14 @@ let miniArray = [];
 
 // The art assets
 let titleScreen;
+let gameOverScreen;
 
 // preload()
 //
 // Preloads the art assets
 function preload() {
   titleScreen = loadImage("assets/images/TitlePlaceholder.png");
+  gameOverScreen = loadImage("assets/images/GameOverPlaceholder.png");
 
 }
 
@@ -61,8 +63,12 @@ function setup() {
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
   healer = new Healer(0, random(0, height), 4, color(0, 255, 0), 20);
   // Setting a for loop to generate multiple objects
+  for (let i = 0; i < cageNumber; i++) {
+    let cageLeft = new Danger(500, 500, 5, color(255, 0, 0), 20);
+    cageArray.push(cageLeft);
+  }
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(0, width), 0, 5, color(105, 0, 255), (random(10, 40)));
+    let miniDanger = new MiniDanger(random(0, width), 0, random(3, 8), color(105, 0, 255), (random(10, 40)));
     miniArray.push(miniDanger);
   }
 }
@@ -114,6 +120,18 @@ function draw() {
       miniArray[i].damage(tiger);
     }
 
+    for (let i = 0; i < cageArray.length; i++) {
+      cageArray[i].move();
+      cageArray[i].display();
+      cageArray[i].damage(tiger);
+    }
+
+    // The game ends when health reaches 0
+    if (tiger.health === 0) {
+      state = "GAMEOVER";
+      displayGameOver();
+    }
+
     // Display the score
     displayScore();
 
@@ -151,6 +169,13 @@ function displayScore() {
 // Shows the title screen
 function displayTitle() {
   image(titleScreen, 0, 0, windowWidth, windowHeight);
+}
+
+// displayGameOver()
+//
+// Shows the game over screen
+function displayGameOver() {
+  image(gameOverScreen, 0, 0, windowWidth, windowHeight);
 }
 
 // mousePressed()
