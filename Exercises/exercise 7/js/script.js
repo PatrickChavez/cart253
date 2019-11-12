@@ -100,7 +100,20 @@ function draw() {
       miniArray[i].display();
       miniArray[i].damage(tiger);
     }
+
+    // Display the score
+    displayScore();
   }
+}
+
+// displayScore
+//
+// Shows the number of prey eaten
+function displayScore() {
+  fill(255);
+  textSize(64);
+  textAlign(LEFT,BOTTOM);
+  text("SCORE:" + tiger.preyEaten, 0, height);
 }
 
 // displayTitle()
