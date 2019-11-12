@@ -22,6 +22,10 @@ let bee;
 // The healer
 let healer;
 
+// The goal text and its movement
+let goalText = "Catch 40 prey!";
+let goalTextY = 700;
+
 // The dangers, its array and the number storing them
 // let cageLeft;
 // let cageRight;
@@ -112,7 +116,24 @@ function draw() {
 
     // Display the score
     displayScore();
+
+    // Display the goal
+    displayGoal();
   }
+}
+
+// displayGoal
+//
+// Shows the goal of the game
+function displayGoal() {
+  push();
+  fill(255);
+  textSize(64);
+  textAlign(CENTER,CENTER);
+  text(goalText, width/2, goalTextY);
+  // Make it move
+  goalTextY = goalTextY - 3;
+  pop();
 }
 
 // displayScore
