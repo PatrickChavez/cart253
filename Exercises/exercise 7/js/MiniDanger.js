@@ -11,6 +11,8 @@ class MiniDanger extends Danger {
   // or inherits the parent class.
   constructor(x, y, speed, fillColor, radius) {
     super(x, y, speed, fillColor, radius);
+    this.vx = speed;
+    this.vy = speed;
   }
 
   // move
@@ -41,6 +43,31 @@ class MiniDanger extends Danger {
     } else if (this.y > height) {
       this.y -= height;
     }
+  }
+
+  // damage
+  //
+  // Takes a Predator object as an argument and checks if the Mini Danger
+  // overlaps it. If so, reduces the predator's health.
+  damage(predator) {
+    // Calculate distance from the danger to the predator
+    let d = dist(this.x, this.y, predator.x, predator.y);
+    // Check if the distance is less than their two radii (an overlap)
+    if (d < this.radius + predator.radius) {
+      // Decrease predator health by a good amount
+      predator.health = predator.health - 0.5;
+    }
+  }
+
+  // display
+  //
+  // Draw the danger as an ellipse on the canvas
+  display() {
+    push();
+    noStroke();
+    fill(this.fillColor);
+    ellipse(this.x, this.y, this.radius * 2);
+    pop();
   }
 
   // warp

@@ -1,9 +1,7 @@
 // Predator-Prey Simulation Project 3
 // by Patrick Chavez-Nadarajah
 //
-// Creates a predator and three prey (of different sizes and speeds)
-// The predator chases the prey using the arrow keys and consumes them.
-// The predator loses health over time, so must keep eating to survive.
+// A draft of Project 3 that uses the Predator-Prey Simulation source code.
 //
 // Predator-Prey Simulation source code from Pippin Barr
 //https://github.com/pippinbarr/cart253-2019/blob/master/games/game-oop-predator-prey.zip
@@ -27,11 +25,7 @@ let goalText = "Catch 40 prey!";
 let goalTextY = 700;
 
 // The dangers, their array and the number storing them
-// let cageLeft;
-// let cageRight;
-// let cageTop;
-// let cageBottom;
-let cageNumber = 5;
+let cageNumber = 8;
 let cageArray = [];
 
 // The mini danger, its array and the number storing them
@@ -63,12 +57,25 @@ function setup() {
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
   healer = new Healer(0, random(0, height), 4, color(0, 255, 0), 20);
   // Setting a for loop to generate multiple objects
+  // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
-    let cageLeft = new Danger(500, 500, 5, color(255, 0, 0), 20);
+    let cageLeft = new Danger(150, 150 + i*60, 5, color(255, 0, 0), 30);
     cageArray.push(cageLeft);
   }
+  for (let i = 0; i < cageNumber; i++) {
+    let cageRight = new Danger(650, 150 + i*60, 5, color(255, 0, 0), 30);
+    cageArray.push(cageRight);
+  }
+  for (let i = 0; i < cageNumber; i++) {
+    let cageUp = new Danger(i*60 + 190, 100, 5, color(255, 0, 0), 30);
+    cageArray.push(cageUp);
+  }
+  for (let i = 0; i < cageNumber; i++) {
+    let cageDown = new Danger(i*60 + 190, 620, 5, color(255, 0, 0), 30);
+    cageArray.push(cageDown);
+  }
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(0, width), 0, random(3, 8), color(105, 0, 255), (random(10, 40)));
+    let miniDanger = new MiniDanger(random(0, width), 0, random(3, 5), color(105, 0, 255), (random(10, 40)));
     miniArray.push(miniDanger);
   }
 }
@@ -106,6 +113,7 @@ function draw() {
     // Handle the healing
     tiger.handleHealing(healer);
 
+
     // Display all the "animals"
     tiger.display();
     antelope.display();
@@ -127,7 +135,7 @@ function draw() {
     }
 
     // The game ends when health reaches 0
-    if (tiger.health === 0) {
+    if (tiger.health <= 0) {
       state = "GAMEOVER";
       displayGameOver();
     }

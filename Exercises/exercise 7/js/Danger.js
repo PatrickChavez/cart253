@@ -14,28 +14,34 @@ class Danger {
     this.x = x;
     this.y = y;
     // Velocity and speed
-    this.vx = speed;
-    this.vy = speed;
+    this.vx = 0;
+    this.vy = 0;
     this.speed = speed;
+    // Time properties for noise() function
+    this.tx = 5; // To make x and y noise different
+    this.ty = 100; // we use random starting values
     // Display properties
     this.fillColor = fillColor;
     // The radius
     this.radius = radius;
+    // for loop properties
+    this.segmentNumber = 5;
   }
 
-  // move
+  /// move
   //
-  // Sets movement based on the Danger's speed
+  // Sets velocity based on the noise() function and the Danger's speed
   // Moves based on the resulting velocity and handles wrapping
   move() {
+    // Set velocity via noise()
+    this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
+    this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
     // Update position
     this.x += this.vx;
     this.y += this.vy;
-    // Check for collisions with top or bottom of the canvas
-   if (this.y < 0 || this.y > height) {
-     // It hit so reverse velocity
-     this.vy = -this.vy;
-   }
+    // Update time properties
+    this.tx += 0.01;
+    this.ty += 0.01;
     // Handle wrapping
     this.handleWrapping();
   }
@@ -71,7 +77,7 @@ class Danger {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a good amount
-      predator.health = predator.health - 1;
+      predator.health = predator.health - 5;
     }
   }
 
