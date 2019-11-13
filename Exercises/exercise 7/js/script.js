@@ -29,8 +29,12 @@ let cageNumber = 8;
 let cageArray = [];
 
 // The mini danger, its array and the number storing them
-let miniNumber = 5;
+let miniNumber = 3;
 let miniArray = [];
+
+// The snow, its array and the number storing them
+let snowNumber = 100;
+let snowArray = [];
 
 // The art assets
 let titleScreen;
@@ -74,9 +78,15 @@ function setup() {
     let cageDown = new Danger(i*60 + 190, 620, 5, color(255, 0, 0), 30);
     cageArray.push(cageDown);
   }
+  // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(0, width), 0, random(3, 5), color(105, 0, 255), (random(10, 40)));
+    let miniDanger = new MiniDanger(random(0, width), 0, random(3, 5), color(105, 0, 255), random(10, 40));
     miniArray.push(miniDanger);
+  }
+  // The snow
+  for (let i = 0; i < snowNumber; i++) {
+  let snow = new Snow(random(0, width), random(0, height), random(2, 4), color(255, 115, 150, 50), random(3, 10));
+  snowArray.push(snow);
   }
 }
 
@@ -132,6 +142,11 @@ function draw() {
       cageArray[i].move();
       cageArray[i].display();
       cageArray[i].damage(tiger);
+    }
+
+    for (let i = 0; i < snowArray.length; i++) {
+      snowArray[i].move();
+      snowArray[i].display();
     }
 
     // The game ends when health reaches 0

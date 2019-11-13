@@ -18,8 +18,8 @@ class Danger {
     this.vy = 0;
     this.speed = speed;
     // Time properties for noise() function
-    this.tx = 5; // To make x and y noise different
-    this.ty = 100; // we use random starting values
+    this.tx = 5; 
+    this.ty = 100;
     // Display properties
     this.fillColor = fillColor;
     // The radius
