@@ -18,7 +18,7 @@ class Danger {
     this.vy = 0;
     this.speed = speed;
     // Time properties for noise() function
-    this.tx = 5; 
+    this.tx = 5;
     this.ty = 100;
     // Display properties
     this.fillColor = fillColor;
@@ -77,7 +77,7 @@ class Danger {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a good amount
-      predator.health = predator.health - 5;
+      predator.health = predator.health - 1;
     }
   }
 
