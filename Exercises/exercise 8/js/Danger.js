@@ -1,8 +1,8 @@
 // Danger
 //
 // A class that represents a harmful object that drains the
-// predator's health. It becomes smaller when it comes into contact
-// with a cage and can move with noise.
+// predator's health. It regenerates health, becomes smaller when it comes
+// into contact with a cage and moves with noise.
 
 class Danger {
 
@@ -33,6 +33,7 @@ class Danger {
   //
   // Sets velocity based on the noise() function and the Danger's speed
   // Moves based on the resulting velocity and handles wrapping
+  // Regenerates health over time
   move() {
     // Set velocity via noise()
     this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
@@ -43,6 +44,9 @@ class Danger {
     // Update time properties
     this.tx += 0.01;
     this.ty += 0.01;
+    // Update health
+    this.health += 5;
+    this.health = constrain(this.health, 1, this.maxHealth);
     // Handle wrapping
     this.handleWrapping();
   }

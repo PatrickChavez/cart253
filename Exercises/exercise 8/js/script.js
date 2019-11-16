@@ -29,7 +29,7 @@ let cageNumber = 8;
 let cageArray = [];
 
 // The danger, its array and the number storing them
-let dangerNumber = 2;
+let dangerNumber = 5;
 let dangerArray = [];
 
 // The mini danger, its array and the number storing them
@@ -84,7 +84,7 @@ function setup() {
   }
   // The dangers
   for (let i = 0; i < dangerNumber; i++) {
-    let danger = new Danger(random(0, width), random(0, height), random(3, 5), color(55, 130, 110), random(20, 50));
+    let danger = new Danger(random(0, 400), random(0, 400), random(3, 5), color(55, 130, 110), random(20, 50));
     dangerArray.push(danger);
   }
   // The mini dangers
@@ -203,7 +203,7 @@ function playState() {
     cageArray[i].move();
     cageArray[i].display();
     cageArray[i].damage(tiger);
-    cageArray[i].handleEating(dangerArray.length);
+    cageArray[i].handleEating(dangerArray);
   }
 
   for (let i = 0; i < snowArray.length; i++) {

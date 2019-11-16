@@ -106,12 +106,12 @@ class Cage {
     }
     // for (let i = 0; i < this.array.length; i++) {
     //   // Calculate distance from the trail to the predator
-    //   let d = dist(this.array[i].x, this.array[i].y, danger.x, danger.y);
+    //   let d = dist(this.array[i].x, this.array[i].y, danger[i].x, danger[i].y);
     //   // Check if the distance is less than their two radii (an overlap)
-    //   if (d < this.radius + danger.radius) {
+    //   if (d < this.radius + danger[i].radius) {
     //     // Decrease prey health and constrain it
-    //     danger.health -= 1;
-    //     danger.health = constrain(danger.health, 1, danger.radius);
+    //     danger[i].health -= 1;
+    //     danger[i].health = constrain(danger[i].health, 1, danger[i].radius);
     //   }
     // }
   }
