@@ -75,7 +75,6 @@ class Predator {
   // move
   //
   // Updates the position according to velocity
-  // Lowers health (as a cost of living)
   // Handles wrapping
   move() {
     // Update position

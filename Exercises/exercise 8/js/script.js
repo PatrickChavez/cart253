@@ -139,6 +139,7 @@ function draw() {
     }
 
     for (let i = 0; i < cageArray.length; i++) {
+      cageArray[i].handleInput();
       cageArray[i].move();
       cageArray[i].display();
       cageArray[i].damage(tiger);
