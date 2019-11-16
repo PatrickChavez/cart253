@@ -18,9 +18,6 @@ class Predator {
     this.vx = 0;
     this.vy = 0;
     this.speed = speed;
-    // The other speed "states"
-    this.defaultSpeed = speed;
-    this.sprintSpeed = 10;
     // Health properties
     this.maxHealth = 100;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
@@ -62,13 +59,6 @@ class Predator {
     }
     else {
       this.vy = 0;
-    }
-    // Allow the predator to sprint using the SHIFT key
-    if (keyIsDown(SHIFT)) {
-      this.speed = this.sprintSpeed;
-    }
-    else {
-      this.speed = this.defaultSpeed;
     }
   }
 

@@ -26,24 +26,6 @@ class MiniDanger extends Danger {
     this.warp();
   }
 
-  // handleWrapping
-  //
-  // Checks if the MiniDanger has gone off the canvas and
-  // wraps them to the other side if so
-  handleWrapping() {
-    // Off the left or right
-    if (this.x < 0) {
-      this.x += width;
-    } else if (this.x > width) {
-      this.x -= width;
-    }
-    // Off the top or bottom
-    if (this.y < 0) {
-      this.y += height;
-    } else if (this.y > height) {
-      this.y -= height;
-    }
-  }
 
   // damage
   //

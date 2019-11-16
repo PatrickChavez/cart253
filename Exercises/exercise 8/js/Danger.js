@@ -1,7 +1,8 @@
 // Danger
 //
 // A class that represents a harmful object that drains the
-// predator's health. It can move with the WASD keys.
+// predator's health. It becomes smaller when it comes into contact
+// with a cage and can move with noise.
 
 class Danger {
 
@@ -17,79 +18,34 @@ class Danger {
     this.vx = 0;
     this.vy = 0;
     this.speed = speed;
-    // // Time properties for noise() function
-    // this.tx = 5;
-    // this.ty = 100;
+    // Time properties for noise() function
+    this.tx = 1000;
+    this.ty = 1000;
+    // Health properties
+    this.maxHealth = radius;
+    this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties
     this.fillColor = fillColor;
-    // The radius
-    this.radius = radius;
-    // Input properties
-    this.upKey = 87; // W key
-    this.downKey = 83; // S key
-    this.leftKey = 65; // A key
-    this.rightKey = 68; // D key
-    // The number of prey eaten
-    this.preyEaten = 0;
+    this.radius = this.health;
   }
 
-  // handleInput
+  /// move
   //
-  // Checks if an arrow key is pressed and sets the predator's
-  // velocity appropriately.
-  handleInput() {
-    // Horizontal movement
-    if (keyIsDown(this.leftKey)) {
-      this.vx = -this.speed;
-    }
-    else if (keyIsDown(this.rightKey)) {
-      this.vx = this.speed;
-    }
-    else {
-      this.vx = 0;
-    }
-    // Vertical movement
-    if (keyIsDown(this.upKey)) {
-      this.vy = -this.speed;
-    }
-    else if (keyIsDown(this.downKey)) {
-      this.vy = this.speed;
-    }
-    else {
-      this.vy = 0;
-    }
-  }
-
-  // move
-  //
-  // Updates the position according to velocity
-  // Handles wrapping
+  // Sets velocity based on the noise() function and the Danger's speed
+  // Moves based on the resulting velocity and handles wrapping
   move() {
+    // Set velocity via noise()
+    this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
+    this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
     // Update position
     this.x += this.vx;
     this.y += this.vy;
-
+    // Update time properties
+    this.tx += 0.01;
+    this.ty += 0.01;
     // Handle wrapping
     this.handleWrapping();
   }
-
-  // // move
-  // //
-  // // Sets velocity based on the noise() function and the Danger's speed
-  // // Moves based on the resulting velocity and handles wrapping
-  // move() {
-  //   // Set velocity via noise()
-  //   this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
-  //   this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
-  //   // Update position
-  //   this.x += this.vx;
-  //   this.y += this.vy;
-  //   // Update time properties
-  //   this.tx += 0.01;
-  //   this.ty += 0.01;
-  //   // Handle wrapping
-  //   this.handleWrapping();
-  // }
 
   // handleWrapping
   //
@@ -133,6 +89,7 @@ class Danger {
     push();
     noStroke();
     fill(this.fillColor);
+    this.radius = this.health;
     ellipse(this.x, this.y, this.radius * 2);
     pop();
   }

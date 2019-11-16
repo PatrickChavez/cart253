@@ -24,9 +24,13 @@ let healer;
 let goalText = "Catch 40 prey!";
 let goalTextY = 700;
 
-// The dangers, their array and the number storing them
+// The cages, their array and the number storing them
 let cageNumber = 8;
 let cageArray = [];
+
+// The danger, its array and the number storing them
+let dangerNumber = 2;
+let dangerArray = [];
 
 // The mini danger, its array and the number storing them
 let miniNumber = 3;
@@ -63,20 +67,25 @@ function setup() {
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
-    let cageLeft = new Danger(150, 150 + i*60, 5, color(255, 0, 0), 30);
+    let cageLeft = new Cage(150, 150 + i*60, 5, color(255, 0, 0), 30);
     cageArray.push(cageLeft);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageRight = new Danger(650, 150 + i*60, 5, color(255, 0, 0), 30);
+    let cageRight = new Cage(650, 150 + i*60, 5, color(255, 0, 0), 30);
     cageArray.push(cageRight);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageUp = new Danger(i*60 + 190, 100, 5, color(255, 0, 0), 30);
+    let cageUp = new Cage(i*60 + 190, 100, 5, color(255, 0, 0), 30);
     cageArray.push(cageUp);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageDown = new Danger(i*60 + 190, 620, 5, color(255, 0, 0), 30);
+    let cageDown = new Cage(i*60 + 190, 620, 5, color(255, 0, 0), 30);
     cageArray.push(cageDown);
+  }
+  // The dangers
+  for (let i = 0; i < dangerNumber; i++) {
+    let danger = new Danger(random(0, width), random(0, height), random(3, 5), color(55, 130, 110), random(20, 50));
+    dangerArray.push(danger);
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
@@ -176,6 +185,12 @@ function playState() {
   bee.display();
   healer.display();
 
+  for (let i = 0; i < dangerArray.length; i++) {
+    dangerArray[i].move();
+    dangerArray[i].display();
+    dangerArray[i].damage(tiger);
+  }
+
   // Moving and displaying the arrays
   for (let i = 0; i < miniArray.length; i++) {
     miniArray[i].move();
@@ -188,6 +203,7 @@ function playState() {
     cageArray[i].move();
     cageArray[i].display();
     cageArray[i].damage(tiger);
+    cageArray[i].handleEating(dangerArray.length);
   }
 
   for (let i = 0; i < snowArray.length; i++) {
