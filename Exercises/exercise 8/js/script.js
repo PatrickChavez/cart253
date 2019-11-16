@@ -101,66 +101,7 @@ function draw() {
 
   // Making an if statement to handle the play screen
   else if (state === "PLAY") {
-
-    // Clear the background to black
-    background(0);
-
-    // Handle input for the tiger
-    tiger.handleInput();
-
-    // Move all the "animals"
-    tiger.move();
-    antelope.move();
-    zebra.move();
-    bee.move();
-    healer.move();
-
-    // Handle the tiger eating any of the prey
-    tiger.handleEating(antelope);
-    tiger.handleEating(zebra);
-    tiger.handleEating(bee);
-
-    // Handle the healing
-    tiger.handleHealing(healer);
-
-
-    // Display all the "animals"
-    tiger.display();
-    antelope.display();
-    zebra.display();
-    bee.display();
-    healer.display();
-
-    // Moving and displaying the arrays
-    for (let i = 0; i < miniArray.length; i++) {
-      miniArray[i].move();
-      miniArray[i].display();
-      miniArray[i].damage(tiger);
-    }
-
-    for (let i = 0; i < cageArray.length; i++) {
-      cageArray[i].handleInput();
-      cageArray[i].move();
-      cageArray[i].display();
-      cageArray[i].damage(tiger);
-    }
-
-    for (let i = 0; i < snowArray.length; i++) {
-      snowArray[i].move();
-      snowArray[i].display();
-    }
-
-    // The game ends when health reaches 0
-    if (tiger.health <= 0) {
-      state = "GAMEOVER";
-      displayGameOver();
-    }
-
-    // Display the score
-    displayScore();
-
-    // Display the goal
-    displayGoal();
+    playState();
   }
 }
 
@@ -200,6 +141,71 @@ function displayTitle() {
 // Shows the game over screen
 function displayGameOver() {
   image(gameOverScreen, 0, 0, windowWidth, windowHeight);
+}
+
+// playState()
+//
+// Shows all of the functions and objects during play
+function playState() {
+  // Clear the background to black
+  background(0);
+
+  // Handle input for the tiger
+  tiger.handleInput();
+
+  // Move all the "animals"
+  tiger.move();
+  antelope.move();
+  zebra.move();
+  bee.move();
+  healer.move();
+
+  // Handle the tiger eating any of the prey
+  tiger.handleEating(antelope);
+  tiger.handleEating(zebra);
+  tiger.handleEating(bee);
+
+  // Handle the healing
+  tiger.handleHealing(healer);
+
+
+  // Display all the "animals"
+  tiger.display();
+  antelope.display();
+  zebra.display();
+  bee.display();
+  healer.display();
+
+  // Moving and displaying the arrays
+  for (let i = 0; i < miniArray.length; i++) {
+    miniArray[i].move();
+    miniArray[i].display();
+    miniArray[i].damage(tiger);
+  }
+
+  for (let i = 0; i < cageArray.length; i++) {
+    cageArray[i].handleInput();
+    cageArray[i].move();
+    cageArray[i].display();
+    cageArray[i].damage(tiger);
+  }
+
+  for (let i = 0; i < snowArray.length; i++) {
+    snowArray[i].move();
+    snowArray[i].display();
+  }
+
+  // The game ends when health reaches 0
+  if (tiger.health <= 0) {
+    state = "GAMEOVER";
+    displayGameOver();
+  }
+
+  // Display the score
+  displayScore();
+
+  // Display the goal
+  displayGoal();
 }
 
 // mousePressed()
