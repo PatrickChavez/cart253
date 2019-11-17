@@ -19,6 +19,8 @@ class Cage {
     this.speed = speed;
     // Display properties
     this.fillColor = fillColor;
+    this.defaultColor = fillColor;
+    this.secondColor = color(0, 0, 255);
     // The radius
     this.radius = radius;
     // Input properties
@@ -54,6 +56,14 @@ class Cage {
     }
     else {
       this.vy = 0;
+    }
+    // The color changes if the spacebar is pressed
+    if (keyIsDown(32)) {
+      this.fillColor = this.secondColor;
+    }
+    // The color reverts to its original form if the shift key is pressed
+    else if (keyIsDown(SHIFT)) {
+      this.fillColor = this.defaultColor;
     }
   }
 
@@ -115,6 +125,20 @@ class Cage {
     //   }
     // }
   }
+
+  // secondEating
+  //
+  // Takes a Danger object as an argument and checks if a Cage with another color
+  // overlaps it. If so, reduces the prey's health and constrains it.
+  handleEating(danger) {
+    // Calculate distance from this cage to the prey
+    let d = dist(this.x, this.y, danger.x, danger.y);
+    // Check if the distance is less than their two radii (an overlap)
+    if (d < this.radius + danger.radius) {
+      // Decrease prey health and constrain it
+      danger.health -= 1;
+      danger.health = constrain(danger.health, 1, danger.radius);
+    }
 
   // damage
   //
