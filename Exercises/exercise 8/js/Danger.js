@@ -45,7 +45,7 @@ class Danger {
     this.tx += 0.01;
     this.ty += 0.01;
     // Update health
-    this.health += 5;
+    this.health += 0.1;
     this.health = constrain(this.health, 1, this.maxHealth);
     // Handle wrapping
     this.handleWrapping();

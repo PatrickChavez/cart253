@@ -19,10 +19,10 @@ class Predator {
     this.vy = 0;
     this.speed = speed;
     // Health properties
-    this.maxHealth = 100;
+    this.maxHealth = 255;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     this.healthLossPerMove = 0.1;
-    this.healthGainPerEat = 1;
+    this.healthGainPerEat = 3;
     // Display properties
     this.fillColor = fillColor;
     this.radius = radius;
@@ -160,11 +160,11 @@ class Predator {
     push();
     rectMode(CENTER);
     // Health will be red at critical levels
-    if (this.health <= 33) {
+    if (this.health <= 85) {
       fill(255, 0 , 0);
     }
     // Health will be yellow at medium levels
-    else if (this.health <= 66) {
+    else if (this.health <= 168) {
       fill(255, 220, 0);
     }
     // Health is green otherwise

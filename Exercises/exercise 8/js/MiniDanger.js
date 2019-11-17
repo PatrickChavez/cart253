@@ -21,6 +21,9 @@ class MiniDanger extends Danger {
   move() {
     // Update position based on velocity
     this.y += this.vy;
+    // Update health
+    this.health += 0.1;
+    this.health = constrain(this.health, 1, this.maxHealth);
     // Handle wrapping and warping
     this.handleWrapping();
     this.warp();
@@ -41,16 +44,16 @@ class MiniDanger extends Danger {
     }
   }
 
-  // display
-  //
-  // Draw the danger as an ellipse on the canvas
-  display() {
-    push();
-    noStroke();
-    fill(this.fillColor);
-    ellipse(this.x, this.y, this.radius * 2);
-    pop();
-  }
+  // // display
+  // //
+  // // Draw the danger as an ellipse on the canvas
+  // display() {
+  //   push();
+  //   noStroke();
+  //   fill(this.fillColor);
+  //   ellipse(this.x, this.y, this.radius * 2);
+  //   pop();
+  // }
 
   // warp
   //
@@ -59,7 +62,7 @@ class MiniDanger extends Danger {
   warp() {
     if (this.y > height - 4) {
       this.x = random(0, width);
-      this.radius = random(10, 40);
+      this.radius = random(20, 40);
       this.speed = random(3, 8);
     }
   }

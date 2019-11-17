@@ -101,19 +101,19 @@ class Cage {
     }
   }
 
-  // handleEating
-  //
-  // Takes a Danger object as an argument and checks if the Cage
-  // overlaps it. If so, reduces the prey's health and constrains it.
-  handleEating(danger) {
-    // Calculate distance from this cage to the prey
-    let d = dist(this.x, this.y, danger.x, danger.y);
-    // Check if the distance is less than their two radii (an overlap)
-    if (d < this.radius + danger.radius) {
-      // Decrease prey health and constrain it
-      danger.health -= 1;
-      danger.health = constrain(danger.health, 1, danger.radius);
-    }
+  // // handleEating
+  // //
+  // // Takes a Danger object as an argument and checks if the Cage
+  // // overlaps it. If so, reduces the prey's health and constrains it.
+  // handleEating(danger) {
+  //   // Calculate distance from this cage to the prey
+  //   let d = dist(this.x, this.y, danger.x, danger.y);
+  //   // Check if the distance is less than their two radii (an overlap)
+  //   if (d < this.radius + danger.radius) {
+  //     // Decrease prey health and constrain it
+  //     danger.health -= 1;
+  //     danger.health = constrain(danger.health, 1, danger.radius);
+  //   }
     // for (let i = 0; i < this.array.length; i++) {
     //   // Calculate distance from the trail to the predator
     //   let d = dist(this.array[i].x, this.array[i].y, danger[i].x, danger[i].y);
@@ -124,13 +124,15 @@ class Cage {
     //     danger[i].health = constrain(danger[i].health, 1, danger[i].radius);
     //   }
     // }
-  }
+  // }
 
-  // secondEating
+  // handleEating
   //
-  // Takes a Danger object as an argument and checks if a Cage with another color
-  // overlaps it. If so, reduces the prey's health and constrains it.
+  // Takes a Danger object as an argument and checks if a Cage with the
+  // default color overlaps it. If so, reduces the prey's health and constrains it.
   handleEating(danger) {
+    // If statement to handle the method
+    if (this.fillColor === this.defaultColor) {
     // Calculate distance from this cage to the prey
     let d = dist(this.x, this.y, danger.x, danger.y);
     // Check if the distance is less than their two radii (an overlap)
@@ -138,8 +140,36 @@ class Cage {
       // Decrease prey health and constrain it
       danger.health -= 1;
       danger.health = constrain(danger.health, 1, danger.radius);
+      }
     }
+    // Else the danger receives no health loss
+    else {
+      danger.health -= 0;
+      danger.health = constrain(danger.health, 1, danger.radius);
+    }
+  }
 
+  // secondEating
+  //
+  // Takes a Danger object as an argument and checks if a Cage with another color
+  // overlaps it. If so, reduces the prey's health and constrains it.
+  secondEating(danger) {
+    // If statement to handle the method
+    if (this.fillColor === this.secondColor) {
+    // Calculate distance from this cage to the prey
+    let d = dist(this.x, this.y, danger.x, danger.y);
+    // Check if the distance is less than their two radii (an overlap)
+    if (d < this.radius + danger.radius) {
+      // Decrease prey health and constrain it
+      danger.health -= 1;
+      danger.health = constrain(danger.health, 1, danger.radius);
+      }
+    }
+    else {
+      danger.health -= 0;
+      danger.health = constrain(danger.health, 1, danger.radius);
+    }
+  }
   // damage
   //
   // Takes a Predator object as an argument and checks if the Cage
@@ -150,7 +180,7 @@ class Cage {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a good amount
-      predator.health = predator.health - 5;
+      predator.health = predator.health - 1;
     }
   }
 

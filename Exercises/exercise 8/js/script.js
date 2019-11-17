@@ -60,9 +60,9 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(400, 400, 5, color(200, 200, 0), 40);
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  antelope = new Danger(100, 100, 10, color(175, 0, 0), 50);
+  zebra = new MiniDanger(100, 100, 8, color(0, 0, 175), 60);
+  bee = new Prey(100, 100, 20, color(255, 255, 0), 20);
   healer = new Healer(0, random(0, height), 4, color(0, 255, 0), 20);
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
@@ -169,9 +169,7 @@ function playState() {
   bee.move();
   healer.move();
 
-  // Handle the tiger eating any of the prey
-  tiger.handleEating(antelope);
-  tiger.handleEating(zebra);
+  // Handle the characters eating any of the prey
   tiger.handleEating(bee);
 
   // Handle the healing
@@ -204,6 +202,8 @@ function playState() {
     cageArray[i].display();
     cageArray[i].damage(tiger);
     cageArray[i].handleEating(dangerArray);
+    cageArray[i].secondEating(zebra);
+    cageArray[i].handleEating(antelope);
   }
 
   for (let i = 0; i < snowArray.length; i++) {
