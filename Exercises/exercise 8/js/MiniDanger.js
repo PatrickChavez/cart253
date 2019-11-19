@@ -1,7 +1,7 @@
 // MiniDanger
 //
 // A child class that inherits from Danger.
-// It moves downward and comes in different sizes.
+// It moves downward and "might" come in different sizes.
 
 class MiniDanger extends Danger {
   // constructor
@@ -20,7 +20,7 @@ class MiniDanger extends Danger {
   // Moves based on the resulting velocity and handles wrapping
   move() {
     // Update position based on velocity
-    this.x += this.vx;
+    // this.x -= this.vx;
     this.y += this.vy;
     // Update health
     this.health += 0.1;
@@ -45,16 +45,6 @@ class MiniDanger extends Danger {
     }
   }
 
-  // // display
-  // //
-  // // Draw the danger as an ellipse on the canvas
-  // display() {
-  //   push();
-  //   noStroke();
-  //   fill(this.fillColor);
-  //   ellipse(this.x, this.y, this.radius * 2);
-  //   pop();
-  // }
 
   // warp
   //

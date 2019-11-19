@@ -1,7 +1,8 @@
 // Cage
 //
 // A class that represents a harmful object enclosing the predator that drains the
-// predator's health. It can move with the WASD keys.
+// its health. In addtion, it can also eat certain dangers depending on is color.
+// It can move with the WASD keys.
 
 class Cage {
 

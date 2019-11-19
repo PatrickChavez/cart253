@@ -1,7 +1,9 @@
 // Predator-Prey Simulation Project 3
 // by Patrick Chavez-Nadarajah
 //
-// A draft of Project 3 that uses the Predator-Prey Simulation source code.
+// Another draft of Project 3 that uses the Predator-Prey Simulation source code.
+// Collect the prey scattered throughout the canvas and avoid the dangers using the arrow keys!
+// Your cage can be moved using the WSAD keys and can shrink the dangers of the appropriate color.
 //
 // Predator-Prey Simulation source code from Pippin Barr
 //https://github.com/pippinbarr/cart253-2019/blob/master/games/game-oop-predator-prey.zip
@@ -24,11 +26,11 @@ let preyNumber = 4;
 let preyArray = [];
 
 // The cages, their array and the number storing them
-let cageNumber = 7;
+let cageNumber = 5;
 let cageArray = [];
 
 // The danger, its array and the number storing them
-let dangerNumber = 5;
+let dangerNumber = 10;
 let dangerArray = [];
 
 // The mini danger, its array and the number storing them
@@ -58,39 +60,39 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(400, 400, 5, color(200, 200, 0), 40);
+  tiger = new Predator(250, 250, 4, color(255, 160, 0), 30);
   healer = new Healer(0, random(0, height), 5, color(0, 255, 0), 40);
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
-    let cageLeft = new Cage(150, 150 + i*60, 5, color(255, 0, 0), 30);
+    let cageLeft = new Cage(150, 150 + i*60, 4, color(255, 0, 0), 30);
     cageArray.push(cageLeft);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageRight = new Cage(590, 150 + i*60, 5, color(255, 0, 0), 30);
+    let cageRight = new Cage(470, 150 + i*60, 4, color(255, 0, 0), 30);
     cageArray.push(cageRight);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageUp = new Cage(i*60 + 190, 100, 5, color(255, 0, 0), 30);
+    let cageUp = new Cage(i*60 + 190, 100, 4, color(255, 0, 0), 30);
     cageArray.push(cageUp);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageDown = new Cage(i*60 + 190, 560, 5, color(255, 0, 0), 30);
+    let cageDown = new Cage(i*60 + 190, 440, 4, color(255, 0, 0), 30);
     cageArray.push(cageDown);
   }
   // The prey
   for (let i = 0; i < preyNumber; i++) {
-    let prey = new Prey(random(0, width), random(0, height), random(3, 5), color(255, 215, 0), random(20, 50));
+    let prey = new Prey(random(width/2, width), random(height/2, height), random(3, 5), color(255, 215, 0), 20);
     preyArray.push(prey);
   }
   // The dangers
   for (let i = 0; i < dangerNumber; i++) {
-    let danger = new Danger(random(0, 400), random(0, 400), random(3, 5), color(55, 130, 110), random(20, 50));
+    let danger = new Danger(random(300, width), random(300, height), random(1, 3), color(140, 10, 0), 60);
     dangerArray.push(danger);
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(0, width), 0, random(1, 2), color(105, 0, 255), random(10, 40));
+    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 5), color(0, 11, 95), 40);
     miniArray.push(miniDanger);
   }
   // The snow
@@ -119,6 +121,10 @@ function draw() {
 //
 // Shows the goal of the game
 function displayGoal() {
+  // Make the message disappear when a game over happens
+  if (state === "GAMEOVER") {
+    return;
+  }
   push();
   fill(255);
   textSize(64);
@@ -133,10 +139,12 @@ function displayGoal() {
 //
 // Shows the number of prey eaten
 function displayScore() {
+  push();
   fill(255);
   textSize(64);
   textAlign(LEFT,BOTTOM);
   text("SCORE:" + tiger.preyEaten, 0, height);
+  pop();
 }
 
 // displayTitle()
@@ -162,16 +170,38 @@ function displayGameOver() {
   text(gameOverText, width/2, height/2);
 }
 
+// milestoneMessage
+//
+// Displays a messsage when the predator finds a number of prey
+function milestoneMessage() {
+  push();
+  // Setting the text aesthetics
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  if (tiger.preyEaten >= 5) {
+    // Setting the Y parameter
+    let milestoneY = 500;
+    // Setting the text to be displayed
+    text("Good start!", width/2, milestoneY);
+    // Make the message scroll upwards
+    milestoneY = milestoneY - 3;
+  }
+  pop();
+}
+
 // resetGame
 //
 // Restores predator health and resets the number of prey and object positions
 function resetGame() {
   // Object positions
-  tiger = new Predator(400, 400, 5, color(200, 200, 0), 40);
+  tiger = new Predator(250, 250, 4, color(200, 200, 0), 30);
 
   // Predator properties
   tiger.health = tiger.maxHealth;
   tiger.preyEaten = 0;
+  // Display the goal of the game again
+  displayGoal();
 }
 
 // playState()
@@ -246,6 +276,9 @@ function playState() {
 
   // Display the goal
   displayGoal();
+
+  // Displaying the milestone messages
+  milestoneMessage();
 }
 
 // mousePressed()

@@ -2,7 +2,7 @@
 //
 // A class that represents a harmful object that drains the
 // predator's health. However, it cannot drain health if it's radius is too small.
-// It regenerates health. becomes smaller when it comes into contact with a cage and moves with noise.
+// It regenerates health, becomes smaller when it comes into contact with a cage and moves with noise.
 
 class Danger {
 
@@ -85,7 +85,7 @@ class Danger {
       predator.health = predator.health - 1;
     }
     // The predator takes no damage if the Danger's radius is too low
-    if (this.radius <= 10) {
+    if (this.radius <= 20) {
       predator.health = predator.health - 0;
     }
   }
