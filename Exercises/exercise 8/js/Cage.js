@@ -113,30 +113,6 @@ class Cage {
     }
   }
 
-  // // handleEating
-  // //
-  // // Takes a Danger object as an argument and checks if the Cage
-  // // overlaps it. If so, reduces the prey's health and constrains it.
-  // handleEating(danger) {
-  //   // Calculate distance from this cage to the prey
-  //   let d = dist(this.x, this.y, danger.x, danger.y);
-  //   // Check if the distance is less than their two radii (an overlap)
-  //   if (d < this.radius + danger.radius) {
-  //     // Decrease prey health and constrain it
-  //     danger.health -= 1;
-  //     danger.health = constrain(danger.health, 1, danger.radius);
-  //   }
-    // for (let i = 0; i < this.array.length; i++) {
-    //   // Calculate distance from the trail to the predator
-    //   let d = dist(this.array[i].x, this.array[i].y, danger[i].x, danger[i].y);
-    //   // Check if the distance is less than their two radii (an overlap)
-    //   if (d < this.radius + danger[i].radius) {
-    //     // Decrease prey health and constrain it
-    //     danger[i].health -= 1;
-    //     danger[i].health = constrain(danger[i].health, 1, danger[i].radius);
-    //   }
-    // }
-  // }
 
   // handleEating
   //
@@ -145,7 +121,7 @@ class Cage {
   handleEating(danger) {
     // If statement to handle the method
     if (this.fillColor === this.defaultColor) {
-    // Calculate distance from this cage to the prey
+    // Calculate distance from this cage to the danger
     let d = dist(this.x, this.y, danger.x, danger.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + danger.radius) {
@@ -168,7 +144,7 @@ class Cage {
   changedEating(danger) {
     // If statement to handle the method
     if (this.fillColor === this.secondColor) {
-    // Calculate distance from this cage to the prey
+    // Calculate distance from this cage to the danger
     let d = dist(this.x, this.y, danger.x, danger.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + danger.radius) {
@@ -177,6 +153,7 @@ class Cage {
       danger.health = constrain(danger.health, 1, danger.radius);
       }
     }
+    // Else the danger receives no health loss
     else {
       danger.health -= 0;
       danger.health = constrain(danger.health, 1, danger.radius);

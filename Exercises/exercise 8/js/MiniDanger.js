@@ -53,8 +53,8 @@ class MiniDanger extends Danger {
   warp() {
     if (this.y >= height - 3) {
       this.x = random(0, width);
-      this.radius = random(20, 40);
-      this.speed = random(1, 2);
+      this.radius = random(30, 40);
+      this.speed = random(1, 5);
     }
   }
 }

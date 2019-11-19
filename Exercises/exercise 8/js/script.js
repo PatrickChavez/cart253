@@ -21,6 +21,10 @@ let healer;
 let goalText = "Find 40 prey!";
 let goalTextY = 700;
 
+// Milestone text properties
+let message;
+let milestoneY = 700;
+
 // The prey, their array and their number storing them
 let preyNumber = 4;
 let preyArray = [];
@@ -92,7 +96,7 @@ function setup() {
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 5), color(0, 11, 95), 40);
+    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 5), color(0, 11, 95), 60);
     miniArray.push(miniDanger);
   }
   // The snow
@@ -173,18 +177,37 @@ function displayGameOver() {
 // milestoneMessage
 //
 // Displays a messsage when the predator finds a number of prey
+// Resets the the message's y position to scroll upwards again
 function milestoneMessage() {
   push();
   // Setting the text aesthetics
   textSize(32);
   textAlign(CENTER, CENTER);
   fill(255);
-  if (tiger.preyEaten >= 5) {
-    // Setting the Y parameter
-    let milestoneY = 500;
+  // The message displays nothing at 0 prey eaten
+  if (tiger.preyEaten === 0) {
+    	message = "";
+    }
+  // The first message
+  if (tiger.preyEaten === 4) { // The message will display when 5 is reached
     // Setting the text to be displayed
-    text("Good start!", width/2, milestoneY);
-    // Make the message scroll upwards
+    message = "Good start!";
+    milestoneY = 700;
+  }
+  // The second message
+  if (tiger.preyEaten === 19) { // The message will display when 20 is reached
+    message = "Doing great!";
+    milestoneY = 700;
+  }
+  // The third message
+  if (tiger.preyEaten === 29) { // The message will display when 30 is reached
+    message = "Almost there!";
+    milestoneY = 700;
+  }
+  // Handling the universal settings for the message display
+  // The messages activate as soon as the number of prey eaten reaches 5
+  if (tiger.preyEaten >= 5 ) {
+    text(message, width/2, milestoneY);
     milestoneY = milestoneY - 3;
   }
   pop();
@@ -200,8 +223,6 @@ function resetGame() {
   // Predator properties
   tiger.health = tiger.maxHealth;
   tiger.preyEaten = 0;
-  // Display the goal of the game again
-  displayGoal();
 }
 
 // playState()
