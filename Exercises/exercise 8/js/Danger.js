@@ -84,6 +84,10 @@ class Danger {
       // Decrease predator health by a good amount
       predator.health = predator.health - 1;
     }
+    // The predator takes no damage if the Danger's radius is too low
+    if (this.radius <= 10) {
+      predator.health = predator.health - 0;
+    }
   }
 
   // display

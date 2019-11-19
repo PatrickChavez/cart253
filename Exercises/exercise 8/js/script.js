@@ -21,11 +21,15 @@ let bee;
 let healer;
 
 // The goal text and its movement
-let goalText = "Catch 40 prey!";
+let goalText = "Find 40 prey!";
 let goalTextY = 700;
 
+// The prey, their array and their number storing them
+let preyNumber = 4;
+let preyArray = [];
+
 // The cages, their array and the number storing them
-let cageNumber = 8;
+let cageNumber = 7;
 let cageArray = [];
 
 // The danger, its array and the number storing them
@@ -71,7 +75,7 @@ function setup() {
     cageArray.push(cageLeft);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageRight = new Cage(650, 150 + i*60, 5, color(255, 0, 0), 30);
+    let cageRight = new Cage(590, 150 + i*60, 5, color(255, 0, 0), 30);
     cageArray.push(cageRight);
   }
   for (let i = 0; i < cageNumber; i++) {
@@ -79,8 +83,13 @@ function setup() {
     cageArray.push(cageUp);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageDown = new Cage(i*60 + 190, 620, 5, color(255, 0, 0), 30);
+    let cageDown = new Cage(i*60 + 190, 560, 5, color(255, 0, 0), 30);
     cageArray.push(cageDown);
+  }
+  // The prey
+  for (let i = 0; i < preyNumber; i++) {
+    let prey = new Prey(random(0, width), random(0, height), random(3, 5), color(255, 215, 0), random(20, 50));
+    preyArray.push(prey);
   }
   // The dangers
   for (let i = 0; i < dangerNumber; i++) {
@@ -171,10 +180,10 @@ function playState() {
 
   // Handle the characters eating any of the prey
   tiger.handleEating(bee);
+  tiger.handleEating(preyArray);
 
   // Handle the healing
   tiger.handleHealing(healer);
-
 
   // Display all the "animals"
   tiger.display();
@@ -183,13 +192,19 @@ function playState() {
   bee.display();
   healer.display();
 
+  // Moving and displaying the arrays
+
+  for (let i = 0; i < preyArray.length; i++) {
+    // preyArray[i].move();
+    preyArray[i].display();
+  }
+
   for (let i = 0; i < dangerArray.length; i++) {
     dangerArray[i].move();
     dangerArray[i].display();
     dangerArray[i].damage(tiger);
   }
 
-  // Moving and displaying the arrays
   for (let i = 0; i < miniArray.length; i++) {
     miniArray[i].move();
     miniArray[i].display();
