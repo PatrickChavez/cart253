@@ -12,11 +12,6 @@ let state = "TITLE";
 // Our predator
 let tiger;
 
-// The three prey
-let antelope;
-let zebra;
-let bee;
-
 // The healer
 let healer;
 
@@ -64,10 +59,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   tiger = new Predator(400, 400, 5, color(200, 200, 0), 40);
-  antelope = new Danger(100, 100, 10, color(175, 0, 0), 50);
-  zebra = new MiniDanger(100, 100, 8, color(0, 0, 175), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 20);
-  healer = new Healer(0, random(0, height), 4, color(0, 255, 0), 20);
+  healer = new Healer(0, random(0, height), 5, color(0, 255, 0), 40);
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
@@ -98,7 +90,7 @@ function setup() {
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(0, width), 0, random(3, 5), color(105, 0, 255), random(10, 40));
+    let miniDanger = new MiniDanger(random(0, width), 0, random(1, 2), color(105, 0, 255), random(10, 40));
     miniArray.push(miniDanger);
   }
   // The snow
@@ -170,6 +162,18 @@ function displayGameOver() {
   text(gameOverText, width/2, height/2);
 }
 
+// resetGame
+//
+// Restores predator health and resets the number of prey and object positions
+function resetGame() {
+  // Object positions
+  tiger = new Predator(400, 400, 5, color(200, 200, 0), 40);
+
+  // Predator properties
+  tiger.health = tiger.maxHealth;
+  tiger.preyEaten = 0;
+}
+
 // playState()
 //
 // Shows all of the functions and objects during play
@@ -180,24 +184,15 @@ function playState() {
   // Handle input for the tiger
   tiger.handleInput();
 
-  // Move all the "animals"
+  // Move all the non-array characters
   tiger.move();
-  antelope.move();
-  zebra.move();
-  bee.move();
   healer.move();
-
-  // Handle the characters eating any of the prey
-  tiger.handleEating(bee);
 
   // Handle the healing
   tiger.handleHealing(healer);
 
-  // Display all the "animals"
+  // Display all the non-array characters
   tiger.display();
-  antelope.display();
-  zebra.display();
-  bee.display();
   healer.display();
 
   // Moving and displaying the arrays
@@ -211,13 +206,20 @@ function playState() {
     dangerArray[i].move();
     dangerArray[i].display();
     dangerArray[i].damage(tiger);
-    cageArray[i].handleEating(dangerArray[i]);
+    // Handling another array
+    for (let j = 0; j < cageArray.length; j++) {
+    cageArray[j].handleEating(dangerArray[i]);
+    }
   }
 
   for (let i = 0; i < miniArray.length; i++) {
     miniArray[i].move();
     miniArray[i].display();
     miniArray[i].damage(tiger);
+    // Handling another array
+    for (let j = 0; j < cageArray.length; j++) {
+    cageArray[j].changedEating(miniArray[i]);
+    }
   }
 
   for (let i = 0; i < cageArray.length; i++) {
@@ -226,8 +228,6 @@ function playState() {
     cageArray[i].display();
     cageArray[i].damage(tiger);
     cageArray[i].handleEating(dangerArray);
-    cageArray[i].secondEating(zebra);
-    cageArray[i].handleEating(antelope);
   }
 
   for (let i = 0; i < snowArray.length; i++) {
@@ -258,5 +258,6 @@ function mousePressed() {
   // Resets game if the player got a game over
   if (state === "GAMEOVER") {
     state = "PLAY";
+    resetGame();
   }
 }

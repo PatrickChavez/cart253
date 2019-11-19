@@ -30,6 +30,9 @@ class Cage {
     this.rightKey = 68; // D key
     // Array properties
     this.array = [];
+    // Color changing properties
+    this.redMode = true;
+    this.changedMode = false;
   }
 
   // handleInput
@@ -57,13 +60,21 @@ class Cage {
     else {
       this.vy = 0;
     }
-    // The color changes if the spacebar is pressed
-    if (keyIsDown(32)) {
-      this.fillColor = this.secondColor;
+    // The spacebar toggles the cage's different modes
+    // to handle two colors for one button
+    if (keyIsDown(32) && this.changedMode === false) {
+      this.redMode = !this.redMode;
+      this.changedMode = true;
     }
-    // The color reverts to its original form if the shift key is pressed
-    else if (keyIsDown(SHIFT)) {
+    else if (keyIsDown(32) === false) {
+      this.changedMode = false;
+    }
+    // The color changes if the spacebar is pressed
+    if (this.redMode) {
       this.fillColor = this.defaultColor;
+    }
+    else {
+      this.fillColor = this.secondColor;
     }
   }
 
@@ -149,11 +160,11 @@ class Cage {
     }
   }
 
-  // secondEating
+  // changedEating
   //
   // Takes a Danger object as an argument and checks if a Cage with another color
   // overlaps it. If so, reduces the prey's health and constrains it.
-  secondEating(danger) {
+  changedEating(danger) {
     // If statement to handle the method
     if (this.fillColor === this.secondColor) {
     // Calculate distance from this cage to the prey

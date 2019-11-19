@@ -1,8 +1,8 @@
 // Danger
 //
 // A class that represents a harmful object that drains the
-// predator's health. It regenerates health, becomes smaller when it comes
-// into contact with a cage and moves with noise.
+// predator's health. However, it cannot drain health if it's radius is too small.
+// It regenerates health. becomes smaller when it comes into contact with a cage and moves with noise.
 
 class Danger {
 

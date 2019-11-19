@@ -20,6 +20,7 @@ class MiniDanger extends Danger {
   // Moves based on the resulting velocity and handles wrapping
   move() {
     // Update position based on velocity
+    this.x += this.vx;
     this.y += this.vy;
     // Update health
     this.health += 0.1;
@@ -60,10 +61,10 @@ class MiniDanger extends Danger {
   // Moves the mini danger to a random position when it
   // reaches the bottom of the screen. The radius and speed also changes.
   warp() {
-    if (this.y > height - 4) {
+    if (this.y >= height - 3) {
       this.x = random(0, width);
       this.radius = random(20, 40);
-      this.speed = random(3, 8);
+      this.speed = random(1, 2);
     }
   }
 }
