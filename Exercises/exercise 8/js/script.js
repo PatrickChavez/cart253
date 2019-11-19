@@ -159,6 +159,15 @@ function displayTitle() {
 // Shows the game over screen
 function displayGameOver() {
   image(gameOverScreen, 0, 0, windowWidth, windowHeight);
+  // Setting the text aesthetics
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  fill(0, 0, 0);
+  // Setting the text to be displayed
+  let gameOverText;
+  gameOverText = "You found " + tiger.preyEaten + " prey. \n";
+  gameOverText = gameOverText + "Click to reset!"
+  text(gameOverText, width/2, height/2);
 }
 
 // playState()
@@ -180,7 +189,6 @@ function playState() {
 
   // Handle the characters eating any of the prey
   tiger.handleEating(bee);
-  tiger.handleEating(preyArray);
 
   // Handle the healing
   tiger.handleHealing(healer);
@@ -195,14 +203,15 @@ function playState() {
   // Moving and displaying the arrays
 
   for (let i = 0; i < preyArray.length; i++) {
-    // preyArray[i].move();
     preyArray[i].display();
+    tiger.handleEating(preyArray[i]);
   }
 
   for (let i = 0; i < dangerArray.length; i++) {
     dangerArray[i].move();
     dangerArray[i].display();
     dangerArray[i].damage(tiger);
+    cageArray[i].handleEating(dangerArray[i]);
   }
 
   for (let i = 0; i < miniArray.length; i++) {
@@ -244,6 +253,10 @@ function playState() {
 // Cycles through the various game screens
 function mousePressed() {
   if (state === "TITLE") {
+    state = "PLAY";
+  }
+  // Resets game if the player got a game over
+  if (state === "GAMEOVER") {
     state = "PLAY";
   }
 }

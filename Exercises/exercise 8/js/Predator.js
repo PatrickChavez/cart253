@@ -21,7 +21,7 @@ class Predator {
     // Health properties
     this.maxHealth = 255;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
-    this.healthLossPerMove = 0.1;
+    this.healthLossWhenEat = 1;
     this.healthGainPerEat = 3;
     // Display properties
     this.fillColor = fillColor;
@@ -107,7 +107,7 @@ class Predator {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + prey.radius) {
       // Decrease prey health by the same amount
-      prey.health -= this.healthGainPerEat;
+      prey.health -= this.healthLossWhenEat;
       // Check if the prey died and reset it if so
       // Also increase the number of prey eaten
       if (prey.health < 0) {
