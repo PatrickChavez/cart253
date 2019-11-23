@@ -10,7 +10,7 @@ class Cage {
   //
   // Sets the initial values for the Cage's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius) {
+  constructor(x, y, speed, image, secondImage, radius) {
     // Position
     this.x = x;
     this.y = y;
@@ -19,9 +19,9 @@ class Cage {
     this.vy = 0;
     this.speed = speed;
     // Display properties
-    this.fillColor = fillColor;
-    this.defaultColor = fillColor;
-    this.secondColor = color(0, 0, 255);
+    this.image = image;
+    this.defaultImage = image;
+    this.secondImage = secondImage;
     // The radius
     this.radius = radius;
     // Input properties
@@ -72,10 +72,10 @@ class Cage {
     }
     // The color changes if the spacebar is pressed
     if (this.redMode) {
-      this.fillColor = this.defaultColor;
+      this.image = this.defaultImage;
     }
     else {
-      this.fillColor = this.secondColor;
+      this.image = this.secondImage;
     }
   }
 
@@ -120,7 +120,7 @@ class Cage {
   // default color overlaps it. If so, reduces the prey's health and constrains it.
   handleEating(danger) {
     // If statement to handle the method
-    if (this.fillColor === this.defaultColor) {
+    if (this.image === this.defaultImage) {
     // Calculate distance from this cage to the danger
     let d = dist(this.x, this.y, danger.x, danger.y);
     // Check if the distance is less than their two radii (an overlap)
@@ -143,7 +143,7 @@ class Cage {
   // overlaps it. If so, reduces the prey's health and constrains it.
   changedEating(danger) {
     // If statement to handle the method
-    if (this.fillColor === this.secondColor) {
+    if (this.image === this.secondImage) {
     // Calculate distance from this cage to the danger
     let d = dist(this.x, this.y, danger.x, danger.y);
     // Check if the distance is less than their two radii (an overlap)
@@ -175,12 +175,12 @@ class Cage {
 
   // display
   //
-  // Draw the Cage as an ellipse on the canvas
+  // Draw the Cage as an orb on the canvas
   display() {
     push();
-    noStroke();
-    fill(this.fillColor);
-    ellipse(this.x, this.y, this.radius * 2);
+    // Centering image for precise collision
+    imageMode(CENTER);
+    image(this.image, this.x, this.y, this.radius * 2, this.radius * 2);
     pop();
   }
 }

@@ -9,8 +9,8 @@ class MiniDanger extends Danger {
   // Sets the initial values for the MiniDanger's properties
   // Either sets default values, uses the arguments provided
   // or inherits the parent class.
-  constructor(x, y, speed, fillColor, radius) {
-    super(x, y, speed, fillColor, radius);
+  constructor(x, y, speed, image, radius) {
+    super(x, y, speed, image, radius);
     this.vx = speed;
     this.vy = speed;
   }

@@ -12,7 +12,7 @@
 let state = "TITLE";
 
 // Our predator
-let tiger;
+let thief;
 
 // The healer
 let healer;
@@ -45,9 +45,19 @@ let miniArray = [];
 let snowNumber = 100;
 let snowArray = [];
 
-// The art assets
+// The title, game over, story and gameplay screens
 let titleScreen;
 let gameOverScreen;
+let playBackground;
+
+// The character images
+let avatarImage;
+let preyImage;
+let dangerImage;
+let miniDangerImage;
+let healerImage;
+let cageImageRed;
+let cageImageBlue;
 
 // preload()
 //
@@ -55,6 +65,14 @@ let gameOverScreen;
 function preload() {
   titleScreen = loadImage("assets/images/TitlePlaceholder.png");
   gameOverScreen = loadImage("assets/images/GameOverPlaceholder.png");
+  playBackground = loadImage("assets/images/CaveBackground.png");
+  avatarImage = loadImage("assets/images/ThiefAvatar.png");
+  preyImage = loadImage("assets/images/CoinPile.png");
+  dangerImage = loadImage("assets/images/RedWisp.png");
+  miniDangerImage = loadImage("assets/images/BlueWisp.png");
+  healerImage = loadImage("assets/images/GreenWisp.png");
+  cageImageRed = loadImage("assets/images/RedOrb.png");
+  cageImageBlue = loadImage("assets/images/BlueOrb.png");
 
 }
 
@@ -64,39 +82,39 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(250, 250, 4, color(255, 160, 0), 30);
-  healer = new Healer(0, random(0, height), 5, color(0, 255, 0), 40);
+  thief = new Predator(250, 250, 4, avatarImage, 30);
+  healer = new Healer(0, random(0, height), 5, healerImage, 40);
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
-    let cageLeft = new Cage(150, 150 + i*60, 4, color(255, 0, 0), 30);
+    let cageLeft = new Cage(150, 150 + i*60, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageLeft);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageRight = new Cage(470, 150 + i*60, 4, color(255, 0, 0), 30);
+    let cageRight = new Cage(470, 150 + i*60, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageRight);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageUp = new Cage(i*60 + 190, 100, 4, color(255, 0, 0), 30);
+    let cageUp = new Cage(i*60 + 190, 100, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageUp);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageDown = new Cage(i*60 + 190, 440, 4, color(255, 0, 0), 30);
+    let cageDown = new Cage(i*60 + 190, 440, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageDown);
   }
   // The prey
   for (let i = 0; i < preyNumber; i++) {
-    let prey = new Prey(random(width/2, width), random(height/2, height), random(3, 5), color(255, 215, 0), 20);
+    let prey = new Prey(random(width/2, width), random(height/2, height), random(3, 5), preyImage, 20);
     preyArray.push(prey);
   }
   // The dangers
   for (let i = 0; i < dangerNumber; i++) {
-    let danger = new Danger(random(300, width), random(300, height), random(1, 3), color(140, 10, 0), 60);
+    let danger = new Danger(random(300, width), random(300, height), random(1, 3), dangerImage, 60);
     dangerArray.push(danger);
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 5), color(0, 11, 95), 60);
+    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 5), miniDangerImage, 60);
     miniArray.push(miniDanger);
   }
   // The snow
@@ -147,7 +165,7 @@ function displayScore() {
   fill(255);
   textSize(64);
   textAlign(LEFT,BOTTOM);
-  text("SCORE:" + tiger.preyEaten, 0, height);
+  text("SCORE:" + thief.preyEaten, 0, height);
   pop();
 }
 
@@ -169,7 +187,7 @@ function displayGameOver() {
   fill(0, 0, 0);
   // Setting the text to be displayed
   let gameOverText;
-  gameOverText = "You found " + tiger.preyEaten + " prey. \n";
+  gameOverText = "You found " + thief.preyEaten + " prey. \n";
   gameOverText = gameOverText + "Click to reset!"
   text(gameOverText, width/2, height/2);
 }
@@ -185,28 +203,28 @@ function milestoneMessage() {
   textAlign(CENTER, CENTER);
   fill(255);
   // The message displays nothing at 0 prey eaten
-  if (tiger.preyEaten === 0) {
+  if (thief.preyEaten === 0) {
     	message = "";
     }
   // The first message
-  if (tiger.preyEaten === 4) { // The message will display when 5 is reached
+  if (thief.preyEaten === 4) { // The message will display when 5 is reached
     // Setting the text to be displayed
     message = "Good start!";
     milestoneY = 700;
   }
   // The second message
-  if (tiger.preyEaten === 19) { // The message will display when 20 is reached
+  if (thief.preyEaten === 19) { // The message will display when 20 is reached
     message = "Doing great!";
     milestoneY = 700;
   }
   // The third message
-  if (tiger.preyEaten === 29) { // The message will display when 30 is reached
+  if (thief.preyEaten === 29) { // The message will display when 30 is reached
     message = "Almost there!";
     milestoneY = 700;
   }
   // Handling the universal settings for the message display
   // The messages activate as soon as the number of prey eaten reaches 5
-  if (tiger.preyEaten >= 5 ) {
+  if (thief.preyEaten >= 5 ) {
     text(message, width/2, milestoneY);
     milestoneY = milestoneY - 3;
   }
@@ -218,45 +236,44 @@ function milestoneMessage() {
 // Restores predator health and resets the number of prey and object positions
 function resetGame() {
   // Object positions
-  tiger = new Predator(250, 250, 4, color(200, 200, 0), 30);
+  thief = new Predator(250, 250, 4, avatarImage, 30);
 
   // Predator properties
-  tiger.health = tiger.maxHealth;
-  tiger.preyEaten = 0;
+  thief.health = thief.maxHealth;
+  thief.preyEaten = 0;
 }
 
 // playState()
 //
 // Shows all of the functions and objects during play
 function playState() {
-  // Clear the background to black
-  background(0);
+  // Setting the cave background
+  image(playBackground, 0, 0, windowWidth, windowHeight);
 
-  // Handle input for the tiger
-  tiger.handleInput();
+  // Handle input for the thief
+  thief.handleInput();
 
   // Move all the non-array characters
-  tiger.move();
+  thief.move();
   healer.move();
 
   // Handle the healing
-  tiger.handleHealing(healer);
+  thief.handleHealing(healer);
 
   // Display all the non-array characters
-  tiger.display();
+  thief.display();
   healer.display();
 
   // Moving and displaying the arrays
-
   for (let i = 0; i < preyArray.length; i++) {
     preyArray[i].display();
-    tiger.handleEating(preyArray[i]);
+    thief.handleEating(preyArray[i]);
   }
 
   for (let i = 0; i < dangerArray.length; i++) {
     dangerArray[i].move();
     dangerArray[i].display();
-    dangerArray[i].damage(tiger);
+    dangerArray[i].damage(thief);
     // Handling another array
     for (let j = 0; j < cageArray.length; j++) {
     cageArray[j].handleEating(dangerArray[i]);
@@ -266,7 +283,7 @@ function playState() {
   for (let i = 0; i < miniArray.length; i++) {
     miniArray[i].move();
     miniArray[i].display();
-    miniArray[i].damage(tiger);
+    miniArray[i].damage(thief);
     // Handling another array
     for (let j = 0; j < cageArray.length; j++) {
     cageArray[j].changedEating(miniArray[i]);
@@ -277,7 +294,7 @@ function playState() {
     cageArray[i].handleInput();
     cageArray[i].move();
     cageArray[i].display();
-    cageArray[i].damage(tiger);
+    cageArray[i].damage(thief);
     cageArray[i].handleEating(dangerArray);
   }
 
@@ -287,7 +304,7 @@ function playState() {
   }
 
   // The game ends when health reaches 0
-  if (tiger.health <= 0) {
+  if (thief.health <= 0) {
     state = "GAMEOVER";
     displayGameOver();
   }
