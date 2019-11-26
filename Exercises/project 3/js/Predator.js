@@ -21,7 +21,7 @@ class Predator {
     // Health properties
     this.maxHealth = 255;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
-    this.healthLossWhenEat = 1;
+    this.healthLossWhenEat = 3;
     this.healthGainPerEat = 3;
     // Display properties
     this.image = image;
@@ -109,8 +109,9 @@ class Predator {
       // Decrease prey health by the same amount
       prey.health -= this.healthLossWhenEat;
       // Check if the prey died and reset it if so
-      // Also increase the number of prey eaten
+      // Also increase the number of prey eaten and play a sound
       if (prey.health < 0) {
+        preySound.play();
         prey.reset();
         this.preyEaten += 1;
       }
@@ -134,6 +135,8 @@ class Predator {
       healer.health -= this.healthGainPerEat;
       // Check if the healer died and reset it if so
       if (healer.health < 0) {
+        // Play a sound
+        healSound.play();
         healer.reset();
       }
     }

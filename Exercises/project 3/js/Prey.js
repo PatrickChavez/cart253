@@ -1,8 +1,8 @@
 // Prey
 //
 // A class that represents a simple prey that moves
-// on screen based on a noise() function. It can move around
-// the screen and be consumed by Predator objects.
+// on screen based on a noise() function. It doesn't move, but movement
+// variables are implemented for child classes.
 
 class Prey {
 

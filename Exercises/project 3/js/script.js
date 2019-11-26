@@ -18,7 +18,7 @@ let thief;
 let healer;
 
 // The goal text and its movement
-let goalText = "Find 40 prey!";
+let goalText = "Find 40 piles of coins!";
 let goalTextY = 700;
 
 // Milestone text properties
@@ -49,9 +49,9 @@ let snowArray = [];
 let neoFont;
 
 // The music and sounds
-let introMusic = false;
-let playMusic = false;
-let endingMusic = false;
+let introMusic;
+let playMusic;
+let endingMusic;
 let preySound;
 let healSound;
 
@@ -59,6 +59,8 @@ let healSound;
 let titleScreen;
 let gameOverScreen;
 let playBackground;
+let introImages = [];
+let introNumber = 3;
 
 // The character images
 let avatarImage;
@@ -84,9 +86,16 @@ function preload() {
   healerImage = loadImage("assets/images/GreenWisp.png");
   cageImageRed = loadImage("assets/images/RedOrb.png");
   cageImageBlue = loadImage("assets/images/BlueOrb.png");
+  // Setting a for loop to generate the intro images
+  for (let i = 1; i <= introNumber; i++) {
+    // Setting the file path
+    let filePath = "assets/images/Intro" + i + ".png";
+    // Loading the images into the array
+    introImages.push(loadImage(filePath));
+  }
   // The font
   neoFont = loadFont("assets/fonts/Neothic.ttf");
-  // The Music and sounds
+  // The music and sounds
   introMusic = loadSound("assets/sounds/hajimetenookashidukuri.mp3");
   playMusic = loadSound("assets/sounds/marbletechno1.mp3");
   endingMusic = loadSound("assets/sounds/natsuironocampus.mp3");
@@ -101,6 +110,15 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // Setting the music
+  if (state === "TITLE") {
+    // introMusic.loop();
+    // playMusic.loop()
+  }
+  if (state === "PLAY") {
+    // introMusic.stop();
+    // playMusic.loop();
+  }
   thief = new Predator(250, 250, 4, avatarImage, 30);
   healer = new Healer(0, random(0, height), 5, healerImage, 40);
   // Setting a for loop to generate multiple objects
@@ -123,7 +141,7 @@ function setup() {
   }
   // The prey
   for (let i = 0; i < preyNumber; i++) {
-    let prey = new Prey(random(width/2, width), random(height/2, height), random(3, 5), preyImage, 20);
+    let prey = new Prey(random(width/2, width), random(height/2, height), random(3, 5), preyImage, 30);
     preyArray.push(prey);
   }
   // The dangers
@@ -133,7 +151,7 @@ function setup() {
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 5), miniDangerImage, 60);
+    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 3), miniDangerImage, 60);
     miniArray.push(miniDanger);
   }
   // The snow
@@ -168,6 +186,7 @@ function displayGoal() {
   }
   push();
   fill(255);
+  textFont(neoFont);
   textSize(64);
   textAlign(CENTER,CENTER);
   text(goalText, width/2, goalTextY);
@@ -180,8 +199,13 @@ function displayGoal() {
 //
 // Shows the number of prey eaten
 function displayScore() {
+  // Make the score disappear when a game over happens
+  if (state === "GAMEOVER") {
+    return;
+  }
   push();
   fill(255);
+  textFont(neoFont);
   textSize(64);
   textAlign(LEFT,BOTTOM);
   text("SCORE:" + thief.preyEaten, 0, height);
@@ -190,7 +214,7 @@ function displayScore() {
 
 // displayTitle()
 //
-// Shows the title screen
+// Shows the title screen and intro music
 function displayTitle() {
   image(titleScreen, 0, 0, windowWidth, windowHeight);
 }
@@ -201,14 +225,15 @@ function displayTitle() {
 function displayGameOver() {
   image(gameOverScreen, 0, 0, windowWidth, windowHeight);
   // Setting the text aesthetics
-  textSize(32);
+  textFont(neoFont);
+  textSize(48);
   textAlign(CENTER, CENTER);
-  fill(0, 0, 0);
+  fill(255);
   // Setting the text to be displayed
   let gameOverText;
-  gameOverText = "You found " + thief.preyEaten + " prey. \n";
-  gameOverText = gameOverText + "Click to reset!"
-  text(gameOverText, width/2, height/2);
+  gameOverText = "You found " + thief.preyEaten + " piles of coins. \n";
+  gameOverText = gameOverText + "Don't give up!"
+  text(gameOverText, width/2, height - 70);
 }
 
 // milestoneMessage
@@ -216,8 +241,13 @@ function displayGameOver() {
 // Displays a messsage when the predator finds a number of prey
 // Resets the the message's y position to scroll upwards again
 function milestoneMessage() {
+  // Make the message disappear when a game over happens
+  if (state === "GAMEOVER") {
+    return;
+  }
   push();
   // Setting the text aesthetics
+  textFont(neoFont);
   textSize(32);
   textAlign(CENTER, CENTER);
   fill(255);
@@ -243,7 +273,7 @@ function milestoneMessage() {
   }
   // Handling the universal settings for the message display
   // The messages activate as soon as the number of prey eaten reaches 5
-  if (thief.preyEaten >= 5 ) {
+  if (thief.preyEaten >= 5) {
     text(message, width/2, milestoneY);
     milestoneY = milestoneY - 3;
   }
@@ -255,7 +285,7 @@ function milestoneMessage() {
 // Restores predator health and resets the number of prey and object positions
 function resetGame() {
   // Object positions
-  thief = new Predator(250, 250, 4, avatarImage, 30);
+  thief = new Predator(250, 250, 4, avatarImage, 40);
 
   // Predator properties
   thief.health = thief.maxHealth;
