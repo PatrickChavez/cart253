@@ -45,6 +45,16 @@ let miniArray = [];
 let snowNumber = 100;
 let snowArray = [];
 
+// The Neothic font
+let neoFont;
+
+// The music and sounds
+let introMusic = false;
+let playMusic = false;
+let endingMusic = false;
+let preySound;
+let healSound;
+
 // The title, game over, story and gameplay screens
 let titleScreen;
 let gameOverScreen;
@@ -61,10 +71,11 @@ let cageImageBlue;
 
 // preload()
 //
-// Preloads the art assets
+// Preloads the images, font and music
 function preload() {
-  titleScreen = loadImage("assets/images/TitlePlaceholder.png");
-  gameOverScreen = loadImage("assets/images/GameOverPlaceholder.png");
+  // The images
+  titleScreen = loadImage("assets/images/Title.png");
+  gameOverScreen = loadImage("assets/images/GameOver.png");
   playBackground = loadImage("assets/images/CaveBackground.png");
   avatarImage = loadImage("assets/images/ThiefAvatar.png");
   preyImage = loadImage("assets/images/CoinPile.png");
@@ -73,6 +84,14 @@ function preload() {
   healerImage = loadImage("assets/images/GreenWisp.png");
   cageImageRed = loadImage("assets/images/RedOrb.png");
   cageImageBlue = loadImage("assets/images/BlueOrb.png");
+  // The font
+  neoFont = loadFont("assets/fonts/Neothic.ttf");
+  // The Music and sounds
+  introMusic = loadSound("assets/sounds/hajimetenookashidukuri.mp3");
+  playMusic = loadSound("assets/sounds/marbletechno1.mp3");
+  endingMusic = loadSound("assets/sounds/natsuironocampus.mp3");
+  preySound = loadSound("assets/sounds/reflect.wav");
+  healSound = loadSound("assets/sounds/error3.wav");
 
 }
 
