@@ -74,9 +74,9 @@ let introIndex = -1;
 // Properties for the ending images
 let endingImages = [];
 let endingNumber = 6;
-let endingIndex = -1;
+let endingIndex = 0;
 
-// The character images
+// The character images during gameplay
 let avatarImage;
 let preyImage;
 let dangerImage;
@@ -107,12 +107,12 @@ function preload() {
     // Loading the images into the array
     introImages.push(loadImage(filePath));
   }
-  // Setting a for loop to generate the intro images
+  // Setting a for loop to generate the ending images
   for (let i = 1; i <= endingNumber; i++) {
     // Setting the file path
-    let filePath = "assets/images/Intro" + i + ".png";
+    let filePath = "assets/images/Ending" + i + ".png";
     // Loading the images into the array
-    introImages.push(loadImage(filePath));
+    endingImages.push(loadImage(filePath));
   }
   // The font
   neoFont = loadFont("assets/fonts/Neothic.ttf");
@@ -196,13 +196,15 @@ function draw() {
     displayIntro();
   }
 
-
   // Making an if statement to handle the play screen
   else if (state === "PLAY") {
     playState();
   }
-  // Console log for the intro index
+
+  // Console log for the intro array index
   console.log("Intro index is currently " + introIndex);
+  // Console log for the ending array index
+  console.log("Ending index is currently " + endingIndex);
 }
 
 // displayGoal
@@ -210,7 +212,7 @@ function draw() {
 // Shows the goal of the game
 function displayGoal() {
   // Make the message disappear when a game over happens
-  if (state === "GAMEOVER") {
+  if (state === "GAMEOVER" || "ENDING") {
     return;
   }
   push();
@@ -229,7 +231,7 @@ function displayGoal() {
 // Shows the number of prey eaten
 function displayScore() {
   // Make the score disappear when a game over happens
-  if (state === "GAMEOVER") {
+  if (state === "GAMEOVER" || "ENDING") {
     return;
   }
   push();
@@ -250,9 +252,16 @@ function displayTitle() {
 
 // displayIntro()
 //
-// Cycles through the intro screens
+// Shows the intro screens
 function displayIntro() {
   image(introImages[introIndex], 0, 0, windowWidth, windowHeight);
+}
+
+// displayEnding()
+//
+// Shows the ending screens
+function displayEnding() {
+  image(endingImages[endingIndex], 0, 0, windowWidth, windowHeight);
 }
 
 // displayGameOver()
@@ -278,7 +287,7 @@ function displayGameOver() {
 // Resets the the message's y position to scroll upwards again
 function milestoneMessage() {
   // Make the message disappear when a game over happens
-  if (state === "GAMEOVER") {
+  if (state === "GAMEOVER" || "ENDING") {
     return;
   }
   push();
@@ -388,10 +397,16 @@ function playState() {
     snowArray[i].display();
   }
 
-  // The game ends when health reaches 0
+  // The game is over when health reaches 0
   if (thief.health <= 0) {
     state = "GAMEOVER";
     displayGameOver();
+  }
+
+  // The ending displays once the predator finds enough prey
+  if (thief.preyEaten === 10) {
+    state = "ENDING";
+    displayEnding();
   }
 
   // Display the score
@@ -402,6 +417,7 @@ function playState() {
 
   // Displaying the milestone messages
   milestoneMessage();
+
 }
 
 // mousePressed()
@@ -423,5 +439,9 @@ function mousePressed() {
   if (state === "GAMEOVER") {
     state = "PLAY";
     resetGame();
+  }
+  // Go from one ending screen to the next
+  if (state === "ENDING") {
+    endingIndex += 1;
   }
 }
