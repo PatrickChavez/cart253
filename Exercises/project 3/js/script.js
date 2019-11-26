@@ -5,8 +5,16 @@
 // Collect the prey scattered throughout the canvas and avoid the dangers using the arrow keys!
 // Your cage can be moved using the WSAD keys and can shrink the dangers of the appropriate color.
 //
+// error3.wav and reflect.wav from TAM Music Factory
+// https://www.tam-music.com/se000_category/menu
+// https://www.tam-music.com/se000_category/game
+//
+// Neothic Font from the Montserrat Project Authors and found through DaFont
+// https://github.com/JulietaUla/Montserrat
+// https://www.dafont.com/neothic.font?l[]=10&l[]=1
+//
 // Predator-Prey Simulation source code from Pippin Barr
-//https://github.com/pippinbarr/cart253-2019/blob/master/games/game-oop-predator-prey.zip
+// https://github.com/pippinbarr/cart253-2019/blob/master/games/game-oop-predator-prey.zip
 
 // Handling the game's current state/screen
 let state = "TITLE";
@@ -59,8 +67,14 @@ let healSound;
 let titleScreen;
 let gameOverScreen;
 let playBackground;
+// Properties for the intro images
 let introImages = [];
 let introNumber = 3;
+let introIndex = -1;
+// Properties for the ending images
+let endingImages = [];
+let endingNumber = 6;
+let endingIndex = -1;
 
 // The character images
 let avatarImage;
@@ -93,6 +107,13 @@ function preload() {
     // Loading the images into the array
     introImages.push(loadImage(filePath));
   }
+  // Setting a for loop to generate the intro images
+  for (let i = 1; i <= endingNumber; i++) {
+    // Setting the file path
+    let filePath = "assets/images/Intro" + i + ".png";
+    // Loading the images into the array
+    introImages.push(loadImage(filePath));
+  }
   // The font
   neoFont = loadFont("assets/fonts/Neothic.ttf");
   // The music and sounds
@@ -113,14 +134,16 @@ function setup() {
   // Setting the music
   if (state === "TITLE") {
     // introMusic.loop();
-    // playMusic.loop()
+    // Change state immediatetly
+    // playMusic.loop();
+    // endingMusic.loop();
   }
   if (state === "PLAY") {
     // introMusic.stop();
     // playMusic.loop();
   }
   thief = new Predator(250, 250, 4, avatarImage, 30);
-  healer = new Healer(0, random(0, height), 5, healerImage, 40);
+  healer = new Healer(0, random(0, height), 5, healerImage, 60);
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
@@ -169,11 +192,17 @@ function draw() {
   if (state === "TITLE") {
     displayTitle();
   }
+  else if (state === "INTRO") {
+    displayIntro();
+  }
+
 
   // Making an if statement to handle the play screen
   else if (state === "PLAY") {
     playState();
   }
+  // Console log for the intro index
+  console.log("Intro index is currently " + introIndex);
 }
 
 // displayGoal
@@ -195,7 +224,7 @@ function displayGoal() {
   pop();
 }
 
-// displayScore
+// displayScore()
 //
 // Shows the number of prey eaten
 function displayScore() {
@@ -217,6 +246,13 @@ function displayScore() {
 // Shows the title screen and intro music
 function displayTitle() {
   image(titleScreen, 0, 0, windowWidth, windowHeight);
+}
+
+// displayIntro()
+//
+// Cycles through the intro screens
+function displayIntro() {
+  image(introImages[introIndex], 0, 0, windowWidth, windowHeight);
 }
 
 // displayGameOver()
@@ -373,6 +409,14 @@ function playState() {
 // Cycles through the various game screens
 function mousePressed() {
   if (state === "TITLE") {
+    state = "INTRO";
+  }
+  // Go from one intro screen to the next
+  if (state === "INTRO") {
+    introIndex += 1;
+  }
+  // Heading to the play screen after the intro index reaches a certain number
+  if (introIndex === 3) {
     state = "PLAY";
   }
   // Resets game if the player got a game over

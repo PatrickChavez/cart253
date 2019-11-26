@@ -22,7 +22,7 @@ class Predator {
     this.maxHealth = 255;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     this.healthLossWhenEat = 3;
-    this.healthGainPerEat = 3;
+    this.healthGainPerEat = 5;
     // Display properties
     this.image = image;
     this.radius = radius;
@@ -131,7 +131,7 @@ class Predator {
       // Increase predator health and constrain it to its possible range
       this.health += this.healthGainPerEat;
       this.health = constrain(this.health, 0, this.maxHealth);
-      // Decrease prey health by the same amount
+      // Decrease healer health by the same amount
       healer.health -= this.healthGainPerEat;
       // Check if the healer died and reset it if so
       if (healer.health < 0) {

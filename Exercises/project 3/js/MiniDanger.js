@@ -41,7 +41,10 @@ class MiniDanger extends Danger {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a good amount
-      predator.health = predator.health - 0.5;
+      // The predator takes no damage if the Danger's radius is too low
+      if (this.radius >= 30) {
+        predator.health = predator.health - 1;
+      }
     }
   }
 

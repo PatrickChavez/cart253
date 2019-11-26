@@ -1,7 +1,7 @@
 // Healer
 //
 // A child class that inherits from Prey.
-// It moves across the width of the canvas and heals the predator.
+// It moves across the width of the canvas, regenerates and heals the predator.
 
 class Healer extends Prey {
   // constructor
@@ -14,14 +14,19 @@ class Healer extends Prey {
     // Velocity and speed
     this.vx = speed;
     this.vy = speed;
+    // this.defaultSpeed = speed;
+    // this.eatenSpeed = 1;
   }
 
   // move
   //
-  // Moves based on the resulting velocity and handles wrapping
+  // Moves based on the resulting velocity, regenerates and handles wrapping
   move() {
     // Update position based on velocity
     this.x += this.vx;
+    // Update health
+    this.health += 0.1;
+    this.health = constrain(this.health, 1, this.maxHealth);
     // Handle wrapping and warping
     this.handleWrapping();
     this.warp();
