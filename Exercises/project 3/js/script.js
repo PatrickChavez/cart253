@@ -5,9 +5,13 @@
 // Collect the prey scattered throughout the canvas and avoid the dangers using the arrow keys!
 // Your cage can be moved using the WSAD keys and can shrink the dangers of the appropriate color.
 //
+// マーブルテクノⅠ/Marble Techno I
+// 夏色のキャンパス/Summer-Colored Campus/natsuironocampus
+// はじめてのお菓子作り/Making Your First Sweet/hajimetenookashidukuri
+// from Amacha Music Studio: https://amachamusic.chagasi.com/
+//
 // error3.wav and reflect.wav from TAM Music Factory
-// https://www.tam-music.com/se000_category/menu
-// https://www.tam-music.com/se000_category/game
+// https://www.tam-music.com/
 //
 // Neothic Font from the Montserrat Project Authors and found through DaFont
 // https://github.com/JulietaUla/Montserrat
@@ -17,7 +21,7 @@
 // https://github.com/pippinbarr/cart253-2019/blob/master/games/game-oop-predator-prey.zip
 
 // Handling the game's current state/screen
-let state = "TITLE";
+let state = "START";
 
 // Our predator
 let thief;
@@ -69,11 +73,11 @@ let gameOverScreen;
 let playBackground;
 // Properties for the intro images
 let introImages = [];
-let introNumber = 3;
+let introNumber = 9;
 let introIndex = -1;
 // Properties for the ending images
 let endingImages = [];
-let endingNumber = 6;
+let endingNumber = 12;
 let endingIndex = 0;
 
 // The character images during gameplay
@@ -132,17 +136,17 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // Setting the music
-  if (state === "TITLE") {
-    // introMusic.loop();
-    // Change state immediatetly
-    // playMusic.loop();
-    // endingMusic.loop();
-  }
-  if (state === "PLAY") {
-    // introMusic.stop();
-    // playMusic.loop();
-  }
-  thief = new Predator(250, 250, 4, avatarImage, 30);
+  // if (state === "TITLE") {
+  //   // introMusic.loop();
+  //   // Change state immediatetly
+  //   // playMusic.loop();
+  //   // endingMusic.loop();
+  // }
+  // if (state === "PLAY") {
+  //   // introMusic.stop();
+  //   // playMusic.loop();
+  // }
+  thief = new Predator(250, 250, 4, avatarImage, 40);
   healer = new Healer(0, random(0, height), 5, healerImage, 60);
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
@@ -188,19 +192,42 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Changing the game states
-  if (state === "TITLE") {
+  // Changing the game states one after the other
+  if (state === "START") {
+    // Make the music play only once in the frame
+    introMusic.loop();
+    state = "TITLE";
+  }
+  else if (state === "TITLE") {
     displayTitle();
   }
   else if (state === "INTRO") {
     displayIntro();
   }
-
-  // Making an if statement to handle the play screen
+  else if (state === "STARTPLAY") {
+    // Stop the intro music and start the gameplay music
+    introMusic.stop();
+    playMusic.loop();
+    state = "PLAY";
+  }
   else if (state === "PLAY") {
     playState();
   }
+  else if (state === "GAMEOVER") {
+    displayGameOver();
+  }
+  else if (state === "STARTENDING") {
+    // Stop the gameplay music and start the ending music
+    playMusic.stop();
+    endingMusic.loop();
+    state = "ENDING";
+  }
+  else if (state === "ENDING") {
+    displayEnding();
+  }
 
+  // Console log for the current game state
+  console.log("The game state is currently in " + state);
   // Console log for the intro array index
   console.log("Intro index is currently " + introIndex);
   // Console log for the ending array index
@@ -212,7 +239,7 @@ function draw() {
 // Shows the goal of the game
 function displayGoal() {
   // Make the message disappear when a game over happens
-  if (state === "GAMEOVER" || "ENDING") {
+  if (state === "GAMEOVER") {
     return;
   }
   push();
@@ -231,7 +258,7 @@ function displayGoal() {
 // Shows the number of prey eaten
 function displayScore() {
   // Make the score disappear when a game over happens
-  if (state === "GAMEOVER" || "ENDING") {
+  if (state === "GAMEOVER") {
     return;
   }
   push();
@@ -287,13 +314,13 @@ function displayGameOver() {
 // Resets the the message's y position to scroll upwards again
 function milestoneMessage() {
   // Make the message disappear when a game over happens
-  if (state === "GAMEOVER" || "ENDING") {
+  if (state === "GAMEOVER") {
     return;
   }
   push();
   // Setting the text aesthetics
   textFont(neoFont);
-  textSize(32);
+  textSize(64);
   textAlign(CENTER, CENTER);
   fill(255);
   // The message displays nothing at 0 prey eaten
@@ -398,15 +425,13 @@ function playState() {
   }
 
   // The game is over when health reaches 0
-  if (thief.health <= 0) {
+  if (thief.health <= 0 && state !== "GAMEOVER") {
     state = "GAMEOVER";
-    displayGameOver();
   }
 
   // The ending displays once the predator finds enough prey
-  if (thief.preyEaten === 10) {
-    state = "ENDING";
-    displayEnding();
+  if (thief.preyEaten === 10 && state !== "ENDING") {
+    state = "STARTENDING";
   }
 
   // Display the score
@@ -425,6 +450,8 @@ function playState() {
 // Cycles through the various game screens
 function mousePressed() {
   if (state === "TITLE") {
+    // Play a sound to activate the music
+    preySound.play();
     state = "INTRO";
   }
   // Go from one intro screen to the next
@@ -432,8 +459,8 @@ function mousePressed() {
     introIndex += 1;
   }
   // Heading to the play screen after the intro index reaches a certain number
-  if (introIndex === 3) {
-    state = "PLAY";
+  if (introIndex === 9) {
+    state = "STARTPLAY";
   }
   // Resets game if the player got a game over
   if (state === "GAMEOVER") {
@@ -441,7 +468,7 @@ function mousePressed() {
     resetGame();
   }
   // Go from one ending screen to the next
-  if (state === "ENDING") {
+  else if (state === "ENDING") {
     endingIndex += 1;
   }
 }
