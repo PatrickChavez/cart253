@@ -21,6 +21,7 @@
 // https://github.com/pippinbarr/cart253-2019/blob/master/games/game-oop-predator-prey.zip
 
 // Handling the game's current state/screen
+// The state will begin with "START" in order play the intro music for 1 frame
 let state = "START";
 
 // Our predator
@@ -30,7 +31,7 @@ let thief;
 let healer;
 
 // The goal text and its movement
-let goalText = "Find 40 piles of coins!";
+let goalText = "Collect 30 piles of coins!";
 let goalTextY = 700;
 
 // Milestone text properties
@@ -237,7 +238,7 @@ function displayGoal() {
   textSize(64);
   textAlign(CENTER,CENTER);
   text(goalText, width/2, goalTextY);
-  // Make it move
+  // Make it move upwards
   goalTextY = goalTextY - 3;
   pop();
 }
@@ -295,7 +296,7 @@ function displayGameOver() {
   gameOverText = "You found " + thief.preyEaten + " piles of coins. \n";
   gameOverText = gameOverText + "Don't give up! \n"
   gameOverText = gameOverText + "Click to retry."
-  text(gameOverText, width/2, height - 70);
+  text(gameOverText, width/2, height - 75);
 }
 
 // milestoneMessage
@@ -324,12 +325,12 @@ function milestoneMessage() {
     milestoneY = 700;
   }
   // The second message
-  if (thief.preyEaten === 19) { // The message will display when 20 is reached
+  if (thief.preyEaten === 11) { // The message will display when 12 is reached
     message = "Doing great!";
     milestoneY = 700;
   }
   // The third message
-  if (thief.preyEaten === 29) { // The message will display when 30 is reached
+  if (thief.preyEaten === 20) { // The message will display when 21 is reached
     message = "Almost there!";
     milestoneY = 700;
   }
@@ -378,11 +379,13 @@ function playState() {
   healer.display();
 
   // Moving and displaying the arrays
+  // The prey
   for (let i = 0; i < preyArray.length; i++) {
     preyArray[i].display();
     thief.handleEating(preyArray[i]);
   }
 
+  // The dangers
   for (let i = 0; i < dangerArray.length; i++) {
     dangerArray[i].move();
     dangerArray[i].display();
@@ -393,6 +396,7 @@ function playState() {
     }
   }
 
+  // The mini dangers
   for (let i = 0; i < miniArray.length; i++) {
     miniArray[i].move();
     miniArray[i].display();
@@ -403,6 +407,7 @@ function playState() {
     }
   }
 
+  // The cage
   for (let i = 0; i < cageArray.length; i++) {
     cageArray[i].handleInput();
     cageArray[i].move();
@@ -411,6 +416,7 @@ function playState() {
     cageArray[i].handleEating(dangerArray);
   }
 
+  // The snow
   for (let i = 0; i < snowArray.length; i++) {
     snowArray[i].move();
     snowArray[i].display();
@@ -422,7 +428,7 @@ function playState() {
   }
 
   // The ending displays once the predator finds enough prey
-  if (thief.preyEaten === 10 && state !== "ENDING") {
+  if (thief.preyEaten === 30 && state !== "ENDING") {
     state = "STARTENDING";
   }
 
@@ -434,7 +440,6 @@ function playState() {
 
   // Displaying the milestone messages
   milestoneMessage();
-
 }
 
 // mousePressed()

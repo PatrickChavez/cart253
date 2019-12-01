@@ -48,7 +48,6 @@ class MiniDanger extends Danger {
     }
   }
 
-
   // warp
   //
   // Moves the mini danger to a random position when it
