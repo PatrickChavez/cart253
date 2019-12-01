@@ -23,7 +23,7 @@ class MiniDanger extends Danger {
     // this.x -= this.vx;
     this.y += this.vy;
     // Update health
-    this.health += 0.1;
+    this.health += 0.2;
     this.health = constrain(this.health, 1, this.maxHealth);
     // Handle wrapping and warping
     this.handleWrapping();

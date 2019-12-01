@@ -50,7 +50,7 @@ let dangerNumber = 10;
 let dangerArray = [];
 
 // The mini danger, its array and the number storing them
-let miniNumber = 3;
+let miniNumber = 7;
 let miniArray = [];
 
 // The snow, its array and the number storing them
@@ -135,17 +135,6 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // Setting the music
-  // if (state === "TITLE") {
-  //   // introMusic.loop();
-  //   // Change state immediatetly
-  //   // playMusic.loop();
-  //   // endingMusic.loop();
-  // }
-  // if (state === "PLAY") {
-  //   // introMusic.stop();
-  //   // playMusic.loop();
-  // }
   thief = new Predator(250, 250, 4, avatarImage, 40);
   healer = new Healer(0, random(0, height), 5, healerImage, 60);
   // Setting a for loop to generate multiple objects
@@ -304,7 +293,8 @@ function displayGameOver() {
   // Setting the text to be displayed
   let gameOverText;
   gameOverText = "You found " + thief.preyEaten + " piles of coins. \n";
-  gameOverText = gameOverText + "Don't give up!"
+  gameOverText = gameOverText + "Don't give up! \n"
+  gameOverText = gameOverText + "Click to retry."
   text(gameOverText, width/2, height - 70);
 }
 
@@ -461,9 +451,10 @@ function mousePressed() {
   // Heading to the play screen after the intro index reaches a certain number
   if (introIndex === 9) {
     state = "STARTPLAY";
+    introIndex = -1;
   }
   // Resets game if the player got a game over
-  if (state === "GAMEOVER") {
+  else if (state === "GAMEOVER") {
     state = "PLAY";
     resetGame();
   }
