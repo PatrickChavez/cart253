@@ -287,7 +287,7 @@ function displayGameOver() {
   image(gameOverScreen, 0, 0, windowWidth, windowHeight);
   // Setting the text aesthetics
   textFont(neoFont);
-  textSize(48);
+  textSize(32);
   textAlign(CENTER, CENTER);
   fill(255);
   // Setting the text to be displayed
@@ -348,10 +348,12 @@ function milestoneMessage() {
 function resetGame() {
   // Object positions
   thief = new Predator(250, 250, 4, avatarImage, 40);
-
   // Predator properties
   thief.health = thief.maxHealth;
   thief.preyEaten = 0;
+  // Resetting the initial positions of the messages
+  goalTextY = 700;
+  milestoneY = 700;
 }
 
 // playState()
