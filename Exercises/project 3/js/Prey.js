@@ -1,7 +1,6 @@
 // Prey
 //
-// A class that represents a simple prey that moves
-// on screen based on a noise() function. It doesn't move, but movement
+// A class that represents a simple prey. It doesn't move, but movement
 // variables are implemented for child classes.
 
 class Prey {
@@ -33,6 +32,7 @@ class Prey {
   //
   // Sets velocity based on the noise() function and the Prey's speed
   // Moves based on the resulting velocity and handles wrapping
+  // Method unused but preserved to prevent complications (bugs, etc.).
   move() {
     // Set velocity via noise()
     this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
@@ -51,19 +51,18 @@ class Prey {
   //
   // Checks if the prey has gone off the canvas and
   // wraps it to the other side if so
+  // Method unused but preserved to prevent complications (bugs, etc.).
   handleWrapping() {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }

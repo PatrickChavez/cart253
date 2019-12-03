@@ -1,6 +1,6 @@
 // Cage
 //
-// A class that represents a harmful object enclosing the predator that drains the
+// A class that represents a harmful object enclosing the predator that drains
 // its health. In addtion, it can also eat certain dangers depending on is color.
 // It can move with the WASD keys.
 
@@ -38,27 +38,23 @@ class Cage {
 
   // handleInput
   //
-  // Checks if an arrow key is pressed and sets the predator's
+  // Checks if an WASD key is pressed and sets the cage's
   // velocity appropriately.
   handleInput() {
     // Horizontal movement
     if (keyIsDown(this.leftKey)) {
       this.vx = -this.speed;
-    }
-    else if (keyIsDown(this.rightKey)) {
+    } else if (keyIsDown(this.rightKey)) {
       this.vx = this.speed;
-    }
-    else {
+    } else {
       this.vx = 0;
     }
     // Vertical movement
     if (keyIsDown(this.upKey)) {
       this.vy = -this.speed;
-    }
-    else if (keyIsDown(this.downKey)) {
+    } else if (keyIsDown(this.downKey)) {
       this.vy = this.speed;
-    }
-    else {
+    } else {
       this.vy = 0;
     }
     // The spacebar toggles the cage's different modes
@@ -66,15 +62,13 @@ class Cage {
     if (keyIsDown(32) && this.changedMode === false) {
       this.redMode = !this.redMode;
       this.changedMode = true;
-    }
-    else if (keyIsDown(32) === false) {
+    } else if (keyIsDown(32) === false) {
       this.changedMode = false;
     }
     // The color changes if the spacebar is pressed
     if (this.redMode) {
       this.image = this.defaultImage;
-    }
-    else {
+    } else {
       this.image = this.secondImage;
     }
   }
@@ -100,15 +94,13 @@ class Cage {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
@@ -117,17 +109,17 @@ class Cage {
   // handleEating
   //
   // Takes a Danger object as an argument and checks if a Cage with the
-  // default color overlaps it. If so, reduces the prey's health and constrains it.
+  // default color (red) overlaps it. If so, reduces the danger's health and constrains it.
   handleEating(danger) {
     // If statement to handle the method
     if (this.image === this.defaultImage) {
-    // Calculate distance from this cage to the danger
-    let d = dist(this.x, this.y, danger.x, danger.y);
-    // Check if the distance is less than their two radii (an overlap)
-    if (d < this.radius + danger.radius) {
-      // Decrease prey health and constrain it
-      danger.health -= 1;
-      danger.health = constrain(danger.health, 1, danger.radius);
+      // Calculate distance from this cage to the danger
+      let d = dist(this.x, this.y, danger.x, danger.y);
+      // Check if the distance is less than their two radii (an overlap)
+      if (d < this.radius + danger.radius) {
+        // Decrease danger health and constrain it
+        danger.health -= 1;
+        danger.health = constrain(danger.health, 1, danger.radius);
       }
     }
     // Else the danger receives no health loss
@@ -140,17 +132,17 @@ class Cage {
   // changedEating
   //
   // Takes a Danger object as an argument and checks if a Cage with another color
-  // overlaps it. If so, reduces the prey's health and constrains it.
+  // (blue) overlaps it. If so, reduces the prey's health and constrains it.
   changedEating(danger) {
     // If statement to handle the method
     if (this.image === this.secondImage) {
-    // Calculate distance from this cage to the danger
-    let d = dist(this.x, this.y, danger.x, danger.y);
-    // Check if the distance is less than their two radii (an overlap)
-    if (d < this.radius + danger.radius) {
-      // Decrease prey health and constrain it
-      danger.health -= 1;
-      danger.health = constrain(danger.health, 1, danger.radius);
+      // Calculate distance from this cage to the danger
+      let d = dist(this.x, this.y, danger.x, danger.y);
+      // Check if the distance is less than their two radii (an overlap)
+      if (d < this.radius + danger.radius) {
+        // Decrease danger health and constrain it
+        danger.health -= 1;
+        danger.health = constrain(danger.health, 1, danger.radius);
       }
     }
     // Else the danger receives no health loss
@@ -169,13 +161,13 @@ class Cage {
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + predator.radius) {
       // Decrease predator health by a good amount
-      predator.health = predator.health - 2;
+      predator.health = predator.health - 3;
     }
   }
 
   // display
   //
-  // Draw the Cage as an orb on the canvas
+  // Draw the Cage as a red or blue orb on the canvas
   display() {
     push();
     // Centering image for precise collision

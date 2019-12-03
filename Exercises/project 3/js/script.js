@@ -1,9 +1,10 @@
-// Predator-Prey Simulation Project 3
+// SPARKS! (Project 3)
 // by Patrick Chavez-Nadarajah
 //
-// Another draft of Project 3 that uses the Predator-Prey Simulation source code.
+// A submission of Project 3 that uses the Predator-Prey Simulation source code.
 // Collect the prey scattered throughout the canvas and avoid the dangers using the arrow keys!
 // Your cage can be moved using the WSAD keys and can shrink the dangers of the appropriate color.
+// More detailed instructions reside in the game.
 //
 // マーブルテクノⅠ/Marble Techno I
 // 夏色のキャンパス/Summer-Colored Campus/natsuironocampus
@@ -13,7 +14,7 @@
 // error3.wav and reflect.wav from TAM Music Factory
 // https://www.tam-music.com/
 //
-// Neothic Font from the Montserrat Project Authors and found through DaFont
+// Neothic Font made by the Montserrat Project Authors and found through DaFont
 // https://github.com/JulietaUla/Montserrat
 // https://www.dafont.com/neothic.font?l[]=10&l[]=1
 //
@@ -30,7 +31,7 @@ let thief;
 // The healer
 let healer;
 
-// The goal text and its movement
+// The goal text and its placement
 let goalText = "Collect 30 piles of coins!";
 let goalTextY = 700;
 
@@ -38,7 +39,7 @@ let goalTextY = 700;
 let message;
 let milestoneY = 700;
 
-// The prey, their array and their number storing them
+// The prey, their array and the number storing them
 let preyNumber = 4;
 let preyArray = [];
 
@@ -132,8 +133,7 @@ function preload() {
 
 // setup()
 //
-// Sets up a canvas
-// Creates objects for the predator and three prey
+// Sets up a canvas and creates objects for the many classes
 function setup() {
   createCanvas(windowWidth, windowHeight);
   thief = new Predator(250, 250, 4, avatarImage, 40);
@@ -141,24 +141,24 @@ function setup() {
   // Setting a for loop to generate multiple objects
   // Generating a "cage"
   for (let i = 0; i < cageNumber; i++) {
-    let cageLeft = new Cage(150, 150 + i*60, 4, cageImageRed, cageImageBlue, 30);
+    let cageLeft = new Cage(150, 150 + i * 60, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageLeft);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageRight = new Cage(470, 150 + i*60, 4, cageImageRed, cageImageBlue, 30);
+    let cageRight = new Cage(470, 150 + i * 60, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageRight);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageUp = new Cage(i*60 + 190, 100, 4, cageImageRed, cageImageBlue, 30);
+    let cageUp = new Cage(i * 60 + 190, 100, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageUp);
   }
   for (let i = 0; i < cageNumber; i++) {
-    let cageDown = new Cage(i*60 + 190, 440, 4, cageImageRed, cageImageBlue, 30);
+    let cageDown = new Cage(i * 60 + 190, 440, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageDown);
   }
   // The prey
   for (let i = 0; i < preyNumber; i++) {
-    let prey = new Prey(random(width/2, width), random(height/2, height), random(3, 5), preyImage, 30);
+    let prey = new Prey(random(width / 2, width), random(height / 2, height), 0, preyImage, 30);
     preyArray.push(prey);
   }
   // The dangers
@@ -173,8 +173,8 @@ function setup() {
   }
   // The snow
   for (let i = 0; i < snowNumber; i++) {
-  let snow = new Snow(random(0, width), random(0, height), random(2, 4), color(255, 115, 150, 50), random(3, 10));
-  snowArray.push(snow);
+    let snow = new Snow(random(0, width), random(0, height), random(2, 4), color(255, 115, 150, 50), random(3, 10));
+    snowArray.push(snow);
   }
 }
 
@@ -186,33 +186,29 @@ function draw() {
   if (state === "START") {
     // Make the music play only once in the frame
     introMusic.loop();
+    // Then quickly change the state to "TITLE"
     state = "TITLE";
-  }
-  else if (state === "TITLE") {
+  } else if (state === "TITLE") {
     displayTitle();
-  }
-  else if (state === "INTRO") {
+  } else if (state === "INTRO") {
     displayIntro();
-  }
-  else if (state === "STARTPLAY") {
+  } else if (state === "STARTPLAY") {
     // Stop the intro music and start the gameplay music
     introMusic.stop();
     playMusic.loop();
+    // Then quickly change the state to "PLAY"
     state = "PLAY";
-  }
-  else if (state === "PLAY") {
+  } else if (state === "PLAY") {
     playState();
-  }
-  else if (state === "GAMEOVER") {
+  } else if (state === "GAMEOVER") {
     displayGameOver();
-  }
-  else if (state === "STARTENDING") {
+  } else if (state === "STARTENDING") {
     // Stop the gameplay music and start the ending music
     playMusic.stop();
     endingMusic.loop();
+    // Then quickly change the state to "ENDING"
     state = "ENDING";
-  }
-  else if (state === "ENDING") {
+  } else if (state === "ENDING") {
     displayEnding();
   }
 
@@ -233,11 +229,12 @@ function displayGoal() {
     return;
   }
   push();
+  // Setting the aesthetics
   fill(255);
   textFont(neoFont);
   textSize(64);
-  textAlign(CENTER,CENTER);
-  text(goalText, width/2, goalTextY);
+  textAlign(CENTER, CENTER);
+  text(goalText, width / 2, goalTextY);
   // Make it move upwards
   goalTextY = goalTextY - 3;
   pop();
@@ -252,31 +249,33 @@ function displayScore() {
     return;
   }
   push();
+  // Setting the aesthetics
   fill(255);
   textFont(neoFont);
   textSize(64);
-  textAlign(LEFT,BOTTOM);
+  // Show the score at the bottom left of the screen
+  textAlign(LEFT, BOTTOM);
   text("SCORE:" + thief.preyEaten, 0, height);
   pop();
 }
 
 // displayTitle()
 //
-// Shows the title screen and intro music
+// Shows the title screen
 function displayTitle() {
   image(titleScreen, 0, 0, windowWidth, windowHeight);
 }
 
 // displayIntro()
 //
-// Shows the intro screens
+// Shows the intro screens by calling the index numbers in the array
 function displayIntro() {
   image(introImages[introIndex], 0, 0, windowWidth, windowHeight);
 }
 
 // displayEnding()
 //
-// Shows the ending screens
+// Shows the ending screens by calling the index numbers in the array
 function displayEnding() {
   image(endingImages[endingIndex], 0, 0, windowWidth, windowHeight);
 }
@@ -296,12 +295,12 @@ function displayGameOver() {
   gameOverText = "You found " + thief.preyEaten + " piles of coins. \n";
   gameOverText = gameOverText + "Don't give up! \n"
   gameOverText = gameOverText + "Click to retry."
-  text(gameOverText, width/2, height - 75);
+  text(gameOverText, width / 2, height - 75);
 }
 
 // milestoneMessage
 //
-// Displays a messsage when the predator finds a number of prey
+// Displays a messsage when the predator finds a certain number of prey
 // Resets the the message's y position to scroll upwards again
 function milestoneMessage() {
   // Make the message disappear when a game over happens
@@ -316,8 +315,8 @@ function milestoneMessage() {
   fill(255);
   // The message displays nothing at 0 prey eaten
   if (thief.preyEaten === 0) {
-    	message = "";
-    }
+    message = "";
+  }
   // The first message
   if (thief.preyEaten === 4) { // The message will display when 5 is reached
     // Setting the text to be displayed
@@ -337,7 +336,7 @@ function milestoneMessage() {
   // Handling the universal settings for the message display
   // The messages activate as soon as the number of prey eaten reaches 5
   if (thief.preyEaten >= 5) {
-    text(message, width/2, milestoneY);
+    text(message, width / 2, milestoneY);
     milestoneY = milestoneY - 3;
   }
   pop();
@@ -390,9 +389,9 @@ function playState() {
     dangerArray[i].move();
     dangerArray[i].display();
     dangerArray[i].damage(thief);
-    // Handling another array
+    // Handling the cage array for eating
     for (let j = 0; j < cageArray.length; j++) {
-    cageArray[j].handleEating(dangerArray[i]);
+      cageArray[j].handleEating(dangerArray[i]);
     }
   }
 
@@ -401,9 +400,9 @@ function playState() {
     miniArray[i].move();
     miniArray[i].display();
     miniArray[i].damage(thief);
-    // Handling another array
+    // Handling the cage array for eating
     for (let j = 0; j < cageArray.length; j++) {
-    cageArray[j].changedEating(miniArray[i]);
+      cageArray[j].changedEating(miniArray[i]);
     }
   }
 
@@ -413,7 +412,6 @@ function playState() {
     cageArray[i].move();
     cageArray[i].display();
     cageArray[i].damage(thief);
-    cageArray[i].handleEating(dangerArray);
   }
 
   // The snow
@@ -447,7 +445,7 @@ function playState() {
 // Cycles through the various game screens
 function mousePressed() {
   if (state === "TITLE") {
-    // Play a sound to activate the music
+    // Play a sound to activate the music (if it doesn't play)
     preySound.play();
     state = "INTRO";
   }
@@ -458,6 +456,8 @@ function mousePressed() {
   // Heading to the play screen after the intro index reaches a certain number
   if (introIndex === 9) {
     state = "STARTPLAY";
+    // Setting the intro index back to its initial number to
+    // prevent the activation of "STARTPLAY" over and over with the mouse clicks
     introIndex = -1;
   }
   // Resets game if the player got a game over
