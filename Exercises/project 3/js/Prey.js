@@ -51,7 +51,7 @@ class Prey {
   //
   // Checks if the prey has gone off the canvas and
   // wraps it to the other side if so
-  // Method unused but preserved to prevent complications (bugs, etc.).
+  // Method unused but preserved for child classes.
   handleWrapping() {
     // Off the left or right
     if (this.x < 0) {

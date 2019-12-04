@@ -52,7 +52,7 @@ let dangerNumber = 10;
 let dangerArray = [];
 
 // The mini danger, its array and the number storing them
-let miniNumber = 7;
+let miniNumber = 5;
 let miniArray = [];
 
 // The snow, its array and the number storing them
@@ -348,6 +348,9 @@ function milestoneMessage() {
 function resetGame() {
   // Object positions
   thief = new Predator(250, 250, 4, avatarImage, 40);
+  for (let i = 0; i < dangerNumber; i++) {
+    let danger = new Danger(random(300, width), random(300, height), random(1, 3), dangerImage, 60);
+  }
   // Predator properties
   thief.health = thief.maxHealth;
   thief.preyEaten = 0;
