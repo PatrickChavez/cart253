@@ -344,12 +344,48 @@ function milestoneMessage() {
 
 // resetGame
 //
-// Restores predator health and resets the number of prey and object positions
+// Restores predator health and score, in addition to resetting
+// the object positions
 function resetGame() {
-  // Object positions
+  // Singular object positions
   thief = new Predator(250, 250, 4, avatarImage, 40);
+  healer = new Healer(0, random(0, height), 5, healerImage, 60);
+  // Adding empty arrays to prevent duplication
+  // The dangers
+  dangerArray = [];
   for (let i = 0; i < dangerNumber; i++) {
     let danger = new Danger(random(300, width), random(300, height), random(1, 3), dangerImage, 60);
+    dangerArray.push(danger);
+  }
+  // The mini dangers
+  miniArray = [];
+  for (let i = 0; i < miniNumber; i++) {
+    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 3), miniDangerImage, 60);
+    miniArray.push(miniDanger);
+  }
+  // The prey
+  preyArray = [];
+  for (let i = 0; i < preyNumber; i++) {
+    let prey = new Prey(random(width / 2, width), random(height / 2, height), 0, preyImage, 30);
+    preyArray.push(prey);
+  }
+  // The cage
+  cageArray = [];
+  for (let i = 0; i < cageNumber; i++) {
+    let cageLeft = new Cage(150, 150 + i * 60, 4, cageImageRed, cageImageBlue, 30);
+    cageArray.push(cageLeft);
+  }
+  for (let i = 0; i < cageNumber; i++) {
+    let cageRight = new Cage(470, 150 + i * 60, 4, cageImageRed, cageImageBlue, 30);
+    cageArray.push(cageRight);
+  }
+  for (let i = 0; i < cageNumber; i++) {
+    let cageUp = new Cage(i * 60 + 190, 100, 4, cageImageRed, cageImageBlue, 30);
+    cageArray.push(cageUp);
+  }
+  for (let i = 0; i < cageNumber; i++) {
+    let cageDown = new Cage(i * 60 + 190, 440, 4, cageImageRed, cageImageBlue, 30);
+    cageArray.push(cageDown);
   }
   // Predator properties
   thief.health = thief.maxHealth;

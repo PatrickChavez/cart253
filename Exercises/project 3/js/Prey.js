@@ -28,25 +28,6 @@ class Prey {
     this.radius = this.health;
   }
 
-  // move
-  //
-  // Sets velocity based on the noise() function and the Prey's speed
-  // Moves based on the resulting velocity and handles wrapping
-  // Method unused but preserved to prevent complications (bugs, etc.).
-  move() {
-    // Set velocity via noise()
-    this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
-    this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
-    // Update position
-    this.x += this.vx;
-    this.y += this.vy;
-    // Update time properties
-    this.tx += 0.01;
-    this.ty += 0.01;
-    // Handle wrapping
-    this.handleWrapping();
-  }
-
   // handleWrapping
   //
   // Checks if the prey has gone off the canvas and

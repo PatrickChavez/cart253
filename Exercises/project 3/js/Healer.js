@@ -19,7 +19,8 @@ class Healer extends Prey {
 
   // move
   //
-  // Moves based on the resulting velocity, regenerates and handles wrapping.
+  // Moves based on the resulting velocity, regenerates health
+  // and handles wrapping.
   move() {
     // Update position based on velocity
     this.x += this.vx;
