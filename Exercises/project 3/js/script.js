@@ -163,12 +163,12 @@ function setup() {
   }
   // The dangers
   for (let i = 0; i < dangerNumber; i++) {
-    let danger = new Danger(random(300, width), random(300, height), random(1, 3), dangerImage, 60);
+    let danger = new Danger(random(350, width), random(300, height), random(1, 3), dangerImage, 60);
     dangerArray.push(danger);
   }
   // The mini dangers
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 3), miniDangerImage, 60);
+    let miniDanger = new MiniDanger(random(350, width), 0, random(1, 3), miniDangerImage, 60);
     miniArray.push(miniDanger);
   }
   // The snow
@@ -354,13 +354,13 @@ function resetGame() {
   // The dangers
   dangerArray = [];
   for (let i = 0; i < dangerNumber; i++) {
-    let danger = new Danger(random(300, width), random(300, height), random(1, 3), dangerImage, 60);
+    let danger = new Danger(random(350, width), random(300, height), random(1, 3), dangerImage, 60);
     dangerArray.push(danger);
   }
   // The mini dangers
   miniArray = [];
   for (let i = 0; i < miniNumber; i++) {
-    let miniDanger = new MiniDanger(random(200, width), 0, random(1, 3), miniDangerImage, 60);
+    let miniDanger = new MiniDanger(random(350, width), 0, random(1, 3), miniDangerImage, 60);
     miniArray.push(miniDanger);
   }
   // The prey
