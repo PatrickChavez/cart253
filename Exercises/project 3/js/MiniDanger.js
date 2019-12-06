@@ -31,11 +31,10 @@ class MiniDanger extends Danger {
   // warp
   //
   // Moves the Minidanger to a random position when it
-  // reaches the bottom of the screen. The radius and speed also changes.
+  // reaches the bottom of the screen. The speed also changes.
   warp() {
     if (this.y >= height - 3) {
       this.x = random(0, width);
-      this.radius = random(30, 40);
       this.speed = random(1, 3);
     }
   }
