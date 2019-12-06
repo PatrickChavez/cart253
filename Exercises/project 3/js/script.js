@@ -52,7 +52,7 @@ let dangerNumber = 10;
 let dangerArray = [];
 
 // The mini danger, its array and the number storing them
-let miniNumber = 5;
+let miniNumber = 7;
 let miniArray = [];
 
 // The snow, its array and the number storing them
@@ -139,7 +139,7 @@ function setup() {
   thief = new Predator(250, 250, 4, avatarImage, 40);
   healer = new Healer(0, random(0, height), 5, healerImage, 60);
   // Setting a for loop to generate multiple objects
-  // Generating a "cage"
+  // Generating a cage
   for (let i = 0; i < cageNumber; i++) {
     let cageLeft = new Cage(150, 150 + i * 60, 4, cageImageRed, cageImageBlue, 30);
     cageArray.push(cageLeft);
@@ -214,9 +214,9 @@ function draw() {
 
   // Console log for the current game state
   console.log("The game state is currently in " + state);
-  // Console log for the intro array index
+  // Console log for the current intro array index
   console.log("Intro index is currently " + introIndex);
-  // Console log for the ending array index
+  // Console log for the current ending array index
   console.log("Ending index is currently " + endingIndex);
 }
 
@@ -318,18 +318,18 @@ function milestoneMessage() {
     message = "";
   }
   // The first message
-  if (thief.preyEaten === 4) { // The message will display when 5 is reached
+  if (thief.preyEaten === 4) { // The message will display when 5 prey are eaten
     // Setting the text to be displayed
     message = "Good start!";
     milestoneY = 700;
   }
   // The second message
-  if (thief.preyEaten === 11) { // The message will display when 12 is reached
+  if (thief.preyEaten === 11) { // The message will display when 12 prey are eaten
     message = "Doing great!";
     milestoneY = 700;
   }
   // The third message
-  if (thief.preyEaten === 20) { // The message will display when 21 is reached
+  if (thief.preyEaten === 20) { // The message will display when 21 prey are eaten
     message = "Almost there!";
     milestoneY = 700;
   }

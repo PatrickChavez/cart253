@@ -28,7 +28,6 @@ class MiniDanger extends Danger {
     this.warp();
   }
 
-
   // warp
   //
   // Moves the Minidanger to a random position when it

@@ -105,7 +105,6 @@ class Cage {
     }
   }
 
-
   // handleEating
   //
   // Takes a Danger object as an argument and checks if a Cage with the

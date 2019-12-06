@@ -36,7 +36,6 @@ class Snow {
     this.y += this.vy;
     // Update time properties
     this.tx += 0.01;
-    this.ty += 0.01;
     // Handle wrapping
     this.handleWrapping();
   }
